@@ -24,6 +24,7 @@
     <color name="lightblue">#0083FF</color>
     <color name="lightblue2">#0065FF</color>
     <color name="global">#ffd350</color>
+    <color name="btn_grey">#cfcfcf</color>
     <color name="global2">#FAC730</color>
     <color name="global3">#FEDF75</color>
     <color name="colorAccent">#0accac</color>
@@ -219,4 +220,6 @@
     <color name="edit_green">#21AE58</color>
 
 
+    <!-- 5.23 更新 -->
+    <color name="more_black">#161718</color>
 </resources>

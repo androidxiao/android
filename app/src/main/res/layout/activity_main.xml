@@ -32,6 +32,7 @@
                 app:radio_top_drawable="@drawable/icon_main_home_bg"
                 app:radio_top_drawableWidth="34dp"
                 app:radio_top_drawableHeight="30dp"
+                android:clickable="true"
                 android:onClick="mainClick"
                 />
 
@@ -46,6 +47,7 @@
                 app:radio_top_drawableWidth="34dp"
                 app:radio_top_drawableHeight="30dp"
                 android:onClick="mainClick"
+                android:clickable="true"
                 />
 
             <com.duomizhibo.phonelive.ui.customviews.MyRadioButton
@@ -58,6 +60,7 @@
                 app:radio_top_drawableWidth="30dp"
                 app:radio_top_drawableHeight="30dp"
                 android:onClick="mainClick"
+                android:clickable="true"
                 />
 
             <com.duomizhibo.phonelive.ui.customviews.MyRadioButton
@@ -71,6 +74,7 @@
                 app:radio_top_drawableHeight="28dp"
                 android:paddingTop="1dp"
                 android:onClick="mainClick"
+                android:clickable="true"
                 />
         </RadioGroup>
 

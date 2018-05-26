@@ -3,7 +3,7 @@ package com.duomizhibo.phonelive.utils;
 import android.util.Log;
 
 public class TLog {
-	public static final String LOG_TAG = "WEIPENG";
+	public static final String LOG_TAG = "ez";
 	public static boolean DEBUG = true;
 
 	public TLog() {

@@ -126,7 +126,7 @@
     <string name="authenticate">我的认证</string>
     <string name="private_chat">私信</string>
     <string name="main_page">主页</string>
-    <string name="change_pass">重置密码</string>
+    <string name="change_pass">忘记密码</string>
     <string name="sex">性别</string>
     <string name="man">男</string>
     <string name="weman">女</string>
@@ -149,6 +149,7 @@
     <string name="edit_info">编辑资料</string>
     <string name="head">头像</string>
     <string name="nick_name">昵称</string>
+    <string name="source_account">原账号</string>
     <string name="fill_in_birthday">请输入生日</string>
     <string name="not_have_live">现在还没有主播</string>
 
@@ -188,7 +189,7 @@
     <string name="input_new_pass">请输入新密码</string>
     <string name="commit_pass">确认密码</string>
     <string name="again_pass">请再次输入密码</string>
-    <string name="confirm_change">确认修改</string>
+    <string name="confirm_change">立即找回</string>
     <string name="save">保存</string>
     <string name="birthday">生日</string>
     <string name="already_follow">已关注</string>

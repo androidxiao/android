@@ -28,10 +28,8 @@ import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.hyphenate.EMCallBack;
-import com.hyphenate.chat.EMClient;
 import com.duomizhibo.phonelive.AppConfig;
 import com.duomizhibo.phonelive.AppContext;
 import com.duomizhibo.phonelive.R;
@@ -58,6 +56,9 @@ import com.duomizhibo.phonelive.utils.UIHelper;
 import com.duomizhibo.phonelive.utils.UpdateManager;
 import com.duomizhibo.phonelive.widget.LineEditText;
 import com.duomizhibo.phonelive.widget.PwdEditText;
+import com.google.gson.Gson;
+import com.hyphenate.EMCallBack;
+import com.hyphenate.chat.EMClient;
 import com.zhy.http.okhttp.callback.StringCallback;
 
 import org.greenrobot.eventbus.EventBus;
@@ -171,17 +172,22 @@ public class MainActivity extends AppCompatActivity implements LoginAwardDialogF
         switch (v.getId()) {
             case R.id.btn_home:
                 toggleFragment(0);
+                Toast.makeText(this, "home", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.btn_attention:
                 toggleFragment(1);
+                Toast.makeText(this, "attention", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.btn_msg:
                 toggleFragment(2);
+                Toast.makeText(this, "msg", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.btn_user:
                 toggleFragment(3);
+                Toast.makeText(this, "user", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.btn_live:
+                Toast.makeText(this, "live", Toast.LENGTH_SHORT).show();
                 PublisherDialogFragment f = new PublisherDialogFragment();
                 FragmentTransaction ft = mFragmentManager.beginTransaction();
                 ft.add(f, "PublisherDialogFragment");

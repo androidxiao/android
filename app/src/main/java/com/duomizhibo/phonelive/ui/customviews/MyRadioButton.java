@@ -4,8 +4,8 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
+import android.support.v7.widget.AppCompatRadioButton;
 import android.util.AttributeSet;
-import android.widget.RadioButton;
 
 import com.duomizhibo.phonelive.R;
 
@@ -14,7 +14,7 @@ import com.duomizhibo.phonelive.R;
  * Created by cxf on 2017/7/19.
  */
 
-public class MyRadioButton extends RadioButton {
+public class MyRadioButton extends AppCompatRadioButton {
 
     private int mDrawableSize;
     private int mTopDrawableSize;

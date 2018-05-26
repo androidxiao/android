@@ -87,6 +87,7 @@ public abstract class ToolBarBaseActivity extends AppCompatActivity implements
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+        TLog.log("-------->"+getClass().getPackage()+"------>"+getClass().getSimpleName());
     }
 
     public void initAMap() {

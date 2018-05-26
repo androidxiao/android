@@ -27,11 +27,12 @@ public class ActivityTitle extends RelativeLayout {
     private TextView tvTitle;
     private TextView tvMore;
     private int tvBackImg;
+    private final View mRootView;
 
 
     public ActivityTitle(Context context, AttributeSet attrs) {
         super(context, attrs);
-        LayoutInflater.from(context).inflate(R.layout.view_title, this);
+        mRootView = LayoutInflater.from(context).inflate(R.layout.view_title, this);
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.ActivityTitle, 0, 0);
         try {
             titleText = ta.getString(R.styleable.ActivityTitle_titleText);

@@ -7,7 +7,6 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
@@ -15,14 +14,10 @@ import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 
 import com.duomizhibo.phonelive.ui.MainActivity;
-import com.duomizhibo.phonelive.utils.SharedPreUtil;
-import com.hyphenate.chat.EMClient;
 import com.duomizhibo.phonelive.utils.UIHelper;
-
+import com.hyphenate.chat.EMClient;
 
 import cn.jpush.android.api.JPushInterface;
-import okhttp3.Call;
-import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 /**
@@ -86,6 +81,7 @@ public class AppStart extends Activity {
      */
     private void redirectTo() {
 
+        //是否登录
         if(!AppContext.getInstance().isLogin()){
 
             UIHelper.showLoginSelectActivity(this);

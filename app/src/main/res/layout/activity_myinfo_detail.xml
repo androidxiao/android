@@ -56,6 +56,42 @@
         style="@style/h_line" />
 
     <RelativeLayout
+        android:id="@+id/rl_source_account"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:orientation="horizontal"
+        android:padding="@dimen/space_16" >
+
+        <com.duomizhibo.phonelive.widget.BlackTextView
+            android:id="@+id/tv_source_account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/space_4"
+            android:text="@string/source_account"
+            android:textSize="@dimen/text_size_16" />
+
+        <com.duomizhibo.phonelive.widget.BlackTextView
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:id="@+id/tv_source_account_value"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_16" />
+        <ImageView
+            android:id="@+id/iv_source_account"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/me_go"/>
+    </RelativeLayout>
+
+    <View
+        style="@style/h_line" />
+
+    <RelativeLayout
         android:id="@+id/rl_userNick"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

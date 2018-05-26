@@ -2,16 +2,16 @@ package com.duomizhibo.phonelive.base;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.duomizhibo.phonelive.interf.BaseFragmentInterface;
 import com.duomizhibo.phonelive.AppContext;
 import com.duomizhibo.phonelive.R;
+import com.duomizhibo.phonelive.interf.BaseFragmentInterface;
 import com.duomizhibo.phonelive.interf.DialogControl;
+import com.duomizhibo.phonelive.utils.TLog;
 
 /**
  * 碎片基类
@@ -34,6 +34,7 @@ public class BaseFragment extends AbsFragment implements
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        TLog.log("-------->"+getClass().getPackage()+"------>"+getClass().getSimpleName());
     }
 
     @Override
