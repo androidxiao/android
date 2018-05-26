@@ -191,4 +191,7 @@
 
     <dimen name="ugc_item_thumb_height">65dp</dimen>
 
+
+    <dimen name="d_margin_140">140dp</dimen>
+
 </resources>

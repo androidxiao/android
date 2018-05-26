@@ -4,6 +4,7 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/global</item>
         <item name="android:homeAsUpIndicator">@drawable/icon_arrow_left</item>
+        <item name="android:windowBackground">@color/more_black</item>
 
         <!--<item name="android:windowIsTranslucent">true</item>-->
         <!-- Customize your theme here. -->

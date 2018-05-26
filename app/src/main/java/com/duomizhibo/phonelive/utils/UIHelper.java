@@ -10,6 +10,7 @@ import android.webkit.WebViewClient;
 
 import com.duomizhibo.phonelive.bean.LiveJson;
 import com.duomizhibo.phonelive.fragment.ManageListDialogFragment;
+import com.duomizhibo.phonelive.ui.BindAccountActivity;
 import com.duomizhibo.phonelive.ui.EditInfoActivity;
 import com.duomizhibo.phonelive.ui.MyVideoActivity;
 import com.duomizhibo.phonelive.ui.RequestCashActivity;
@@ -62,6 +63,18 @@ public class UIHelper {
         /*Intent intent = new Intent(NoticeService.INTENT_ACTION_BROADCAST);
         context.sendBroadcast(intent);*/
     }
+
+    /**
+     * 手机登录
+     *
+     * @param context
+     */
+
+    public static void bindAccount(Context context) {
+        Intent intent = new Intent(context, BindAccountActivity.class);
+        context.startActivity(intent);
+    }
+
     /**
      * 手机登录
      *

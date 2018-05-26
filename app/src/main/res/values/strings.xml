@@ -183,6 +183,7 @@
     <string name="set_manage">设为管理</string>
     <string name="manage_list">管理员列表</string>
     <string name="me">我</string>
+    <string name="person">个人中心</string>
     <string name="older_pass">旧密码</string>
     <string name="input_older_pass">请输入旧密码</string>
     <string name="new_pass">新密码</string>
@@ -234,4 +235,15 @@
     <!--环信-->
     <string name="huanxin">1101171020178343#duomi</string>
     <string name="recharge">充值</string>
+
+
+    <string name="bind_account">绑定账号</string>
+    <string name="bind_account_hint">请输入您的会员账号</string>
+    <string name="bind_account_sure">请务必填写正确的会员账号，以便派送彩金。</string>
+    <string name="person_video">我的视频</string>
+    <string name="person_sign">我的签到</string>
+    <string name="person_invite_code">我的邀请码</string>
+    <string name="person_messge">消息中心</string>
+    <string name="person_concat">联系我们</string>
+    <string name="person_setting">设置</string>
 </resources>

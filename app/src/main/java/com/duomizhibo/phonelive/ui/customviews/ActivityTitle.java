@@ -40,7 +40,7 @@ public class ActivityTitle extends RelativeLayout {
             backText = ta.getString(R.styleable.ActivityTitle_backText);
             moreText = ta.getString(R.styleable.ActivityTitle_moreText);
             tvBackImg = ta.getResourceId(R.styleable.ActivityTitle_titleBackImg,R.drawable.icon_arrow_left);
-            textColor = ta.getColor(R.styleable.ActivityTitle_titleColor,context.getResources().getColor(R.color.light_gray));
+            textColor = ta.getColor(R.styleable.ActivityTitle_titleColor,context.getResources().getColor(R.color.white));
             setUpView(context);
         } finally {
             ta.recycle();

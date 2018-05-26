@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  xmlns:app="http://schemas.android.com/apk/res-auto"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:orientation="vertical">
+
+        <com.duomizhibo.phonelive.ui.customviews.ActivityTitle
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/graywhite"
+            app:canBack="false"
+            app:titleColor="@color/white"
+            app:titleText="@string/person"/>
+
+        <!--头部-->
+        <include layout="@layout/fragment_user_information_head"/>
+
+        <com.duomizhibo.phonelive.ui.customviews.LineControllerView
+            android:id="@+id/ll_video"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            app:canNav="true"
+            app:iconRes="@mipmap/personal_video"
+            app:isBottom="true"
+            app:name="@string/person_video"/>
+
+        <com.duomizhibo.phonelive.ui.customviews.LineControllerView
+            android:id="@+id/ll_sign_in"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            app:canNav="true"
+            app:iconRes="@mipmap/personal_signin"
+            app:isBottom="true"
+            app:name="@string/person_sign"/>
+
+        <com.duomizhibo.phonelive.ui.customviews.LineControllerView
+            android:id="@+id/ll_invite_code"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            app:canNav="true"
+            app:iconRes="@mipmap/personal_code"
+            app:isBottom="true"
+            app:name="@string/person_invite_code"/>
+
+
+        <com.duomizhibo.phonelive.ui.customviews.LineControllerView
+            android:id="@+id/ll_message"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            app:canNav="true"
+            app:iconRes="@mipmap/personal_news"
+            app:isBottom="true"
+            app:name="@string/person_messge"/>
+
+
+        <com.duomizhibo.phonelive.ui.customviews.LineControllerView
+            android:id="@+id/ll_concat"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            app:canNav="true"
+            app:iconRes="@mipmap/personal_phone"
+            app:isBottom="true"
+            app:name="@string/person_concat"/>
+
+
+        <com.duomizhibo.phonelive.ui.customviews.LineControllerView
+            android:id="@+id/ll_setting"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            app:canNav="true"
+            app:iconRes="@mipmap/personal_setup"
+            app:isBottom="true"
+            app:name="@string/person_setting"/>
+
+
+    </LinearLayout>
+</ScrollView>

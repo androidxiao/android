@@ -11,7 +11,7 @@
         android:layout_height="50dp"
         android:background="@color/graywhite"
         android:visibility="gone"
-        app:titleColor="@color/black"
+        app:titleColor="@color/white"
         app:titleText="@string/following"/>
 
     <RelativeLayout

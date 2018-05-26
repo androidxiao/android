@@ -84,7 +84,7 @@ public class AppStart extends Activity {
         //是否登录
         if(!AppContext.getInstance().isLogin()){
 
-            UIHelper.showLoginSelectActivity(this);
+            UIHelper.bindAccount(this);
             finish();
             return;
         }

@@ -8,7 +8,7 @@
               xmlns:app="http://schemas.android.com/apk/res-auto">
     <com.duomizhibo.phonelive.ui.customviews.ActivityTitle
         android:id="@+id/view_title"
-        app:titleColor="@color/black"
+        app:titleColor="@color/white"
         android:layout_width="match_parent"
         android:layout_height="50dp"/>
     <WebView

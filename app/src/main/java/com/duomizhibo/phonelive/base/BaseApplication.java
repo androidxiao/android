@@ -2,13 +2,14 @@ package com.duomizhibo.phonelive.base;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Build;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
+import android.telephony.TelephonyManager;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -18,7 +19,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.duomizhibo.phonelive.R;
-import com.duomizhibo.phonelive.utils.StringUtils;
 import com.tencent.bugly.crashreport.CrashReport;
 
 public class BaseApplication extends MultiDexApplication {
@@ -28,6 +28,7 @@ public class BaseApplication extends MultiDexApplication {
     static Resources _resource;
     private static String lastToast = "";
     private static long lastToastTime;
+    private static BaseApplication instance;
 
     private static boolean sIsAtLeastGB;
 
@@ -37,6 +38,10 @@ public class BaseApplication extends MultiDexApplication {
         }
     }
 
+    public static BaseApplication getInstance() {
+        return instance;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -44,6 +49,7 @@ public class BaseApplication extends MultiDexApplication {
         _resource = _context.getResources();
         //Bugly
         CrashReport.initCrashReport(getApplicationContext());
+        writeIMEI();
 
     }
 
@@ -217,4 +223,20 @@ public class BaseApplication extends MultiDexApplication {
         super.attachBaseContext(base);
         MultiDex.install(this);
     }
+
+    /**
+     * IMEI写入本地
+     */
+    private   void writeIMEI() {
+        String imei = get("IMEI", "IMEI");
+        if (TextUtils.isEmpty(imei)) {
+            TelephonyManager tm = (TelephonyManager)getSystemService(TELEPHONY_SERVICE);
+            set("IMEI",tm.getDeviceId());
+        }
+    }
+
+    public String getIMEI(){
+        return get("IMEI","");
+    }
+
 }

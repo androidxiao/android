@@ -5,7 +5,6 @@
     >
 
     <RelativeLayout
-        android:background="@color/white"
         android:id="@+id/ll_user_container"
         android:layout_width="match_parent"
         android:layout_height="150dp"
@@ -17,7 +16,6 @@
 
         <LinearLayout
             android:layout_marginBottom="10dp"
-            android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -30,7 +28,7 @@
                >
 
                 <TextView
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     style="@style/user_formation_info"
                     android:text="@string/user_live" />
                 <TextView
@@ -43,6 +41,7 @@
             <View
                 android:layout_gravity="center"
                 android:layout_height="20dp"
+                android:visibility="gone"
                style="@style/v_line"/>
 
 
@@ -51,7 +50,7 @@
                 style="@style/uset_information_ll" >
 
                 <TextView
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     style="@style/user_formation_info"
                     android:text="@string/following" />
                 <TextView
@@ -70,7 +69,7 @@
 
 
                 <TextView
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     style="@style/user_formation_info"
                     android:text="@string/follower" />
                 <TextView

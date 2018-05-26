@@ -16,7 +16,6 @@ import org.json.JSONException;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.net.URLEncoder;
 
 import cn.sharesdk.framework.PlatformDb;
@@ -1637,6 +1636,31 @@ public class PhoneLiveApi {
         OkHttpUtils.get()
                 .url(AppConfig.MAIN_URL_VIDEO)
                 .addParams("service", "home.getprivatelive")
+                .build()
+                .execute(callback);
+    }
+
+    //绑定账号
+    public static void getBindAccount(String login,StringCallback callback){
+        String url = AppConfig.MAIN_URL_API;
+        OkHttpUtils.get()
+                .url(url)
+                .addParams("service", "Login.UserRegByUUID")
+                .addParams("user_login",login)
+//                .addParams("user_uuid", BaseApplication.getInstance().getIMEI())
+                .addParams("user_uuid", "12345678910")
+                .build()
+                .execute(callback);
+    }
+
+    //绑定完后去登录
+    public static void getBind2Login(StringCallback callback){
+        String url = AppConfig.MAIN_URL_API;
+        OkHttpUtils.get()
+                .url(url)
+                .addParams("service", "Login.userLoginByUUID")
+//                .addParams("user_uuid", BaseApplication.getInstance().getIMEI())
+                .addParams("user_uuid", "12345678910")
                 .build()
                 .execute(callback);
     }

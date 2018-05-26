@@ -221,5 +221,25 @@
 
 
     <!-- 5.23 更新 -->
-    <color name="more_black">#161718</color>
+    <!--头部背景色值-->
+    <!--Tab背景色值-->
+    <color name="more_black">#171717 </color>
+    <!--Btn背景色值-->
+    <color name="btn_bg">#ff0000</color>
+    <!--黄色色值-->
+    <color name="line_yellow">#ffd20c</color>
+    <!--Tab上部线条色值-->
+    <color name="tab_top_line">#303030</color>
+    <!--Tab未选中时色值-->
+    <color name="tab_unselect">#6e6e6e</color>
+    <!--主播主页tab背景色-->
+    <color name="zhubo_tab_bg">#242424</color>
+    <!--线条色值-->
+    <color name="zhubo_line">#404040</color>
+    <!--个性签名背景-->
+    <color name="sign_bg">#1d1d1d</color>
+    <!--底部已关注-->
+    <color name="attention">#0e0e0e</color>
+    <color name="text_grey">#242526</color>
+    <color name="text_value_grey">#98999A</color>
 </resources>

@@ -21,6 +21,13 @@
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">fill_parent</item>
     </style>
+
+    <!-- 黄色横向线条 -->
+    <style name="h_line_yellow">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">1dip</item>
+        <item name="android:background">@color/line_yellow</item>
+    </style>
     
     <!-- 横向线条 -->
     <style name="h_line">
@@ -28,6 +35,15 @@
         <item name="android:layout_height">1dip</item>
         <item name="android:background">#E2E2E2</item>
     </style>
+
+    <!--横向线条 灰色-->
+    <style name="h_line_grey">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">1dip</item>
+        <item name="android:background">@color/text_grey</item>
+    </style>
+
+
     <!-- 横向线条 -->
     <style name="h_line_1">
         <item name="android:layout_width">fill_parent</item>

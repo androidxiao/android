@@ -443,6 +443,11 @@
             android:name=".RemoteGameAppService"
             android:enabled="true"
             android:exported="true"></service>
+
+        <activity android:name=".ui.BindAccountActivity"
+                  android:configChanges="keyboardHidden|orientation"
+                  android:label="绑定账号"
+                  android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
