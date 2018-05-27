@@ -1,12 +1,13 @@
 package com.duomizhibo.phonelive.bean;
 
-import java.io.Serializable;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 /**
  * Created by cxf on 2017/7/13.
  */
 
-public class ActiveBean implements Serializable {
+public class ActiveBean implements Parcelable {
 
 
     /**
@@ -41,6 +42,38 @@ public class ActiveBean implements Serializable {
     private String steps;
     private String shares;
     private int isstep;
+
+    protected ActiveBean(Parcel in) {
+        id = in.readString();
+        uid = in.readString();
+        title = in.readString();
+        thumb = in.readString();
+        href = in.readString();
+        likes = in.readString();
+        views = in.readString();
+        comments = in.readString();
+        addtime = in.readString();
+        userinfo = in.readParcelable(UserInfo.class.getClassLoader());
+        datetime = in.readString();
+        islike = in.readString();
+        isattent = in.readString();
+        distance = in.readString();
+        steps = in.readString();
+        shares = in.readString();
+        isstep = in.readInt();
+    }
+
+    public static final Creator<ActiveBean> CREATOR = new Creator<ActiveBean>() {
+        @Override
+        public ActiveBean createFromParcel(Parcel in) {
+            return new ActiveBean(in);
+        }
+
+        @Override
+        public ActiveBean[] newArray(int size) {
+            return new ActiveBean[size];
+        }
+    };
 
     public int getIsstep() {
         return isstep;
@@ -178,5 +211,32 @@ public class ActiveBean implements Serializable {
         this.islike = islike;
     }
 
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+
+        dest.writeString(id);
+        dest.writeString(uid);
+        dest.writeString(title);
+        dest.writeString(thumb);
+        dest.writeString(href);
+        dest.writeString(likes);
+        dest.writeString(views);
+        dest.writeString(comments);
+        dest.writeString(addtime);
+        dest.writeParcelable(userinfo, flags);
+        dest.writeString(datetime);
+        dest.writeString(islike);
+        dest.writeString(isattent);
+        dest.writeString(distance);
+        dest.writeString(steps);
+        dest.writeString(shares);
+        dest.writeInt(isstep);
+    }
 
 }

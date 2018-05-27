@@ -8,39 +8,40 @@ import android.os.Bundle;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.duomizhibo.phonelive.R;
 import com.duomizhibo.phonelive.bean.LiveJson;
+import com.duomizhibo.phonelive.bean.PrivateChatUserBean;
+import com.duomizhibo.phonelive.bean.SimpleBackPage;
+import com.duomizhibo.phonelive.em.ChangInfo;
 import com.duomizhibo.phonelive.fragment.ManageListDialogFragment;
+import com.duomizhibo.phonelive.ui.ActionBarSimpleBackActivity;
+import com.duomizhibo.phonelive.ui.AttentionActivity;
 import com.duomizhibo.phonelive.ui.BindAccountActivity;
+import com.duomizhibo.phonelive.ui.DedicateOrderActivity;
 import com.duomizhibo.phonelive.ui.EditInfoActivity;
+import com.duomizhibo.phonelive.ui.FansActivity;
+import com.duomizhibo.phonelive.ui.HomePageActivity;
+import com.duomizhibo.phonelive.ui.LiveRecordActivity;
+import com.duomizhibo.phonelive.ui.MainActivity;
 import com.duomizhibo.phonelive.ui.MyVideoActivity;
+import com.duomizhibo.phonelive.ui.PhoneChangePassActivity;
+import com.duomizhibo.phonelive.ui.PhoneFindPassActivity;
+import com.duomizhibo.phonelive.ui.PhoneLoginActivity;
+import com.duomizhibo.phonelive.ui.PhoneRegActivity;
+import com.duomizhibo.phonelive.ui.ReadyStartLiveActivity;
 import com.duomizhibo.phonelive.ui.RequestCashActivity;
 import com.duomizhibo.phonelive.ui.SettingActivity;
 import com.duomizhibo.phonelive.ui.ShopActivity;
 import com.duomizhibo.phonelive.ui.ShopThingsActivity;
+import com.duomizhibo.phonelive.ui.SimpleBackActivity;
+import com.duomizhibo.phonelive.ui.SmallVideoPlayer2Activity;
 import com.duomizhibo.phonelive.ui.SmallVideoPlayerActivity;
 import com.duomizhibo.phonelive.ui.UserChangeSexActivity;
-import com.duomizhibo.phonelive.R;
-import com.duomizhibo.phonelive.bean.PrivateChatUserBean;
-import com.duomizhibo.phonelive.bean.SimpleBackPage;
-import com.duomizhibo.phonelive.ui.AttentionActivity;
-import com.duomizhibo.phonelive.em.ChangInfo;
-import com.duomizhibo.phonelive.ui.PhoneChangePassActivity;
-import com.duomizhibo.phonelive.ui.PhoneFindPassActivity;
-import com.duomizhibo.phonelive.ui.PhoneRegActivity;
-import com.duomizhibo.phonelive.ui.ReadyStartLiveActivity;
-import com.duomizhibo.phonelive.ui.DedicateOrderActivity;
-import com.duomizhibo.phonelive.ui.FansActivity;
-import com.duomizhibo.phonelive.ui.ActionBarSimpleBackActivity;
-import com.duomizhibo.phonelive.ui.HomePageActivity;
-import com.duomizhibo.phonelive.ui.LiveRecordActivity;
-import com.duomizhibo.phonelive.ui.PhoneLoginActivity;
-import com.duomizhibo.phonelive.ui.MainActivity;
 import com.duomizhibo.phonelive.ui.UserDiamondsActivity;
 import com.duomizhibo.phonelive.ui.UserInfoDetailActivity;
 import com.duomizhibo.phonelive.ui.UserLevelActivity;
 import com.duomizhibo.phonelive.ui.UserProfitActivity;
 import com.duomizhibo.phonelive.ui.UserSelectAvatarActivity;
-import com.duomizhibo.phonelive.ui.SimpleBackActivity;
 import com.duomizhibo.phonelive.ui.VideoInfoActivity;
 import com.duomizhibo.phonelive.ui.VideoPlayerActivity;
 import com.duomizhibo.phonelive.ui.WebViewActivity;
@@ -237,6 +238,19 @@ public class UIHelper {
         intent.putExtra("USER_INFO",bundle);
         context.startActivity(intent);
     }
+
+
+    /**
+     * 看视频2
+     *
+     * @return
+     */
+    public static void showSmallLookLiveActivity2(Context context, Bundle bundle) {
+        Intent intent = new Intent(context, SmallVideoPlayer2Activity.class);
+        intent.putExtra("USER_INFO",bundle);
+        context.startActivity(intent);
+    }
+
     /**
      * 直播
      *

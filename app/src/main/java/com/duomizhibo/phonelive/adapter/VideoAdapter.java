@@ -14,11 +14,13 @@ import com.duomizhibo.phonelive.AppContext;
 import com.duomizhibo.phonelive.R;
 import com.duomizhibo.phonelive.bean.ActiveBean;
 import com.duomizhibo.phonelive.bean.UserInfo;
-import com.duomizhibo.phonelive.ui.SmallVideoPlayerActivity;
+import com.duomizhibo.phonelive.ui.SmallVideoPlayer2Activity;
 import com.duomizhibo.phonelive.utils.DpOrSp2PxUtil;
 import com.duomizhibo.phonelive.utils.StringUtils;
+import com.duomizhibo.phonelive.utils.TLog;
 import com.duomizhibo.phonelive.widget.AvatarView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,7 +29,7 @@ import java.util.List;
 
 public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VH> {
 
-    private List<ActiveBean> mUserList;
+    private ArrayList<ActiveBean> mUserList;
     private LayoutInflater mInflater;
     private Context mContext;
     private RecyclerView mRecyclerView;
@@ -35,7 +37,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VH> {
     private int mMarginVal;
     private TextView mWeizhi;
 
-    public VideoAdapter(Context context, List<ActiveBean> userList) {
+    public VideoAdapter(Context context, ArrayList<ActiveBean> userList) {
         mContext = context;
         mUserList = userList;
         mInflater = LayoutInflater.from(mContext);
@@ -61,7 +63,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VH> {
         return new VH(mInflater.inflate(R.layout.item_video_user, parent, false));
     }
 
-    public void setData(List<ActiveBean> mUserList) {
+    public void setData(ArrayList<ActiveBean> mUserList) {
         this.mUserList = mUserList;
         notifyDataSetChanged();
     }
@@ -112,8 +114,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VH> {
                         Toast.makeText(mContext, "请登录..", Toast.LENGTH_SHORT).show();
                         return;
                     }
-                    SmallVideoPlayerActivity.startSmallVideoPlayerActivity(mContext, mUserList.get(mPosition));
-
+                    SmallVideoPlayer2Activity.startSmallVideoPlayerActivity(mContext, mUserList);
                 }
             });
         }
@@ -122,6 +123,15 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VH> {
             UserInfo u = bean.getUserinfo();
             mPosition = position;
             Glide.with(mContext).load(bean.getThumb()).placeholder(R.drawable.bg_news_bottom).into(iv_bg);
+            if (mAvHead == null) {
+                TLog.log("mAvHead为空空空");
+            }
+            if (u == null) {
+                TLog.log("UserInfo为空空空");
+            }
+            if (u.getAvatar() == null) {
+                TLog.log("头像为空空空");
+            }
             mAvHead.setAvatarUrl(u.getAvatar());
             laudNum.setText(bean.getComments());
             title.setText(bean.getTitle());

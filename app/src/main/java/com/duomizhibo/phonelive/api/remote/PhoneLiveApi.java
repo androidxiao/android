@@ -1648,7 +1648,7 @@ public class PhoneLiveApi {
                 .addParams("service", "Login.UserRegByUUID")
                 .addParams("user_login",login)
 //                .addParams("user_uuid", BaseApplication.getInstance().getIMEI())
-                .addParams("user_uuid", "123456789102")
+                .addParams("user_uuid", "1234567891022")
                 .build()
                 .execute(callback);
     }
@@ -1660,7 +1660,7 @@ public class PhoneLiveApi {
                 .url(url)
                 .addParams("service", "Login.userLoginByUUID")
 //                .addParams("user_uuid", BaseApplication.getInstance().getIMEI())
-                .addParams("user_uuid", "123456789102")
+                .addParams("user_uuid", "1234567891022")
                 .build()
                 .execute(callback);
     }

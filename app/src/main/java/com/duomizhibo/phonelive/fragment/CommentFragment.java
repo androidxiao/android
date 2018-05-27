@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -26,8 +25,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.duomizhibo.phonelive.AppContext;
 import com.duomizhibo.phonelive.R;
 import com.duomizhibo.phonelive.adapter.CommentAdapter;
@@ -41,6 +38,8 @@ import com.duomizhibo.phonelive.ui.ReplyActivity;
 import com.duomizhibo.phonelive.ui.SmallVideoPlayerActivity;
 import com.duomizhibo.phonelive.ui.customviews.RefreshLayout;
 import com.duomizhibo.phonelive.utils.TDevice;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.zhy.http.okhttp.callback.StringCallback;
 
 import org.greenrobot.eventbus.EventBus;
@@ -125,7 +124,7 @@ public class CommentFragment extends AbsDialogFragment implements View.OnClickLi
 
     private void initView() {
         Bundle bundle = getArguments();
-        mActiveBean = (ActiveBean) bundle.getSerializable("bean");
+        mActiveBean = (ActiveBean) bundle.getParcelable("bean");
         mRootView.findViewById(R.id.close).setOnClickListener(this);
         mRootView.findViewById(R.id.btn_send).setOnClickListener(this);
         mRecyclerView = (RecyclerView) mRootView.findViewById(R.id.listView);

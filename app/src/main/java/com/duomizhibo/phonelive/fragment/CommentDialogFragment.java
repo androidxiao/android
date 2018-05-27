@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -81,7 +80,7 @@ public class CommentDialogFragment extends AbsDialogFragment implements View.OnC
         super.onActivityCreated(savedInstanceState);
         if (mActiveBean == null) {
             Bundle bundle = getArguments();
-            mActiveBean = (ActiveBean) bundle.getSerializable("bean");
+            mActiveBean = (ActiveBean) bundle.getParcelable("bean");
         }
         mEditText = (EditText) mRootView.findViewById(R.id.comment_edit);
         mCurCommentId = mActiveBean.getUid();

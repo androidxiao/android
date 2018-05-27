@@ -246,4 +246,5 @@
     <string name="person_messge">消息中心</string>
     <string name="person_concat">联系我们</string>
     <string name="person_setting">设置</string>
+    <string name="account">账号</string>
 </resources>
