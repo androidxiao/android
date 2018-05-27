@@ -119,7 +119,7 @@ public class CommentFragment extends AbsDialogFragment implements View.OnClickLi
     @Override
     public void onPause() {
         super.onPause();
-        ((SmallVideoPlayerActivity) mContext).setCommentNum(mCommentNum);
+        SmallVideoFragment.setCommentNum(mCommentNum);
     }
 
     private void initView() {
