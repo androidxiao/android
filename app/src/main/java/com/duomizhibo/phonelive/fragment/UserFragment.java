@@ -69,6 +69,12 @@ public class UserFragment extends BaseFragment {
     @InjectView(R.id.iv_anchorlevel)
     ImageView mIvAnchorLevel;
 
+    @InjectView(R.id.tvt_title)
+     TextView tvt_title;
+
+    @InjectView(R.id.btn_mesg)
+     ImageView btn_mesg;
+
     private UserBean mInfo;
 
     @Override
@@ -86,6 +92,8 @@ public class UserFragment extends BaseFragment {
     public void onStart() {
 
         super.onStart();
+        tvt_title.setText("个人中心");
+        btn_mesg.setVisibility(View.VISIBLE);
         mInfo = AppContext.getInstance().getLoginUser();
         fillUI();
     }

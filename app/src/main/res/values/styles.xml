@@ -375,4 +375,18 @@
         <item name="android:scrollHorizontally">true</item>
     </style>
 
+    <style name="RadioButton_main">
+        <item name="android:ellipsize">marquee</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1.0</item>
+        <item name="android:paddingTop">2dp</item>
+        <item name="android:button">@null</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/rb_textcolor</item>
+        <item name="android:background">@color/touming</item>
+    </style>
+
 </resources>
