@@ -3,11 +3,10 @@ package com.duomizhibo.phonelive.utils;
 import android.app.Activity;
 import android.content.Context;
 
-import com.hyphenate.EMCallBack;
-import com.hyphenate.chat.EMClient;
-import com.hyphenate.exceptions.HyphenateException;
 import com.duomizhibo.phonelive.AppContext;
 import com.duomizhibo.phonelive.api.remote.PhoneLiveApi;
+import com.hyphenate.chat.EMClient;
+import com.hyphenate.exceptions.HyphenateException;
 import com.zhy.http.okhttp.callback.StringCallback;
 
 
@@ -49,7 +48,7 @@ public class LoginUtils {
         //环信退出登陆
         EMClient.getInstance().logout(true);
         AppContext.getInstance().Logout();
-        UIHelper.showLoginSelectActivity(context);
+        UIHelper.bindAccount(context);
     }
 
     public static void tokenIsOutTime(StringCallback callback){
