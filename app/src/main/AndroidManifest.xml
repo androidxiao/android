@@ -109,7 +109,8 @@
             android:name=".ui.MainActivity"
             android:configChanges="keyboardHidden|orientation"
             android:label="使用手机号登录"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode = "stateAlwaysHidden|adjustPan"/>
         <activity
             android:name=".ui.PhoneLoginActivity"
             android:configChanges="keyboardHidden|orientation"
