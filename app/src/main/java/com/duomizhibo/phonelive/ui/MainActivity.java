@@ -93,6 +93,8 @@ public class MainActivity extends AppCompatActivity implements LoginAwardDialogF
     private UserFragment mUserFragment;
 
 
+    //注释修改
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
