@@ -1,39 +1,25 @@
 package com.duomizhibo.phonelive.fragment;
 
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
-import com.google.gson.Gson;
 import com.duomizhibo.phonelive.AppContext;
 import com.duomizhibo.phonelive.R;
-import com.duomizhibo.phonelive.adapter.NewestAdapter;
 import com.duomizhibo.phonelive.adapter.VideoAdapter;
 import com.duomizhibo.phonelive.api.remote.ApiUtils;
 import com.duomizhibo.phonelive.api.remote.PhoneLiveApi;
 import com.duomizhibo.phonelive.base.BaseFragment;
 import com.duomizhibo.phonelive.bean.ActiveBean;
-import com.duomizhibo.phonelive.bean.LiveJson;
-import com.duomizhibo.phonelive.event.Event;
-import com.duomizhibo.phonelive.ui.SmallVideoPlayerActivity;
-import com.duomizhibo.phonelive.ui.VideoPlayerActivity;
 import com.duomizhibo.phonelive.ui.customviews.RefreshLayout;
-import com.duomizhibo.phonelive.ui.other.OnItemEvent;
-import com.duomizhibo.phonelive.utils.StringUtils;
-import com.duomizhibo.phonelive.utils.TDevice;
-import com.duomizhibo.phonelive.widget.HeaderGridView;
+import com.google.gson.Gson;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONArray;
 import org.json.JSONException;
 
@@ -106,8 +92,10 @@ public class VideoFragment extends BaseFragment implements RefreshLayout.OnRefre
 
             @Override
             public void onResponse(String response, int id) {
-                if (mLoad.getVisibility() == View.VISIBLE) {
-                    mLoad.setVisibility(View.GONE);
+                if (mLoad != null) {
+                    if (mLoad.getVisibility() == View.VISIBLE) {
+                        mLoad.setVisibility(View.GONE);
+                    }
                 }
                 mRefreshLayout.completeRefresh();
                 JSONArray resUserListJsonArr = ApiUtils.checkIsSuccess(response);
@@ -160,7 +148,7 @@ public class VideoFragment extends BaseFragment implements RefreshLayout.OnRefre
         PhoneLiveApi.getVideo(page, mLoadMoreCallback);
     }
 
-    private StringCallback mLoadMoreCallback=new StringCallback() {
+    private StringCallback mLoadMoreCallback = new StringCallback() {
         @Override
         public void onError(Call call, Exception e, int id) {
             mRefreshLayout.completeRefresh();
@@ -178,10 +166,10 @@ public class VideoFragment extends BaseFragment implements RefreshLayout.OnRefre
             mRefreshLayout.completeRefresh();
             JSONArray resUserListJsonArr = ApiUtils.checkIsSuccess(response);
 
-            if (resUserListJsonArr.length()>0) {
+            if (resUserListJsonArr.length() > 0) {
 
                 try {
-                    List<ActiveBean> list=new ArrayList<>();
+                    List<ActiveBean> list = new ArrayList<>();
                     Gson g = new Gson();
                     for (int i = 0; i < resUserListJsonArr.length(); i++) {
                         list.add(g.fromJson(resUserListJsonArr.getString(i), ActiveBean.class));
@@ -206,11 +194,13 @@ public class VideoFragment extends BaseFragment implements RefreshLayout.OnRefre
             }
         }
     };
+
     @Override
     public void onResume() {
         super.onResume();
         requestData();
     }
+
     @Override
     public void onDestroy() {
         super.onDestroy();

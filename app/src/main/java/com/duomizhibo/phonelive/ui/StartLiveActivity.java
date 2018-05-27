@@ -10,7 +10,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -34,16 +33,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.duomizhibo.phonelive.interf.DialogInterface;
-import com.duomizhibo.phonelive.ui.dialog.LiveCommon;
-import com.hyphenate.util.NetUtils;
-import com.tencent.rtmp.ITXLivePushListener;
-import com.tencent.rtmp.TXLiveConstants;
-import com.tencent.rtmp.TXLivePushConfig;
-import com.tencent.rtmp.TXLivePusher;
-import com.tencent.rtmp.audio.TXAudioPlayer;
-import com.tencent.rtmp.ui.TXCloudVideoView;
 import com.duomizhibo.phonelive.AppConfig;
 import com.duomizhibo.phonelive.AppContext;
 import com.duomizhibo.phonelive.R;
@@ -59,11 +48,12 @@ import com.duomizhibo.phonelive.fragment.BeautyDialogFragment;
 import com.duomizhibo.phonelive.fragment.MusicPlayerDialogFragment;
 import com.duomizhibo.phonelive.fragment.SearchMusicDialogFragment;
 import com.duomizhibo.phonelive.interf.ChatServerInterface;
+import com.duomizhibo.phonelive.interf.DialogInterface;
 import com.duomizhibo.phonelive.linkmic.TCLinkMicPlayItem;
 import com.duomizhibo.phonelive.linkmic.TCLivePlayListenerImpl;
 import com.duomizhibo.phonelive.linkmic.TCLivePushListenerImpl;
 import com.duomizhibo.phonelive.linkmic.TCStreamMergeMgr;
-import com.duomizhibo.phonelive.ui.customviews.TCAudioControl;
+import com.duomizhibo.phonelive.ui.dialog.LiveCommon;
 import com.duomizhibo.phonelive.ui.other.ChatServer;
 import com.duomizhibo.phonelive.ui.other.LiveStream;
 import com.duomizhibo.phonelive.utils.DialogHelp;
@@ -78,6 +68,13 @@ import com.duomizhibo.phonelive.widget.music.DefaultLrcBuilder;
 import com.duomizhibo.phonelive.widget.music.ILrcBuilder;
 import com.duomizhibo.phonelive.widget.music.LrcRow;
 import com.duomizhibo.phonelive.widget.music.LrcView;
+import com.hyphenate.util.NetUtils;
+import com.tencent.rtmp.ITXLivePushListener;
+import com.tencent.rtmp.TXLiveConstants;
+import com.tencent.rtmp.TXLivePushConfig;
+import com.tencent.rtmp.TXLivePusher;
+import com.tencent.rtmp.audio.TXAudioPlayer;
+import com.tencent.rtmp.ui.TXCloudVideoView;
 import com.zhy.http.okhttp.callback.StringCallback;
 
 import org.greenrobot.eventbus.EventBus;
@@ -89,11 +86,9 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TimeZone;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.Vector;
@@ -101,8 +96,6 @@ import java.util.Vector;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
-import jp.wasabeef.glide.transformations.BlurTransformation;
-import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import okhttp3.Call;
 
 
@@ -938,7 +931,7 @@ public class StartLiveActivity extends ShowLiveActivityBase implements ITXLivePu
                             @Override
                             public void onClick(android.content.DialogInterface dialog, int which) {
                                 videoPlayerEnd();
-                                Intent intent = new Intent(StartLiveActivity.this, PhoneLoginActivity.class);
+                                Intent intent = new Intent(StartLiveActivity.this, BindAccountActivity.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(intent);
                                 finish();

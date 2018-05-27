@@ -20,9 +20,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
-import android.view.animation.OvershootInterpolator;
 import android.view.animation.ScaleAnimation;
-import android.view.animation.TranslateAnimation;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -32,15 +30,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.duomizhibo.phonelive.widget.AvatarView;
-import com.tencent.rtmp.ITXLivePlayListener;
-import com.tencent.rtmp.ITXLivePushListener;
-import com.tencent.rtmp.TXLiveConstants;
-import com.tencent.rtmp.TXLivePlayConfig;
-import com.tencent.rtmp.TXLivePlayer;
-import com.tencent.rtmp.TXLivePushConfig;
-import com.tencent.rtmp.TXLivePusher;
-import com.tencent.rtmp.ui.TXCloudVideoView;
 import com.duomizhibo.phonelive.AppConfig;
 import com.duomizhibo.phonelive.AppContext;
 import com.duomizhibo.phonelive.R;
@@ -73,8 +62,16 @@ import com.duomizhibo.phonelive.utils.TCUtils;
 import com.duomizhibo.phonelive.utils.TDevice;
 import com.duomizhibo.phonelive.utils.TLog;
 import com.duomizhibo.phonelive.utils.UIHelper;
+import com.duomizhibo.phonelive.widget.AvatarView;
 import com.duomizhibo.phonelive.widget.LoadUrlImageView;
-import com.zhy.http.okhttp.OkHttpUtils;
+import com.tencent.rtmp.ITXLivePlayListener;
+import com.tencent.rtmp.ITXLivePushListener;
+import com.tencent.rtmp.TXLiveConstants;
+import com.tencent.rtmp.TXLivePlayConfig;
+import com.tencent.rtmp.TXLivePlayer;
+import com.tencent.rtmp.TXLivePushConfig;
+import com.tencent.rtmp.TXLivePusher;
+import com.tencent.rtmp.ui.TXCloudVideoView;
 import com.zhy.http.okhttp.callback.StringCallback;
 
 import org.greenrobot.eventbus.EventBus;
@@ -85,7 +82,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.URISyntaxException;
-import java.util.Timer;
 import java.util.Vector;
 
 import butterknife.ButterKnife;
@@ -1740,7 +1736,7 @@ public class VideoPlayerActivity extends ShowLiveActivityBase implements View.On
                                 if (code.equals("700")) {
 
                                     //AppManager.getAppManager().finishAllActivity();
-                                    Intent intent = new Intent(AppContext.getInstance(), PhoneLoginActivity.class);
+                                    Intent intent = new Intent(AppContext.getInstance(), BindAccountActivity.class);
                                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     AppContext.getInstance().startActivity(intent);
 
@@ -2046,7 +2042,7 @@ public class VideoPlayerActivity extends ShowLiveActivityBase implements View.On
                                 JSONObject dataJson = resJson.getJSONObject("data");
                                 String code = dataJson.getString("code");
                                 if (code.equals("700")) {
-                                    Intent intent = new Intent(AppContext.getInstance(), PhoneLoginActivity.class);
+                                    Intent intent = new Intent(AppContext.getInstance(), BindAccountActivity.class);
                                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 } else if (code.equals("0")) {
                                     UserBean userBean = AppContext.getInstance().getLoginUser();

@@ -3,11 +3,9 @@ package com.duomizhibo.phonelive.api.remote;
 import android.content.Intent;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.duomizhibo.phonelive.AppManager;
-import com.duomizhibo.phonelive.ui.LiveLoginSelectActivity;
 import com.duomizhibo.phonelive.AppContext;
-import com.duomizhibo.phonelive.ui.PhoneLoginActivity;
+import com.duomizhibo.phonelive.ui.BindAccountActivity;
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,7 +28,7 @@ public class ApiUtils {
                 if(code.equals(TOKEN_TIMEOUT)){
 
                     //AppManager.getAppManager().finishAllActivity();
-                    Intent intent = new Intent(AppContext.getInstance(), PhoneLoginActivity.class);
+                    Intent intent = new Intent(AppContext.getInstance(), BindAccountActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     AppContext.getInstance().startActivity(intent);
 

@@ -6,18 +6,17 @@ import android.graphics.BitmapFactory;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.mob.MobSDK;
 import com.duomizhibo.phonelive.AppConfig;
-import com.duomizhibo.phonelive.bean.UserBean;
-import com.duomizhibo.phonelive.utils.SharedPreUtil;
-import com.google.gson.Gson;
 import com.duomizhibo.phonelive.AppContext;
 import com.duomizhibo.phonelive.R;
 import com.duomizhibo.phonelive.api.remote.ApiUtils;
 import com.duomizhibo.phonelive.api.remote.PhoneLiveApi;
 import com.duomizhibo.phonelive.base.ToolBarBaseActivity;
+import com.duomizhibo.phonelive.bean.UserBean;
 import com.duomizhibo.phonelive.utils.LoginUtils;
 import com.duomizhibo.phonelive.utils.UIHelper;
+import com.google.gson.Gson;
+import com.mob.MobSDK;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -132,7 +131,7 @@ public class LiveLoginSelectActivity extends ToolBarBaseActivity implements Plat
                 otherLogin(names[1]);
                 break;
             case R.id.iv_mblogin:
-                UIHelper.showMobilLogin(this);
+                UIHelper.bindAccount(this);
                 break;
         }
     }

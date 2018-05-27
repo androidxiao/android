@@ -11,7 +11,6 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.duomizhibo.phonelive.AppContext;
 import com.duomizhibo.phonelive.R;
-import com.duomizhibo.phonelive.api.remote.ApiUtils;
 import com.duomizhibo.phonelive.api.remote.PhoneLiveApi;
 import com.duomizhibo.phonelive.base.ToolBarBaseActivity;
 import com.duomizhibo.phonelive.bean.LiveJson;
@@ -125,7 +124,7 @@ public class VideoInfoActivity extends ToolBarBaseActivity {
                                 if (code.equals("700")) {
 
                                     //AppManager.getAppManager().finishAllActivity();
-                                    Intent intent = new Intent(AppContext.getInstance(), PhoneLoginActivity.class);
+                                    Intent intent = new Intent(AppContext.getInstance(), BindAccountActivity.class);
                                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     AppContext.getInstance().startActivity(intent);
 
