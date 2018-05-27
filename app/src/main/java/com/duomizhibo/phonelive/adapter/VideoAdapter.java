@@ -121,6 +121,12 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VH> {
 
         public void showData(ActiveBean bean, int position) {
             UserInfo u = bean.getUserinfo();
+            if (u == null) {
+                return;
+            }
+
+            TLog.log("Id------>"+bean.getId()+"----info---->"+u.getId());
+
             mPosition = position;
             Glide.with(mContext).load(bean.getThumb()).placeholder(R.drawable.bg_news_bottom).into(iv_bg);
             if (mAvHead == null) {

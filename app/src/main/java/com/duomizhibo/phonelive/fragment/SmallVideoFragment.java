@@ -133,6 +133,17 @@ public class SmallVideoFragment extends BaseFragment implements  ITXLivePlayList
         mShareCount = (TextView) view.findViewById(R.id.share_nums);
         mIvEmijo = (ImageView) view.findViewById(R.id.id_iv_emijo);
         mBtnSend = (Button) view.findViewById(R.id.id_btn_send);
+
+
+        view.findViewById(R.id.iv_video_comment).setOnClickListener(this);
+        view.findViewById(R.id.btn_comment).setOnClickListener(this);
+        view.findViewById(R.id.iv_video_more).setOnClickListener(this);
+        view.findViewById(R.id.iv_video_close).setOnClickListener(this);
+        view.findViewById(R.id.btn_cai).setOnClickListener(this);
+        view.findViewById(R.id.id_iv_emijo).setOnClickListener(this);
+        view.findViewById(R.id.id_btn_send).setOnClickListener(this);
+        view.findViewById(R.id.iv_video_share).setOnClickListener(this);
+
     }
 
 
@@ -202,7 +213,7 @@ public class SmallVideoFragment extends BaseFragment implements  ITXLivePlayList
 
     public void initData(int currItem) {
         TLog.log("当前的postion------>"+currItem);
-        if (mView == null) {
+        if (mView == null || videoBean==null) {
             return;
         }
 
@@ -588,6 +599,8 @@ public class SmallVideoFragment extends BaseFragment implements  ITXLivePlayList
                 closePlayer();
                 break;
             case R.id.btn_cai:
+                Toast.makeText(mActivity, "踩一踩", Toast.LENGTH_SHORT).show();
+
                 cai();
                 break;
             case R.id.id_iv_emijo:

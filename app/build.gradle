@@ -39,7 +39,7 @@ android {
             }
         }
         debug {
-            signingConfig signingConfigs.release
+//            signingConfig signingConfigs.release
             ndk {
                 // 需要将 armeabi-x64 架构过滤掉
                 abiFilters "armeabi-v7a"
@@ -104,6 +104,7 @@ dependencies {
     compile files('libs/MobCommons-2017.0608.1618.jar')
     compile 'com.qiniu:qiniu-android-sdk:7.2.1'
     compile files('libs/commons-io-2.4.jar')
+    compile 'com.github.castorflex.verticalviewpager:library:19.0.1'
 }
 
 
