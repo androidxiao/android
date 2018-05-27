@@ -89,7 +89,7 @@ public class VideoShareFragment extends DialogFragment implements View.OnClickLi
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mActiveBean = (ActiveBean) getArguments().getSerializable("bean");
+        mActiveBean = (ActiveBean) getArguments().getParcelable("bean");
         mMap = new HashMap<>();
         mMap.put("qq", R.drawable.icon_share_qq);
         mMap.put("qzone", R.drawable.icon_share_qzone);

@@ -1,12 +1,15 @@
 package com.duomizhibo.phonelive.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.io.Serializable;
 
 /**
  * Created by cxf on 2017/7/13.
  */
 
-public class UserInfo implements Serializable {
+public class UserInfo implements Parcelable {
 
     /**
      * id : 8573
@@ -45,6 +48,36 @@ public class UserInfo implements Serializable {
     private String level_anchor;
     private VipBean vip;
     private LiangBean liang;
+
+    protected UserInfo(Parcel in) {
+        id = in.readString();
+        user_nicename = in.readString();
+        avatar = in.readString();
+        coin = in.readString();
+        avatar_thumb = in.readString();
+        sex = in.readString();
+        signature = in.readString();
+        consumption = in.readString();
+        votestotal = in.readString();
+        province = in.readString();
+        city = in.readString();
+        birthday = in.readString();
+        issuper = in.readString();
+        level = in.readString();
+        level_anchor = in.readString();
+    }
+
+    public static final Creator<UserInfo> CREATOR = new Creator<UserInfo>() {
+        @Override
+        public UserInfo createFromParcel(Parcel in) {
+            return new UserInfo(in);
+        }
+
+        @Override
+        public UserInfo[] newArray(int size) {
+            return new UserInfo[size];
+        }
+    };
 
     public String getId() {
         return id;
@@ -180,6 +213,30 @@ public class UserInfo implements Serializable {
 
     public void setLiang(LiangBean liang) {
         this.liang = liang;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeString(user_nicename);
+        dest.writeString(avatar);
+        dest.writeString(coin);
+        dest.writeString(avatar_thumb);
+        dest.writeString(sex);
+        dest.writeString(signature);
+        dest.writeString(consumption);
+        dest.writeString(votestotal);
+        dest.writeString(province);
+        dest.writeString(city);
+        dest.writeString(birthday);
+        dest.writeString(issuper);
+        dest.writeString(level);
+        dest.writeString(level_anchor);
     }
 
     public static class VipBean implements Serializable{

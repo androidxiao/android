@@ -1,4 +1,4 @@
-package com.duomizhibo.phonelive.ui;
+package com.duomizhibo.phonelive.fragment;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -11,7 +11,6 @@ import android.media.MediaMetadataRetriever;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -20,6 +19,7 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -34,17 +34,15 @@ import com.duomizhibo.phonelive.R;
 import com.duomizhibo.phonelive.TCConstants;
 import com.duomizhibo.phonelive.api.remote.ApiUtils;
 import com.duomizhibo.phonelive.api.remote.PhoneLiveApi;
-import com.duomizhibo.phonelive.base.ToolBarBaseActivity;
+import com.duomizhibo.phonelive.base.BaseFragment;
 import com.duomizhibo.phonelive.bean.ActiveBean;
 import com.duomizhibo.phonelive.bean.SimpleUserInfo;
 import com.duomizhibo.phonelive.bean.UserInfo;
-import com.duomizhibo.phonelive.fragment.CommentDialogFragment;
-import com.duomizhibo.phonelive.fragment.CommentFragment;
-import com.duomizhibo.phonelive.fragment.UserInfoDialogFragment;
-import com.duomizhibo.phonelive.fragment.VideoShareFragment;
+import com.duomizhibo.phonelive.ui.SmallVideoPlayer2Activity;
 import com.duomizhibo.phonelive.ui.dialog.LiveCommon;
 import com.duomizhibo.phonelive.utils.ShareUtils;
 import com.duomizhibo.phonelive.utils.TDevice;
+import com.duomizhibo.phonelive.utils.TLog;
 import com.duomizhibo.phonelive.utils.UIHelper;
 import com.duomizhibo.phonelive.widget.AvatarView;
 import com.duomizhibo.phonelive.widget.LoadUrlImageView;
@@ -63,54 +61,81 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 import butterknife.ButterKnife;
-import butterknife.InjectView;
-import butterknife.OnClick;
 import okhttp3.Call;
 
-/*
+/**
+ * Created by chawei on 2018/5/27.
+ */
 
-* 直播播放页面
-* */
-public class SmallVideoPlayerActivity extends ToolBarBaseActivity implements View.OnLayoutChangeListener, ITXLivePlayListener,VideoShareFragment.deleteClick {
+public class SmallVideoFragment extends BaseFragment implements  ITXLivePlayListener,VideoShareFragment.deleteClick{
+
 
     public final static String USER_INFO = "USER_INFO";
 
-    @InjectView(R.id.video_view)
+//    @InjectView(R.id.video_view)
     protected TXCloudVideoView mTXCloudVideoView;
     //加载中的背景图
-    @InjectView(R.id.iv_live_look_loading_bg)
+//    @InjectView(R.id.iv_live_look_loading_bg)
     protected LoadUrlImageView mIvLoadingBg;
 
-    @InjectView(R.id.tv_attention)
+//    @InjectView(R.id.tv_attention)
     protected ImageView mIvAttention;
 
-    @InjectView(R.id.iv_live_emcee_head)
+//    @InjectView(R.id.iv_live_emcee_head)
     protected AvatarView mAvEmcee;
 
-    @InjectView(R.id.tv_video_commrntnum)
+//    @InjectView(R.id.tv_video_commrntnum)
     protected TextView mTvCommentNum;
 
-    @InjectView(R.id.tv_video_laudnum)
+//    @InjectView(R.id.tv_video_laudnum)
     protected TextView mTvLaudNum;
 
-    @InjectView(R.id.iv_video_laud)
+//    @InjectView(R.id.iv_video_laud)
     protected ImageView mIvLaud;
 
-    @InjectView(R.id.iv_video_laudgif)
+//    @InjectView(R.id.iv_video_laudgif)
     protected ImageView mIvGif;
 
-    @InjectView(R.id.tv_name)
+//    @InjectView(R.id.tv_name)
     protected TextView mUName;
 
-    @InjectView(R.id.title)
+//    @InjectView(R.id.title)
     protected TextView mTitle;
 
-    @InjectView(R.id.btn_cai)
+//    @InjectView(R.id.btn_cai)
     protected ImageView mCai;
 
-    @InjectView(R.id.share_nums)
+//    @InjectView(R.id.share_nums)
     protected TextView mShareCount;//分享数
+
+    private ImageView mIvEmijo;
+
+    private Button mBtnSend;
+
+
+    private void findView(View view){
+//        mView.findViewById(R.id.rl_live_root).getViewTreeObserver().addOnGlobalLayoutListener(mOnGlobalLayoutListenernew);
+        mTXCloudVideoView = (TXCloudVideoView) view.findViewById(R.id.video_view);
+        mTXCloudVideoView.setOnClickListener(mClickListener);
+        mIvLoadingBg = (LoadUrlImageView) view.findViewById(R.id.iv_live_look_loading_bg);
+        mIvAttention= (ImageView) view.findViewById(R.id.tv_attention);
+        mAvEmcee = (AvatarView) view.findViewById(R.id.iv_live_emcee_head);
+        mTvCommentNum = (TextView) view.findViewById(R.id.tv_video_commrntnum);
+        mTvLaudNum = (TextView) view.findViewById(R.id.tv_video_laudnum);
+        mIvLaud = (ImageView) view.findViewById(R.id.iv_video_laud);
+        mIvGif = (ImageView) view.findViewById(R.id.iv_video_laudgif);
+        mUName = (TextView) view.findViewById(R.id.tv_name);
+        mTitle= (TextView) view.findViewById(R.id.title);
+        mCai= (ImageView) view.findViewById(R.id.btn_cai);
+        mShareCount = (TextView) view.findViewById(R.id.share_nums);
+        mIvEmijo = (ImageView) view.findViewById(R.id.id_iv_emijo);
+        mBtnSend = (Button) view.findViewById(R.id.id_btn_send);
+    }
+
+
 
 
     protected boolean mPausing = false;
@@ -160,54 +185,34 @@ public class SmallVideoPlayerActivity extends ToolBarBaseActivity implements Vie
     private int mIsLike = -1;
 
     private MediaMetadataRetriever mmr;
+    private View mView;
 
-    @Override
-    protected int getLayoutId() {
-        return R.layout.activity_video_show;
+    Context mActivity;
+
+    public static SmallVideoFragment newInstance() {
+        SmallVideoFragment fragment = new SmallVideoFragment();
+        return fragment;
     }
 
     @Override
-    public void initView() {
-
-        mTXCloudVideoView.setOnClickListener(mClickListener);
-        findViewById(R.id.rl_live_root).getViewTreeObserver().addOnGlobalLayoutListener(mOnGlobalLayoutListenernew);
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mActivity=context;
     }
 
-    private ViewTreeObserver.OnGlobalLayoutListener mOnGlobalLayoutListenernew = new ViewTreeObserver.OnGlobalLayoutListener() {
-        @Override
-        public void onGlobalLayout() {
-            Rect r = new Rect();
-            //获取当前界面可视部分
-            SmallVideoPlayerActivity.this.getWindow().getDecorView().getWindowVisibleDisplayFrame(r);
-            //获取屏幕的高度
-            if (mScreenHeight == 0) {
-                mScreenHeight = r.height();
-            }
-            int visibleHeight = r.height();
-            if (visibleHeight == mScreenHeight) {
-                if (mCommentFragment != null) {
-                    mCommentFragment.onSoftInputHide();
-                }
-            } else {
-                if (mCommentFragment != null) {
-                    mCommentFragment.onSoftInputShow(visibleHeight);
-                }
-            }
+    public void initData(int currItem) {
+        TLog.log("当前的postion------>"+currItem);
+        if (mView == null) {
+            return;
         }
-    };
 
-
-    @Override
-    public void initData() {
-
-
-        Bundle bundle = getIntent().getBundleExtra(USER_INFO);
-
-        videoBean = (ActiveBean) bundle.getSerializable(USER_INFO);
+        ArrayList<ActiveBean> list=getArguments().getParcelableArrayList(USER_INFO);
+        videoBean = list.get(currItem);
 
         mUserInfo = videoBean.getUserinfo();
 
         mEmceeInfo.id = videoBean.getUid();
+
         mEmceeInfo.user_nicename = videoBean.getUserinfo().getUser_nicename();
 
         mUName.setText(mEmceeInfo.user_nicename);
@@ -224,7 +229,7 @@ public class SmallVideoPlayerActivity extends ToolBarBaseActivity implements Vie
 
         mChatManager = EMClient.getInstance().chatManager();
 
-        this.setVolumeControlStream(AudioManager.STREAM_MUSIC);
+        ((SmallVideoPlayer2Activity)mActivity).setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
         //初始化房间信息
         initRoomInfo();
@@ -268,18 +273,18 @@ public class SmallVideoPlayerActivity extends ToolBarBaseActivity implements Vie
         });
     }
 
+
     protected void startPlay(String mPlayUrl, int playType) {
         if (!checkPlayUrl()) {
             return;
         }
         if (mTXLivePlayer == null) {
-            mTXLivePlayer = new TXLivePlayer(this);
+            mTXLivePlayer = new TXLivePlayer(mActivity);
         }
         mTXLivePlayer.setPlayerView(mTXCloudVideoView);
         mTXLivePlayer.setRenderRotation(TXLiveConstants.RENDER_ROTATION_PORTRAIT);
         mTXLivePlayer.setRenderMode(TXLiveConstants.RENDER_MODE_FULL_FILL_SCREEN);
         mTXLivePlayer.setPlayListener(this);
-
         mTXLivePlayer.setConfig(mTXPlayConfig);
         int result;
         result = mTXLivePlayer.startPlay(mPlayUrl, playType);
@@ -308,7 +313,7 @@ public class SmallVideoPlayerActivity extends ToolBarBaseActivity implements Vie
 
     private boolean checkPlayUrl() {
         if (TextUtils.isEmpty(mPlayUrl) || (!mPlayUrl.startsWith("http://") && !mPlayUrl.startsWith("https://") && !mPlayUrl.startsWith("rtmp://"))) {
-            Toast.makeText(getApplicationContext(), "播放地址不合法，目前仅支持rtmp,flv,hls,mp4播放方式!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mActivity, "播放地址不合法，目前仅支持rtmp,flv,hls,mp4播放方式!", Toast.LENGTH_SHORT).show();
             return false;
         }
         if (mIsLivePlay) {
@@ -317,7 +322,7 @@ public class SmallVideoPlayerActivity extends ToolBarBaseActivity implements Vie
             } else if ((mPlayUrl.startsWith("http://"))) {
                 mPlayType = TXLivePlayer.PLAY_TYPE_VOD_MP4;
             } else {
-                Toast.makeText(getApplicationContext(), "播放地址不合法，直播目前仅支持rtmp,flv播放方式!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mActivity, "播放地址不合法，直播目前仅支持rtmp,flv播放方式!", Toast.LENGTH_SHORT).show();
                 return false;
             }
         } else {
@@ -329,11 +334,11 @@ public class SmallVideoPlayerActivity extends ToolBarBaseActivity implements Vie
                 } else if (mPlayUrl.toLowerCase().contains(".mp4")) {
                     mPlayType = TXLivePlayer.PLAY_TYPE_VOD_MP4;
                 } else {
-                    Toast.makeText(getApplicationContext(), "播放地址不合法，点播目前仅支持flv,hls,mp4播放方式!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mActivity, "播放地址不合法，点播目前仅支持flv,hls,mp4播放方式!", Toast.LENGTH_SHORT).show();
                     return false;
                 }
             } else {
-                Toast.makeText(getApplicationContext(), "播放地址不合法，点播目前仅支持flv,hls,mp4播放方式!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mActivity, "播放地址不合法，点播目前仅支持flv,hls,mp4播放方式!", Toast.LENGTH_SHORT).show();
                 return false;
             }
         }
@@ -386,116 +391,16 @@ public class SmallVideoPlayerActivity extends ToolBarBaseActivity implements Vie
         startPlay(mPlayUrl, mPlayType);
     }
 
-    @OnClick({R.id.btn_cai, R.id.btn_comment, R.id.iv_video_more, R.id.iv_video_comment, R.id.iv_video_laud, R.id.iv_video_share, R.id.iv_video_close, R.id.tv_attention})
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.ll_live_room_info://左上角点击主播信息
-                UIHelper.showHomePageActivity(SmallVideoPlayerActivity.this, videoBean.getUid());
-                break;
-            case R.id.tv_attention:
-                //关注主播
-                PhoneLiveApi.showFollow(AppContext.getInstance().getLoginUid(), videoBean.getUid(), AppContext.getInstance().getToken(), new PhoneLiveApi.AttentionCallback() {
-                    @Override
-                    public void callback(boolean isAttention) {
-                        mIvAttention.setVisibility(View.GONE);
-                        showToast2("关注成功");
-                    }
-                });
-                break;
-            case R.id.iv_video_comment:
-                showCommentDialog();
-                break;
-            case R.id.btn_comment:
-                showCommentDialog2();
-                break;
-            case R.id.iv_video_share:
-            case R.id.iv_video_more:
-                // showSharePopWindow(SmallVideoPlayerActivity.this, v, mEmceeInfo);
-                showSharePopWindow2();
-                break;
-            case R.id.iv_video_laud:
-                if (mIsLike == 0) {
-                    showLaudGif();
-                }
-                addLikes();
-                break;
-            case R.id.iv_video_close:
-                closePlayer();
-                break;
-            case R.id.btn_cai:
-                cai();
-                break;
-        }
-    }
-
-    private void cai() {
-        if (videoBean.getIsstep() == 1) {
-            return;
-        }
-        PhoneLiveApi.addVideoStep(videoBean.getId(), new StringCallback() {
-            @Override
-            public void onError(Call call, Exception e, int id) {
-
-            }
-
-            @Override
-            public void onResponse(String response, int id) {
-                try {
-                    JSONObject obj = new JSONObject(response);
-                    if ("200".equals(obj.getString("ret"))) {
-                        JSONObject data = obj.getJSONObject("data");
-                        if (0 == data.getInt("code")) {
-                            int isstep = data.getJSONArray("info").getJSONObject(0).getInt("isstep");
-                            if (isstep == 1) {
-                                videoBean.setIsstep(1);
-                                mCai.setImageResource(R.drawable.icon_video_cai_selected);
-                            }
-                        }
-                        AppContext.toast(data.getString("msg"));
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        mView = inflater.inflate(R.layout.fragment_small_video_layout, container,false);
 
-        }
-    }
+//        ButterKnife.inject(this, mView);
+        findView(mView);
 
-
-    @Override
-    public void onPlayEvent(int i, Bundle bundle) {
-        if (i == TXLiveConstants.PLAY_EVT_PLAY_BEGIN) {
-            if (mIvLoadingBg != null) {
-                mIvLoadingBg.setVisibility(View.GONE);
-            }
-        }
-        if (i == TXLiveConstants.PLAY_EVT_PLAY_END) {
-            //循环播放
-            if (mTXLivePlayer != null) {
-                mTXLivePlayer.seek(0);
-                mTXLivePlayer.resume();
-            }
-        }
-    }
-
-
-    @Override
-    public void onNetStatus(Bundle status) {
-        if (status.getInt(TXLiveConstants.NET_STATUS_VIDEO_WIDTH) > status.getInt(TXLiveConstants.NET_STATUS_VIDEO_HEIGHT)) {
-            if (mTXLivePlayer != null) {
-                mTXLivePlayer.setRenderRotation(TXLiveConstants.RENDER_ROTATION_LANDSCAPE);
-            }
-        } else if (mTXLivePlayer != null) {
-            mTXLivePlayer.setRenderRotation(TXLiveConstants.RENDER_ROTATION_PORTRAIT);
-        }
-
+        initData(0);
+        return mView;
     }
 
 
@@ -510,6 +415,7 @@ public class SmallVideoPlayerActivity extends ToolBarBaseActivity implements Vie
     };
 
     private void showLaudGif() {
+        Toast.makeText(mActivity, "弹窗？？", Toast.LENGTH_SHORT).show();
         if (mIvGif.getVisibility() == View.GONE) {
             mIvGif.setVisibility(View.VISIBLE);
             Glide.with(this).load(R.drawable.laud_gif).asGif().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(mIvGif);
@@ -559,7 +465,7 @@ public class SmallVideoPlayerActivity extends ToolBarBaseActivity implements Vie
         Bundle bundle = new Bundle();
         bundle.putParcelable("bean", videoBean);
         mCommentFragment.setArguments(bundle);
-        mCommentFragment.show(getSupportFragmentManager(), "CommentFragment");
+        mCommentFragment.show(getChildFragmentManager(), "CommentFragment");
     }
 
 
@@ -571,7 +477,7 @@ public class SmallVideoPlayerActivity extends ToolBarBaseActivity implements Vie
             bundle.putParcelable("bean", videoBean);
             mDialogFragment.setArguments(bundle);
         }
-        mDialogFragment.show(getSupportFragmentManager(), "CommentDialogFragment");
+        mDialogFragment.show(getChildFragmentManager(), "CommentDialogFragment");
     }
 
     //视频结束释放资源
@@ -598,83 +504,158 @@ public class SmallVideoPlayerActivity extends ToolBarBaseActivity implements Vie
 
     }
 
-    @Override
-    public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
-        if (v.getId() == R.id.video_view) {
-            if (bottom != 0) {
-                //防止聊天软键盘挤压屏幕导致视频变形
-                //mVideoSurfaceView.setVideoDimension(mScreenWidth,mScreenHeight);
-            }
-        } else if (v.getId() == R.id.rl_live_root) {
-            if (bottom > oldBottom) {
-                //如果聊天窗口开启,收起软键盘时关闭聊天输入changeEditStatus(false);
-            }
-        }
-    }
-
-
-    @Override
-    public void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-    }
-
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-
-
-    }
-
     private void closePlayer(){
         videoPlayerEnd();
-        finish();
     }
 
     @Override
-    public void onBackPressed() {
+    public boolean onBackPressed() {
         closePlayer();
+        return true;
     }
 
     @Override
-    protected void onDestroy() {//释放
-        super.onDestroy();
-        findViewById(R.id.rl_live_root).getViewTreeObserver().removeGlobalOnLayoutListener(mOnGlobalLayoutListenernew);
+    protected void requestData(boolean refresh) {
+        super.requestData(refresh);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mView.findViewById(R.id.rl_live_root).getViewTreeObserver().removeGlobalOnLayoutListener(mOnGlobalLayoutListenernew);
         //解除广播
         OkHttpUtils.getInstance().cancelTag("initRoomInfo");
         ButterKnife.reset(this);
     }
 
+    private ViewTreeObserver.OnGlobalLayoutListener mOnGlobalLayoutListenernew = new ViewTreeObserver.OnGlobalLayoutListener() {
+        @Override
+        public void onGlobalLayout() {
+            Rect r = new Rect();
+            //获取当前界面可视部分
+//            ((SmallVideoPlayer2Activity)mActivity).getWindow().getDecorView().getWindowVisibleDisplayFrame(r);
+            //获取屏幕的高度
+            if (mScreenHeight == 0) {
+                mScreenHeight = r.height();
+            }
+            int visibleHeight = r.height();
+            if (visibleHeight == mScreenHeight) {
+                if (mCommentFragment != null) {
+                    mCommentFragment.onSoftInputHide();
+                }
+            } else {
+                if (mCommentFragment != null) {
+                    mCommentFragment.onSoftInputShow(visibleHeight);
+                }
+            }
+        }
+    };
+
     @Override
-    protected boolean hasActionBar() {
-        return false;
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.ll_live_room_info://左上角点击主播信息
+                UIHelper.showHomePageActivity(mActivity, videoBean.getUid());
+                break;
+            case R.id.tv_attention:
+                //关注主播
+                PhoneLiveApi.showFollow(AppContext.getInstance().getLoginUid(), videoBean.getUid(), AppContext.getInstance().getToken(), new PhoneLiveApi.AttentionCallback() {
+                    @Override
+                    public void callback(boolean isAttention) {
+                        mIvAttention.setVisibility(View.GONE);
+                        Toast.makeText(mActivity, "关注成功", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                break;
+            case R.id.iv_video_comment:
+                showCommentDialog();
+                break;
+            case R.id.btn_comment:
+                showCommentDialog2();
+                break;
+            case R.id.iv_video_share:
+            case R.id.iv_video_more:
+                // showSharePopWindow(SmallVideoPlayerActivity.this, v, mEmceeInfo);
+                showSharePopWindow2();
+                break;
+            case R.id.iv_video_laud:
+                if (mIsLike == 0) {
+                    showLaudGif();
+                }
+                addLikes();
+                break;
+            case R.id.iv_video_close:
+                closePlayer();
+                break;
+            case R.id.btn_cai:
+                cai();
+                break;
+            case R.id.id_iv_emijo:
+                break;
+            case R.id.id_btn_send:
+                break;
+        }
     }
 
+    private void cai() {
+        if (videoBean.getIsstep() == 1) {
+            return;
+        }
+        PhoneLiveApi.addVideoStep(videoBean.getId(), new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                try {
+                    JSONObject obj = new JSONObject(response);
+                    if ("200".equals(obj.getString("ret"))) {
+                        JSONObject data = obj.getJSONObject("data");
+                        if (0 == data.getInt("code")) {
+                            int isstep = data.getJSONArray("info").getJSONObject(0).getInt("isstep");
+                            if (isstep == 1) {
+                                videoBean.setIsstep(1);
+                                mCai.setImageResource(R.drawable.icon_video_cai_selected);
+                            }
+                        }
+                        AppContext.toast(data.getString("msg"));
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    /**
+     * TODO 还未修改
+     * @param context
+     * @param live
+     */
     public static void startSmallVideoPlayerActivity(final Context context, final ActiveBean live) {
         Bundle bundle = new Bundle();
         bundle.putParcelable("USER_INFO", live);
         UIHelper.showSmallLookLiveActivity(context, bundle);
     }
 
+    /**
+     * TODO 还未修改
+     * @param isfollow
+     * @param content
+     * @param touid
+     */
     public void sendEMMessage(String isfollow, String content, String touid) {
         EMMessage message = EMMessage.createTxtSendMessage(content, touid);
         message.setAttribute("isfollow", isfollow);
         mChatManager.sendMessage(message);
     }
 
+
+
     private void showReportDialog() {
-        final Dialog dialog = new Dialog(SmallVideoPlayerActivity.this, R.style.dialog_no_background);
+        final Dialog dialog = new Dialog(mActivity, R.style.dialog_no_background);
         dialog.setContentView(R.layout.dialog_report);
         Window dialogWindow = dialog.getWindow();
         dialogWindow.setGravity(Gravity.BOTTOM);
@@ -707,7 +688,7 @@ public class SmallVideoPlayerActivity extends ToolBarBaseActivity implements Vie
                             JSONArray res = ApiUtils.checkIsSuccess(response);
                             if (res != null) {
                                 dialog.dismiss();
-                                showToast3("删除成功", 0);
+                                Toast.makeText(mActivity, "删除成功", Toast.LENGTH_SHORT).show();
                                 closePlayer();
                             }
                         }
@@ -723,7 +704,7 @@ public class SmallVideoPlayerActivity extends ToolBarBaseActivity implements Vie
                         public void onResponse(String response, int id) {
                             JSONArray res = ApiUtils.checkIsSuccess(response);
                             if (res != null) {
-                                showToast3("感谢您的举报,我们会尽快做出处理...", 0);
+                                Toast.makeText(mActivity, "感谢您的举报,我们会尽快做出处理...", Toast.LENGTH_SHORT).show();
                                 dialog.dismiss();
                             }
                         }
@@ -782,14 +763,14 @@ public class SmallVideoPlayerActivity extends ToolBarBaseActivity implements Vie
         Bundle bundle = new Bundle();
         bundle.putParcelable("bean", videoBean);
         f.setArguments(bundle);
-        f.show(getSupportFragmentManager(), "VideoShareFragment");
+        f.show(getChildFragmentManager(), "VideoShareFragment");
     }
 
     private Dialog mLoadingDialog;
 
     public void showLoadingDialog() {
         if (mLoadingDialog == null) {
-            mLoadingDialog = LiveCommon.loadingDialog(this);
+            mLoadingDialog = LiveCommon.loadingDialog(mActivity);
         }
         mLoadingDialog.show();
     }
@@ -803,5 +784,34 @@ public class SmallVideoPlayerActivity extends ToolBarBaseActivity implements Vie
     @Override
     public void delete() {
         mTXLivePlayer.stopPlay(true);
+    }
+
+    @Override
+    public void onPlayEvent(int i, Bundle bundle) {
+        if (i == TXLiveConstants.PLAY_EVT_PLAY_BEGIN) {
+            if (mIvLoadingBg != null) {
+                mIvLoadingBg.setVisibility(View.GONE);
+            }
+        }
+        if (i == TXLiveConstants.PLAY_EVT_PLAY_END) {
+            //循环播放
+            if (mTXLivePlayer != null) {
+                mTXLivePlayer.seek(0);
+                mTXLivePlayer.resume();
+            }
+        }
+    }
+
+
+    @Override
+    public void onNetStatus(Bundle status) {
+        if (status.getInt(TXLiveConstants.NET_STATUS_VIDEO_WIDTH) > status.getInt(TXLiveConstants.NET_STATUS_VIDEO_HEIGHT)) {
+            if (mTXLivePlayer != null) {
+                mTXLivePlayer.setRenderRotation(TXLiveConstants.RENDER_ROTATION_LANDSCAPE);
+            }
+        } else if (mTXLivePlayer != null) {
+            mTXLivePlayer.setRenderRotation(TXLiveConstants.RENDER_ROTATION_PORTRAIT);
+        }
+
     }
 }

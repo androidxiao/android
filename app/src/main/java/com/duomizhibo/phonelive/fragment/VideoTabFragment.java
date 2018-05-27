@@ -16,6 +16,7 @@ import com.duomizhibo.phonelive.api.remote.PhoneLiveApi;
 import com.duomizhibo.phonelive.base.BaseFragment;
 import com.duomizhibo.phonelive.bean.ActiveBean;
 import com.duomizhibo.phonelive.ui.customviews.RefreshLayout;
+import com.duomizhibo.phonelive.utils.TLog;
 import com.google.gson.Gson;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -35,7 +36,7 @@ import okhttp3.Call;
  */
 public class VideoTabFragment extends BaseFragment implements RefreshLayout.OnRefreshListener {
 
-    List<ActiveBean> mUserList = new ArrayList<>();
+    ArrayList<ActiveBean> mUserList = new ArrayList<>();
 
     @InjectView(R.id.gv_newest)
     RecyclerView mRecyclerView;
@@ -113,7 +114,9 @@ public class VideoTabFragment extends BaseFragment implements RefreshLayout.OnRe
                             if (newestAdapter == null) {
                                 newestAdapter = new VideoAdapter(getActivity(), mUserList);
                                 mRecyclerView.setAdapter(newestAdapter);//BBB
+                                TLog.log("111111");
                             } else {
+                                TLog.log("2222222");
                                 newestAdapter.setData(mUserList);
                             }
                         } else {

@@ -449,6 +449,10 @@
                   android:configChanges="keyboardHidden|orientation"
                   android:label="绑定账号"
                   android:screenOrientation="portrait"/>
+
+        <activity android:name=".ui.SmallVideoPlayer2Activity"
+                  android:configChanges="keyboardHidden|orientation"
+                  android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

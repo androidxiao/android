@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/space_7"
             android:layout_weight="1.5"
-            android:text="@string/pass"
+            android:text="@string/account"
             android:textColor="@color/text_grey"
             android:textSize="18dp"/>
 
@@ -40,6 +40,7 @@
             android:layout_weight="5"
             android:background="@null"
             android:hint="@string/bind_account_hint"
+            android:textColor="@color/white"
             android:inputType="textPassword"
             android:textColorHint="@color/text_value_grey"/>
 
