@@ -182,7 +182,7 @@ public class VideoShareFragment extends DialogFragment implements View.OnClickLi
                                             JSONObject data = obj.getJSONObject("data");
                                             if (0 == data.getInt("code")) {
                                                 JSONObject info0 = data.getJSONArray("info").getJSONObject(0);
-                                                ((SmallVideoPlayerActivity) mContext).setShareCount(info0.getString("shares"));
+                                                SmallVideoFragment.setShareCount(info0.getString("shares"));
                                             }
                                             AppContext.toast(data.getString("msg"));
                                         }

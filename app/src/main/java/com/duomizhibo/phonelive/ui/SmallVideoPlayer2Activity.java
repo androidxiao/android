@@ -39,6 +39,7 @@ public class SmallVideoPlayer2Activity  extends AppCompatActivity{
     private int mCurrentItem;
     private VerticalViewPager mViewPager;
     private int mRoomId = -1;
+    private Bundle mBundle;
 
     protected boolean hasActionBar() {
         return true;
@@ -88,13 +89,22 @@ public class SmallVideoPlayer2Activity  extends AppCompatActivity{
                 }
             }
         });
+
+
         mViewPager.setAdapter(mPagerAdapter);
 
+//        mFragmentManager.beginTransaction().add(mFragmentContainer.getId(), mSmallVideoFragment).commitAllowingStateLoss();
 
-        Bundle bundle = getIntent().getBundleExtra(SmallVideoFragment.USER_INFO);
-        ArrayList<ActiveBean> mList= bundle.getParcelableArrayList(SmallVideoFragment.USER_INFO);
-        bundle.putParcelableArrayList(SmallVideoFragment.USER_INFO,mList);
-        mSmallVideoFragment.setArguments(bundle);
+
+//        mSmallVideoFragment.initData(0);
+    }
+
+    public ArrayList<ActiveBean>  getListData(){
+        mBundle = getIntent().getBundleExtra(SmallVideoFragment.USER_INFO);
+        ArrayList<ActiveBean> mList = mBundle.getParcelableArrayList(SmallVideoFragment.USER_INFO);
+//        mBundle.putParcelableArrayList(SmallVideoFragment.USER_INFO, mList);
+//        mSmallVideoFragment.setArguments(mBundle);
+        return mList;
     }
 
     public static void startSmallVideoPlayerActivity(final Context context, final ArrayList<ActiveBean> mUserList) {
@@ -114,10 +124,18 @@ public class SmallVideoPlayer2Activity  extends AppCompatActivity{
         //聊天室的fragment只加载一次，以后复用
         if (!mInit) {
             mFragmentManager.beginTransaction().add(mFragmentContainer.getId(), mSmallVideoFragment).commitAllowingStateLoss();
-            mSmallVideoFragment.initData(currentItem);
+//            mBundle = getIntent().getBundleExtra(SmallVideoFragment.USER_INFO);
+//            ArrayList<ActiveBean> mList= mBundle.getParcelableArrayList(SmallVideoFragment.USER_INFO);
+//            mBundle.putParcelableArrayList(SmallVideoFragment.USER_INFO,mList);
+//            mSmallVideoFragment.setArguments(mBundle);
+//            mSmallVideoFragment.initData(currentItem);
+
             mInit = true;
         }
         viewGroup.addView(mRoomContainer);
+
+
+//        mSmallVideoFragment.initData(currentItem);
         mRoomId = currentItem;
     }
 

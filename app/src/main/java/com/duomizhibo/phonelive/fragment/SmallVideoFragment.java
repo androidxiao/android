@@ -88,7 +88,7 @@ public class SmallVideoFragment extends BaseFragment implements  ITXLivePlayList
     protected AvatarView mAvEmcee;
 
 //    @InjectView(R.id.tv_video_commrntnum)
-    protected TextView mTvCommentNum;
+    protected static TextView mTvCommentNum;
 
 //    @InjectView(R.id.tv_video_laudnum)
     protected TextView mTvLaudNum;
@@ -109,11 +109,12 @@ public class SmallVideoFragment extends BaseFragment implements  ITXLivePlayList
     protected ImageView mCai;
 
 //    @InjectView(R.id.share_nums)
-    protected TextView mShareCount;//分享数
+    protected static TextView mShareCount;//分享数
 
     private ImageView mIvEmijo;
 
     private Button mBtnSend;
+    private ArrayList<ActiveBean> mList;
 
 
     private void findView(View view){
@@ -175,7 +176,7 @@ public class SmallVideoFragment extends BaseFragment implements  ITXLivePlayList
 
     private UserInfo mUserInfo;
 
-    ActiveBean videoBean;
+    ActiveBean videoBean=new ActiveBean();
 
     String uid;
 
@@ -213,12 +214,18 @@ public class SmallVideoFragment extends BaseFragment implements  ITXLivePlayList
 
     public void initData(int currItem) {
         TLog.log("当前的postion------>"+currItem);
-        if (mView == null || videoBean==null) {
+        if (mView == null) {
             return;
         }
 
-        ArrayList<ActiveBean> list=getArguments().getParcelableArrayList(USER_INFO);
-        videoBean = list.get(currItem);
+        TLog.log("View初始化完成了。。。------>"+currItem);
+//        mList = getArguments().getParcelableArrayList(USER_INFO);
+        videoBean = mList.get(currItem);
+        if(videoBean==null){
+            TLog.log("数据还是为空啊");
+            return;
+        }
+        TLog.log("不为空了----->");
 
         mUserInfo = videoBean.getUserinfo();
 
@@ -283,6 +290,7 @@ public class SmallVideoFragment extends BaseFragment implements  ITXLivePlayList
             }
         });
     }
+
 
 
     protected void startPlay(String mPlayUrl, int playType) {
@@ -356,11 +364,11 @@ public class SmallVideoFragment extends BaseFragment implements  ITXLivePlayList
         return true;
     }
 
-    public void setShareCount(String s) {
+    public static void setShareCount(String s) {
         mShareCount.setText(s);
     }
 
-    public void setCommentNum(String s) {
+    public static void setCommentNum(String s) {
         mTvCommentNum.setText(s);
     }
 
@@ -396,6 +404,7 @@ public class SmallVideoFragment extends BaseFragment implements  ITXLivePlayList
             mCai.setVisibility(View.GONE);
         }
         mPlayUrl = videoBean.getHref();
+        TLog.log("播放地址----->"+mPlayUrl);
         //初始化直播播放器参数配置
         checkPlayUrl();
 
@@ -410,7 +419,10 @@ public class SmallVideoFragment extends BaseFragment implements  ITXLivePlayList
 //        ButterKnife.inject(this, mView);
         findView(mView);
 
-        initData(0);
+        SmallVideoPlayer2Activity activity= (SmallVideoPlayer2Activity) getActivity();
+        mList=activity.getListData();
+        TLog.log("mlist11111----->"+mList.size());
+        initData(1);
         return mView;
     }
 
@@ -477,6 +489,7 @@ public class SmallVideoFragment extends BaseFragment implements  ITXLivePlayList
         bundle.putParcelable("bean", videoBean);
         mCommentFragment.setArguments(bundle);
         mCommentFragment.show(getChildFragmentManager(), "CommentFragment");
+
     }
 
 

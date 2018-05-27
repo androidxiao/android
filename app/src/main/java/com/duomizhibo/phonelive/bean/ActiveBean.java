@@ -43,6 +43,9 @@ public class ActiveBean implements Parcelable {
     private String shares;
     private int isstep;
 
+    public ActiveBean() {
+    }
+
     protected ActiveBean(Parcel in) {
         id = in.readString();
         uid = in.readString();
