@@ -124,6 +124,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VH> {
             if (u == null) {
                 return;
             }
+
             TLog.log("Id------>"+bean.getId()+"----info---->"+u.getId());
 
             mPosition = position;
