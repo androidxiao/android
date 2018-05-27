@@ -242,4 +242,6 @@
     <color name="attention">#0e0e0e</color>
     <color name="text_grey">#242526</color>
     <color name="text_value_grey">#98999A</color>
+
+    <color name="touming">#00000000</color>
 </resources>

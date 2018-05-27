@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+    <FrameLayout
+        android:id="@+id/replaced"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/rg_gomore"/>
+
+    <LinearLayout
+        android:id="@+id/rg_gomore"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/tab_top_line"/>
+
+        <RadioGroup
+            android:id="@+id/rg_group"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:background="@color/more_black">
+
+            <RadioButton
+                android:onClick="mainClick"
+                android:id="@+id/btn_home"
+                android:text="首页"
+                android:checked="true"
+                android:drawableTop="@drawable/rb_home"
+                style="@style/RadioButton_main"/>
+
+            <RadioButton
+                android:onClick="mainClick"
+                android:id="@+id/btn_attention"
+                android:text="关注"
+                android:drawableTop="@drawable/rb_guanz"
+                style="@style/RadioButton_main"/>
+
+            <RadioButton
+                style="@style/RadioButton_main" />
+
+            <RadioButton
+                android:onClick="mainClick"
+                android:id="@+id/btn_msg"
+                android:text="聊天"
+                android:drawableTop="@drawable/rb_chat"
+                style="@style/RadioButton_main"/>
+
+            <RadioButton
+                android:onClick="mainClick"
+                android:id="@+id/btn_user"
+                android:text="我的"
+                android:drawableTop="@drawable/rb_center"
+                style="@style/RadioButton_main"/>
+        </RadioGroup>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/main_ll_mid"
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/touming">
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/touming"/>
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/touming"/>
+
+        <RelativeLayout
+            android:id="@+id/home_rl_tabrq"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/touming">
+            <ImageView
+                android:id="@+id/btn_live"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/tab_require"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentTop="true"
+                android:onClick="mainClick"
+                />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/touming"/>
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/touming"/>
+    </LinearLayout>
+</RelativeLayout>

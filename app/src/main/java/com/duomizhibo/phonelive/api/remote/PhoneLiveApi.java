@@ -1441,8 +1441,8 @@ public class PhoneLiveApi {
                 .addParams("title", title)
                 .addParams("thumb", thumb)
                 .addParams("href", href)
-                .addParams("lat",AppContext.lat)
-                .addParams("lng",AppContext.lng)
+                .addParams("lat", AppContext.lat)
+                .addParams("lng", AppContext.lng)
                 .build()
                 .execute(callback);
     }
@@ -1648,7 +1648,7 @@ public class PhoneLiveApi {
                 .addParams("service", "Login.UserRegByUUID")
                 .addParams("user_login",login)
 //                .addParams("user_uuid", BaseApplication.getInstance().getIMEI())
-                .addParams("user_uuid", "12345678910")
+                .addParams("user_uuid", "123456789100")
                 .build()
                 .execute(callback);
     }
@@ -1660,7 +1660,7 @@ public class PhoneLiveApi {
                 .url(url)
                 .addParams("service", "Login.userLoginByUUID")
 //                .addParams("user_uuid", BaseApplication.getInstance().getIMEI())
-                .addParams("user_uuid", "12345678910")
+                .addParams("user_uuid", "123456789100")
                 .build()
                 .execute(callback);
     }

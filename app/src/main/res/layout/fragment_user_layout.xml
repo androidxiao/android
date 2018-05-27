@@ -17,8 +17,11 @@
             android:layout_height="50dp"
             android:background="@color/graywhite"
             app:canBack="false"
+            android:visibility="gone"
             app:titleColor="@color/white"
             app:titleText="@string/person"/>
+
+        <include layout="@layout/tab_top_app"/>
 
         <!--头部-->
         <include layout="@layout/fragment_user_information_head"/>

@@ -43,7 +43,10 @@ import com.duomizhibo.phonelive.fragment.HomeFragment;
 import com.duomizhibo.phonelive.fragment.LoginAwardDialogFragment;
 import com.duomizhibo.phonelive.fragment.MessageFragment;
 import com.duomizhibo.phonelive.fragment.PublisherDialogFragment;
+import com.duomizhibo.phonelive.fragment.TabChatFragment;
+import com.duomizhibo.phonelive.fragment.TabGuanzhuVideoFragment;
 import com.duomizhibo.phonelive.fragment.UserFragment;
+import com.duomizhibo.phonelive.fragment.VideoTabFragment;
 import com.duomizhibo.phonelive.ui.dialog.LiveCommon;
 import com.duomizhibo.phonelive.utils.LocationUtil;
 import com.duomizhibo.phonelive.utils.LoginUtils;
@@ -85,43 +88,45 @@ public class MainActivity extends AppCompatActivity implements LoginAwardDialogF
 
     private FragmentManager mFragmentManager;
     private int mCurIndex;
-    private View mRedPoint;
+//    private View mRedPoint;
     private SparseArray<Fragment>  mSparseArray;
     private HomeFragment mHomeFragment;
     private GuanzhuFragment mAttentionFragment;
     private MessageFragment mMessageFragment;
     private UserFragment mUserFragment;
+    private VideoTabFragment videoFragment;
+    private TabGuanzhuVideoFragment tabGuanzhuVideoFragment;
+    private TabChatFragment tabChatFragment;
 
-
-    //注释修改
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.act_main);
         ml = (RelativeLayout) findViewById(R.id.rootLayout);
         cart = findViewById(R.id.btn_user);
-        mRedPoint = findViewById(R.id.red_point);
+//        mRedPoint = findViewById(R.id.red_point);
         if(savedInstanceState==null){
-            mHomeFragment = new HomeFragment();
-            mAttentionFragment = new GuanzhuFragment();
-            mMessageFragment = new MessageFragment();
+//            mHomeFragment = new HomeFragment();
+            videoFragment=new VideoTabFragment();
+            tabGuanzhuVideoFragment = new TabGuanzhuVideoFragment();
+            tabChatFragment = new TabChatFragment();
             Bundle bundle = new Bundle();
             bundle.putInt("type", 0);
-            mMessageFragment.setArguments(bundle);
+            tabChatFragment.setArguments(bundle);
             mUserFragment = new UserFragment();
             mFragmentManager = getSupportFragmentManager();
             FragmentTransaction ft = mFragmentManager.beginTransaction();
-            ft.add(R.id.replaced, mHomeFragment);
-            ft.add(R.id.replaced, mAttentionFragment);
-            ft.add(R.id.replaced, mMessageFragment);
+            ft.add(R.id.replaced, videoFragment);
+            ft.add(R.id.replaced, tabGuanzhuVideoFragment);
+            ft.add(R.id.replaced, tabChatFragment);
             ft.add(R.id.replaced, mUserFragment);
-            ft.show(mHomeFragment).hide(mAttentionFragment).hide(mMessageFragment).hide(mUserFragment).commit();
+            ft.show(videoFragment).hide(tabGuanzhuVideoFragment).hide(tabChatFragment).hide(mUserFragment).commit();
 
             mSparseArray = new SparseArray<>();
-            mSparseArray.put(0, mHomeFragment);
-            mSparseArray.put(1, mAttentionFragment);
-            mSparseArray.put(2, mMessageFragment);
+            mSparseArray.put(0, videoFragment);
+            mSparseArray.put(1, tabGuanzhuVideoFragment);
+            mSparseArray.put(2, tabChatFragment);
             mSparseArray.put(3, mUserFragment);
         }
 
@@ -133,41 +138,41 @@ public class MainActivity extends AppCompatActivity implements LoginAwardDialogF
     MessageFragment.ChatStateObserver mChatStateObserver = new MessageFragment.ChatStateObserver() {
         @Override
         public void onMessageCountChanged(int followUnReadCount, int notFollowUnReadCount) {
-            refreshUnReadCount(followUnReadCount + notFollowUnReadCount);
+//            refreshUnReadCount(followUnReadCount + notFollowUnReadCount);
         }
 
         @Override
         public void onComeBack(ChatExitEvent e) {
             if (e != null) {
-                mMessageFragment.onChatBack(e);
+//                mMessageFragment.onChatBack(e);
             }
         }
 
         @Override
         public void onIgnoreUnReadMessage() {
-            IgnoreUnReadMessage();
+//            IgnoreUnReadMessage();
         }
     };
 
-    public void refreshUnReadCount(int count) {
-        if (count > 0 && !MessageFragment.ignoreUnReadMessage) {
-            if (mRedPoint.getVisibility() == View.GONE) {
-                mRedPoint.setVisibility(View.VISIBLE);
-            }
-            //mRedPoint.setText(String.valueOf(count));
-        } else {
-            if (mRedPoint.getVisibility() == View.VISIBLE) {
-                mRedPoint.setVisibility(View.GONE);
-            }
-        }
-    }
-
-    public void IgnoreUnReadMessage() {
-        if (mRedPoint.getVisibility() == View.VISIBLE) {
-            mRedPoint.setVisibility(View.GONE);
-        }
-        mMessageFragment.onIgnoreUnReadMessage();
-    }
+//    public void refreshUnReadCount(int count) {
+//        if (count > 0 && !MessageFragment.ignoreUnReadMessage) {
+//            if (mRedPoint.getVisibility() == View.GONE) {
+//                mRedPoint.setVisibility(View.VISIBLE);
+//            }
+//            //mRedPoint.setText(String.valueOf(count));
+//        } else {
+//            if (mRedPoint.getVisibility() == View.VISIBLE) {
+//                mRedPoint.setVisibility(View.GONE);
+//            }
+//        }
+//    }
+//
+//    public void IgnoreUnReadMessage() {
+//        if (mRedPoint.getVisibility() == View.VISIBLE) {
+//            mRedPoint.setVisibility(View.GONE);
+//        }
+//        mMessageFragment.onIgnoreUnReadMessage();
+//    }
 
     public void mainClick(View v) {
         switch (v.getId()) {
@@ -393,9 +398,9 @@ public class MainActivity extends AppCompatActivity implements LoginAwardDialogF
                         runOnUiThread(new Runnable() {
                             public void run() {
                                 TLog.log("环信[登录聊天服务器成功]");
-                                int count=EMClient.getInstance().chatManager().getUnreadMessageCount();
+                                int count= EMClient.getInstance().chatManager().getUnreadMessageCount();
                                 TLog.log("环信[未读消息数量]--->"+count);
-                                refreshUnReadCount(count);
+//                                refreshUnReadCount(count);
                             }
                         });
                     }
