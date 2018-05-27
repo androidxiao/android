@@ -5,6 +5,7 @@ import android.Manifest;
 import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.app.Dialog;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Path;
 import android.graphics.PathMeasure;
@@ -25,6 +26,7 @@ import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.ScaleAnimation;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -88,8 +90,8 @@ public class MainActivity extends AppCompatActivity implements LoginAwardDialogF
 
     private FragmentManager mFragmentManager;
     private int mCurIndex;
-//    private View mRedPoint;
-    private SparseArray<Fragment>  mSparseArray;
+    //    private View mRedPoint;
+    private SparseArray<Fragment> mSparseArray;
     private HomeFragment mHomeFragment;
     private GuanzhuFragment mAttentionFragment;
     private MessageFragment mMessageFragment;
@@ -106,9 +108,9 @@ public class MainActivity extends AppCompatActivity implements LoginAwardDialogF
         ml = (RelativeLayout) findViewById(R.id.rootLayout);
         cart = findViewById(R.id.btn_user);
 //        mRedPoint = findViewById(R.id.red_point);
-        if(savedInstanceState==null){
+        if (savedInstanceState == null) {
 //            mHomeFragment = new HomeFragment();
-            videoFragment=new VideoTabFragment();
+            videoFragment = new VideoTabFragment();
             tabGuanzhuVideoFragment = new TabGuanzhuVideoFragment();
             tabChatFragment = new TabChatFragment();
             Bundle bundle = new Bundle();
@@ -189,10 +191,11 @@ public class MainActivity extends AppCompatActivity implements LoginAwardDialogF
                 toggleFragment(3);
                 break;
             case R.id.btn_live:
-                PublisherDialogFragment f = new PublisherDialogFragment();
-                FragmentTransaction ft = mFragmentManager.beginTransaction();
-                ft.add(f, "PublisherDialogFragment");
-                ft.commit();
+//                PublisherDialogFragment f = new PublisherDialogFragment();
+//                FragmentTransaction ft = mFragmentManager.beginTransaction();
+//                ft.add(f, "PublisherDialogFragment");
+//                ft.commit();
+                startActivity(new Intent(this, TCVideoRecordActivity.class));
                 break;
         }
     }
@@ -202,19 +205,19 @@ public class MainActivity extends AppCompatActivity implements LoginAwardDialogF
         if (index == mCurIndex) {
             return;
         }
-        if(mFragmentManager==null){
-            mFragmentManager=getSupportFragmentManager();
+        if (mFragmentManager == null) {
+            mFragmentManager = getSupportFragmentManager();
         }
         FragmentTransaction ft = mFragmentManager.beginTransaction();
-        if (mSparseArray!=null)
-        for (int i = 0; i < mSparseArray.size(); i++) {
-            if (index == mSparseArray.keyAt(i)) {
-                mCurIndex = index;
-                ft.show(mSparseArray.valueAt(i));
-            } else {
-                ft.hide(mSparseArray.valueAt(i));
+        if (mSparseArray != null)
+            for (int i = 0; i < mSparseArray.size(); i++) {
+                if (index == mSparseArray.keyAt(i)) {
+                    mCurIndex = index;
+                    ft.show(mSparseArray.valueAt(i));
+                } else {
+                    ft.hide(mSparseArray.valueAt(i));
+                }
             }
-        }
         ft.commit();
     }
 
@@ -271,7 +274,6 @@ public class MainActivity extends AppCompatActivity implements LoginAwardDialogF
         ImageView mTvCancel = (ImageView) dialog.findViewById(R.id.iv_close);
         final PwdEditText mEditText = (PwdEditText) dialog.findViewById(R.id.et_invite_num);
         final LineEditText mName = (LineEditText) dialog.findViewById(R.id.et_user_name);
-        ;
         mTvCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -311,6 +313,52 @@ public class MainActivity extends AppCompatActivity implements LoginAwardDialogF
         AppContext.getInstance().saveUserInfo(mUser);
     }
 
+    private void shareBrok(){
+        final Dialog dialog = new Dialog(this, R.style.dialog_no_background);
+        dialog.setContentView(R.layout.share_broker);
+        Window dialogWindow = dialog.getWindow();
+        dialogWindow.setGravity(Gravity.CENTER);
+        dialogWindow.setWindowAnimations(R.style.dialogstyle); // 添加动画
+        dialog.setCanceledOnTouchOutside(false);
+        final EditText bro_xte= (EditText) dialog.findViewById(R.id.bro_xte);
+        TextView bro_canacl= (TextView) dialog.findViewById(R.id.bro_canacl);
+        TextView bro_ok= (TextView) dialog.findViewById(R.id.bro_ok);
+        bro_canacl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        bro_ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PhoneLiveApi.setDistribut(AppContext.getInstance().getLoginUid(),
+                        AppContext.getInstance().getToken(), bro_xte.getText().toString().trim(), new StringCallback() {
+                            @Override
+                            public void onError(Call call, Exception e, int id) {
+
+                            }
+
+                            @Override
+                            public void onResponse(String response, int id) {
+                                JSONArray invisionArray = ApiUtils.checkIsSuccess(response);
+                                if (invisionArray != null) {
+                                    if (dialog != null) {
+                                        dialog.dismiss();
+                                    }
+                                }
+                            }
+                        });
+            }
+        });
+
+        dialog.show();
+        UserBean mUser = AppContext.getInstance().getLoginUser();
+
+        mUser.isreg = "0";
+        AppContext.getInstance().saveUserInfo(mUser);
+    }
+
     //
     private void updateConfig() {
 
@@ -325,8 +373,8 @@ public class MainActivity extends AppCompatActivity implements LoginAwardDialogF
                 JSONArray res = ApiUtils.checkIsSuccess(response);
                 if (res != null) {
                     try {
-                        JSONObject info0=res.getJSONObject(0);
-                        AppConfig.TICK_NAME =info0 .getString("name_votes");
+                        JSONObject info0 = res.getJSONObject(0);
+                        AppConfig.TICK_NAME = info0.getString("name_votes");
                         AppConfig.CURRENCY_NAME = info0.getString("name_coin");
                         AppConfig.JOIN_ROOM_ANIMATION_LEVEL = info0.getInt("enter_tip_level");
                         AppConfig.LIVE_TIME_COIN = info0.getJSONArray("live_time_coin");
@@ -352,7 +400,8 @@ public class MainActivity extends AppCompatActivity implements LoginAwardDialogF
             }
         });
         if (AppContext.getInstance().getLoginUser().isreg != null && AppContext.getInstance().getLoginUser().isreg.equals("1")) {
-            showDialogInvite();
+//            showDialogInvite();
+            shareBrok();
         }
     }
 
@@ -398,8 +447,8 @@ public class MainActivity extends AppCompatActivity implements LoginAwardDialogF
                         runOnUiThread(new Runnable() {
                             public void run() {
                                 TLog.log("环信[登录聊天服务器成功]");
-                                int count= EMClient.getInstance().chatManager().getUnreadMessageCount();
-                                TLog.log("环信[未读消息数量]--->"+count);
+                                int count = EMClient.getInstance().chatManager().getUnreadMessageCount();
+                                TLog.log("环信[未读消息数量]--->" + count);
 //                                refreshUnReadCount(count);
                             }
                         });
@@ -616,13 +665,13 @@ public class MainActivity extends AppCompatActivity implements LoginAwardDialogF
     @Override
     protected void onResume() {
         super.onResume();
-        if(!isEveryBouns){
+        if (!isEveryBouns) {
             everyBonus();
         }
     }
 
     private void everyBonus() {
-        isEveryBouns=true;
+        isEveryBouns = true;
         PhoneLiveApi.getBonus(AppContext.getInstance().getLoginUid(), AppContext.getInstance().getToken(), new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
@@ -640,7 +689,7 @@ public class MainActivity extends AppCompatActivity implements LoginAwardDialogF
                             Bundle bundle = new Bundle();
                             bundle.putSerializable("BonusBean", mBonus);
                             mAwardDialogFragment.setArguments(bundle);
-                            if (!mAwardDialogFragment.isAdded()){
+                            if (!mAwardDialogFragment.isAdded()) {
                                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                                 ft.add(mAwardDialogFragment, "mAwardDialogFragment");
                                 ft.commit();
@@ -658,9 +707,10 @@ public class MainActivity extends AppCompatActivity implements LoginAwardDialogF
     @Override
     protected void onDestroy() {
         MessageFragment.removeChatStateObserver(mChatStateObserver);
-        mChatStateObserver=null;
+        mChatStateObserver = null;
         super.onDestroy();
     }
+
     protected void onSaveInstanceState(Bundle outState) {
 //        super.onSaveInstanceState(outState);  // 重写该方法，并注释掉该行。
     }
