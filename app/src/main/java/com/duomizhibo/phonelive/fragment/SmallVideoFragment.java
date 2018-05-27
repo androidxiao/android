@@ -202,7 +202,7 @@ public class SmallVideoFragment extends BaseFragment implements  ITXLivePlayList
 
     public void initData(int currItem) {
         TLog.log("当前的postion------>"+currItem);
-        if (mView == null) {
+        if (mView == null || videoBean==null) {
             return;
         }
 
