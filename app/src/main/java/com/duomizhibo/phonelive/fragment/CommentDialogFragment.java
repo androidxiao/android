@@ -19,6 +19,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,7 +28,6 @@ import com.duomizhibo.phonelive.R;
 import com.duomizhibo.phonelive.api.remote.PhoneLiveApi;
 import com.duomizhibo.phonelive.base.AbsDialogFragment;
 import com.duomizhibo.phonelive.bean.ActiveBean;
-import com.duomizhibo.phonelive.ui.SmallVideoPlayerActivity;
 import com.duomizhibo.phonelive.utils.TDevice;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -56,6 +56,7 @@ public class CommentDialogFragment extends AbsDialogFragment implements View.OnC
     private TextView mBtnSend;
     private Drawable mDrawable1;
     private Drawable mDrawable2;
+    private ImageView mIvEmijo;
 
     @NonNull
     @Override
@@ -85,6 +86,8 @@ public class CommentDialogFragment extends AbsDialogFragment implements View.OnC
         mEditText = (EditText) mRootView.findViewById(R.id.comment_edit);
         mCurCommentId = mActiveBean.getUid();
         mBtnSend = (TextView) mRootView.findViewById(R.id.btn_send);
+        mIvEmijo = (ImageView) mRootView.findViewById(R.id.id_iv_emijo);
+        mIvEmijo.setOnClickListener(this);
         mDrawable1 = ContextCompat.getDrawable(mContext, R.drawable.bg_comment_btn_send);
         mDrawable2 = ContextCompat.getDrawable(mContext, R.drawable.bg_comment_btn_send2);
         mEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -167,7 +170,7 @@ public class CommentDialogFragment extends AbsDialogFragment implements View.OnC
                     JSONObject info0 = data.getJSONArray("info").getJSONObject(0);
                     if (0 == data.getInt("code")) {
                         sendEMMessage(info0.getString("isattent"), mEMContent);
-                        ((SmallVideoPlayerActivity) mContext).setCommentNum(info0.getString("comments"));
+                        SmallVideoFragment.setCommentNum(info0.getString("comments"));
                     }
                     AppContext.toast(data.getString("msg"));
                 } else {
@@ -180,7 +183,7 @@ public class CommentDialogFragment extends AbsDialogFragment implements View.OnC
     };
 
     private void sendEMMessage(String isfollow, String content) {
-        ((SmallVideoPlayerActivity) mContext).sendEMMessage(isfollow, content, mCurCommentId);
+        SmallVideoFragment.sendEMMessage(isfollow, content, mCurCommentId);
     }
 
     @Override
@@ -198,7 +201,13 @@ public class CommentDialogFragment extends AbsDialogFragment implements View.OnC
 
     @Override
     public void onClick(View v) {
-        sendComment();
+        if(v.getId()==R.id.id_iv_emijo){
+
+        }else{
+            sendComment();
+        }
+
+
 //        dismiss();
     }
 }

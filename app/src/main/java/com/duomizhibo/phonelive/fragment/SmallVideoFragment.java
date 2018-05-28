@@ -8,10 +8,12 @@ import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.AudioManager;
 import android.media.MediaMetadataRetriever;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +24,9 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.MediaController;
 import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -54,6 +58,8 @@ import com.tencent.rtmp.TXLiveConstants;
 import com.tencent.rtmp.TXLivePlayConfig;
 import com.tencent.rtmp.TXLivePlayer;
 import com.tencent.rtmp.ui.TXCloudVideoView;
+import com.universalvideoview.UniversalMediaController;
+import com.universalvideoview.UniversalVideoView;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -70,84 +76,90 @@ import okhttp3.Call;
  * Created by chawei on 2018/5/27.
  */
 
-public class SmallVideoFragment extends BaseFragment implements  ITXLivePlayListener,VideoShareFragment.deleteClick{
+public class SmallVideoFragment extends BaseFragment implements ITXLivePlayListener, VideoShareFragment.deleteClick,UniversalVideoView.VideoViewCallback{
 
 
     public final static String USER_INFO = "USER_INFO";
 
-//    @InjectView(R.id.video_view)
+    //    @InjectView(R.id.video_view)
     protected TXCloudVideoView mTXCloudVideoView;
     //加载中的背景图
 //    @InjectView(R.id.iv_live_look_loading_bg)
     protected LoadUrlImageView mIvLoadingBg;
 
-//    @InjectView(R.id.tv_attention)
+    //    @InjectView(R.id.tv_attention)
     protected ImageView mIvAttention;
 
-//    @InjectView(R.id.iv_live_emcee_head)
+    //    @InjectView(R.id.iv_live_emcee_head)
     protected AvatarView mAvEmcee;
 
-//    @InjectView(R.id.tv_video_commrntnum)
+    //    @InjectView(R.id.tv_video_commrntnum)
     protected static TextView mTvCommentNum;
 
-//    @InjectView(R.id.tv_video_laudnum)
+    //    @InjectView(R.id.tv_video_laudnum)
     protected TextView mTvLaudNum;
 
-//    @InjectView(R.id.iv_video_laud)
+    //    @InjectView(R.id.iv_video_laud)
     protected ImageView mIvLaud;
 
-//    @InjectView(R.id.iv_video_laudgif)
+    //    @InjectView(R.id.iv_video_laudgif)
     protected ImageView mIvGif;
 
-//    @InjectView(R.id.tv_name)
+    //    @InjectView(R.id.tv_name)
     protected TextView mUName;
 
-//    @InjectView(R.id.title)
+    //    @InjectView(R.id.title)
     protected TextView mTitle;
 
-//    @InjectView(R.id.btn_cai)
+    //    @InjectView(R.id.btn_cai)
     protected ImageView mCai;
 
-//    @InjectView(R.id.share_nums)
+    //    @InjectView(R.id.share_nums)
     protected static TextView mShareCount;//分享数
 
-    private ImageView mIvEmijo;
 
     private Button mBtnSend;
+
     private ArrayList<ActiveBean> mList;
 
+    private UniversalVideoView mVideoView;
+    UniversalMediaController mMediaController;
+    View mVideoLayout;
+    private int mSeekPosition;
+    private int cachedHeight;
+    private boolean isFullscreen;
 
-    private void findView(View view){
+
+    private void findView(View view) {
 //        mView.findViewById(R.id.rl_live_root).getViewTreeObserver().addOnGlobalLayoutListener(mOnGlobalLayoutListenernew);
         mTXCloudVideoView = (TXCloudVideoView) view.findViewById(R.id.video_view);
         mTXCloudVideoView.setOnClickListener(mClickListener);
         mIvLoadingBg = (LoadUrlImageView) view.findViewById(R.id.iv_live_look_loading_bg);
-        mIvAttention= (ImageView) view.findViewById(R.id.tv_attention);
+        mIvAttention = (ImageView) view.findViewById(R.id.tv_attention);
         mAvEmcee = (AvatarView) view.findViewById(R.id.iv_live_emcee_head);
         mTvCommentNum = (TextView) view.findViewById(R.id.tv_video_commrntnum);
         mTvLaudNum = (TextView) view.findViewById(R.id.tv_video_laudnum);
         mIvLaud = (ImageView) view.findViewById(R.id.iv_video_laud);
         mIvGif = (ImageView) view.findViewById(R.id.iv_video_laudgif);
         mUName = (TextView) view.findViewById(R.id.tv_name);
-        mTitle= (TextView) view.findViewById(R.id.title);
-        mCai= (ImageView) view.findViewById(R.id.btn_cai);
+        mTitle = (TextView) view.findViewById(R.id.title);
+        mCai = (ImageView) view.findViewById(R.id.btn_cai);
         mShareCount = (TextView) view.findViewById(R.id.share_nums);
-        mIvEmijo = (ImageView) view.findViewById(R.id.id_iv_emijo);
-        mBtnSend = (Button) view.findViewById(R.id.id_btn_send);
-
+        mVideoView = (UniversalVideoView) view.findViewById(R.id.id_video_view);
+        mVideoLayout = view.findViewById(R.id.video_layout);
+        mMediaController = (UniversalMediaController) view.findViewById(R.id.media_controller);
+        mVideoView.setMediaController(mMediaController);
 
         view.findViewById(R.id.iv_video_comment).setOnClickListener(this);
         view.findViewById(R.id.btn_comment).setOnClickListener(this);
         view.findViewById(R.id.iv_video_more).setOnClickListener(this);
         view.findViewById(R.id.iv_video_close).setOnClickListener(this);
         view.findViewById(R.id.btn_cai).setOnClickListener(this);
-        view.findViewById(R.id.id_iv_emijo).setOnClickListener(this);
-        view.findViewById(R.id.id_btn_send).setOnClickListener(this);
         view.findViewById(R.id.iv_video_share).setOnClickListener(this);
 
+        initVideoView();
+
     }
-
-
 
 
     protected boolean mPausing = false;
@@ -176,7 +188,7 @@ public class SmallVideoFragment extends BaseFragment implements  ITXLivePlayList
 
     private UserInfo mUserInfo;
 
-    ActiveBean videoBean=new ActiveBean();
+    ActiveBean videoBean = new ActiveBean();
 
     String uid;
 
@@ -188,7 +200,7 @@ public class SmallVideoFragment extends BaseFragment implements  ITXLivePlayList
 
     private int mScreenHeight;
 
-    private EMChatManager mChatManager;
+    private static EMChatManager mChatManager;
 
     SimpleUserInfo mEmceeInfo = new SimpleUserInfo();
 
@@ -209,24 +221,20 @@ public class SmallVideoFragment extends BaseFragment implements  ITXLivePlayList
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        mActivity=context;
+        mActivity = context;
     }
 
     public void initData(int currItem) {
-        TLog.log("当前的postion------>"+currItem);
+        TLog.log("当前的postion------>" + currItem);
         if (mView == null) {
             return;
         }
 
-        TLog.log("View初始化完成了。。。------>"+currItem);
 //        mList = getArguments().getParcelableArrayList(USER_INFO);
         videoBean = mList.get(currItem);
-        if(videoBean==null){
-            TLog.log("数据还是为空啊");
+        if (videoBean == null) {
             return;
         }
-        TLog.log("不为空了----->");
-
         mUserInfo = videoBean.getUserinfo();
 
         mEmceeInfo.id = videoBean.getUid();
@@ -247,7 +255,7 @@ public class SmallVideoFragment extends BaseFragment implements  ITXLivePlayList
 
         mChatManager = EMClient.getInstance().chatManager();
 
-        ((SmallVideoPlayer2Activity)mActivity).setVolumeControlStream(AudioManager.STREAM_MUSIC);
+        ((SmallVideoPlayer2Activity) mActivity).setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
         //初始化房间信息
         initRoomInfo();
@@ -290,7 +298,6 @@ public class SmallVideoFragment extends BaseFragment implements  ITXLivePlayList
             }
         });
     }
-
 
 
     protected void startPlay(String mPlayUrl, int playType) {
@@ -375,7 +382,7 @@ public class SmallVideoFragment extends BaseFragment implements  ITXLivePlayList
     private void initRoomInfo() {
 
         //设置背景图
-        mIvLoadingBg.setVisibility(View.VISIBLE);
+//        mIvLoadingBg.setVisibility(View.VISIBLE);
         mIvLoadingBg.setImageLoadUrl(videoBean.getThumb());
 
         mAvEmcee.setAvatarUrl(mUserInfo.getAvatar());
@@ -404,28 +411,123 @@ public class SmallVideoFragment extends BaseFragment implements  ITXLivePlayList
             mCai.setVisibility(View.GONE);
         }
         mPlayUrl = videoBean.getHref();
-        TLog.log("播放地址----->"+mPlayUrl);
+        TLog.log("播放地址----->" + mPlayUrl);
         //初始化直播播放器参数配置
-        checkPlayUrl();
+//        checkPlayUrl();
+        startVideoView(mPlayUrl);
 
-        startPlay(mPlayUrl, mPlayType);
+//        startPlay(mPlayUrl, mPlayType);
+    }
+
+    MediaController mediaController;
+
+    /**
+     * 初始化videoview播放
+     */
+    public void initVideoView() {
+        mVideoView.setMediaController(mMediaController);
+//        setVideoAreaSize();
+        mVideoView.setVideoViewCallback(this);
+        //设置为全屏模式播放
+        setVideoViewLayoutParams();
+    }
+
+
+
+    /**
+     * 设置videiview的全屏和窗口模式
+     *
+     */
+    public void setVideoViewLayoutParams() {
+            //设置充满整个父布局
+            RelativeLayout.LayoutParams LayoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
+            //设置相对于父布局四边对齐
+            LayoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+            LayoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+            LayoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+            LayoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+            //为VideoView添加属性
+            mVideoView.setLayoutParams(LayoutParams);
+    }
+
+
+    private void startVideoView(String mPlayUrl) {
+
+        if ((mPlayUrl.startsWith("https:") || mPlayUrl.startsWith("http:"))) {
+
+            mVideoView.setVideoPath(mPlayUrl);
+            mVideoView.requestFocus();
+            if (mSeekPosition > 0) {
+                mVideoView.seekTo(mSeekPosition);
+            }
+            mVideoView.start();
+
+            if (mIvLoadingBg != null) {
+                mIvLoadingBg.setVisibility(View.GONE);
+            }
+        } else {
+            Toast.makeText(getActivity(), "视频格式不支持", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void resumeVideoView() {
+        if (mVideoView != null) {
+            if (mSeekPosition > 0) {
+                mVideoView.seekTo(mSeekPosition);
+            }
+            mVideoView.start();
+            mVideoView.resume();
+        }
+    }
+
+    private void pauseVideoView() {
+        if (mVideoView != null) {
+            mVideoView.pause();
+        }
+    }
+
+    private void destoryVideoView() {
+        if (mVideoView != null) {
+            mVideoView.stopPlayback();
+            mVideoView = null;
+        }
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        resumeVideoView();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        pauseVideoView();
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mView = inflater.inflate(R.layout.fragment_small_video_layout, container,false);
+        mView = inflater.inflate(R.layout.fragment_small_video_layout, container, false);
 
 //        ButterKnife.inject(this, mView);
         findView(mView);
 
-        SmallVideoPlayer2Activity activity= (SmallVideoPlayer2Activity) getActivity();
-        mList=activity.getListData();
-        TLog.log("mlist11111----->"+mList.size());
-        initData(1);
+        SmallVideoPlayer2Activity activity = (SmallVideoPlayer2Activity) getActivity();
+        mList = activity.getListData();
+        int currPosition = activity.getCurrPosition();
+        boolean init = activity.getIsInit();
+        int position = activity.getPosition();
+        if (init) {
+            TLog.log("第11111次position---->"+position);
+            initData(position);
+        } else {
+            TLog.log("第22222次position---->"+currPosition);
+            initData(currPosition);
+        }
         return mView;
     }
-
 
     private View.OnClickListener mClickListener = new View.OnClickListener() {
         @Override
@@ -438,7 +540,6 @@ public class SmallVideoFragment extends BaseFragment implements  ITXLivePlayList
     };
 
     private void showLaudGif() {
-        Toast.makeText(mActivity, "弹窗？？", Toast.LENGTH_SHORT).show();
         if (mIvGif.getVisibility() == View.GONE) {
             mIvGif.setVisibility(View.VISIBLE);
             Glide.with(this).load(R.drawable.laud_gif).asGif().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(mIvGif);
@@ -458,14 +559,14 @@ public class SmallVideoFragment extends BaseFragment implements  ITXLivePlayList
                 JSONArray res = ApiUtils.checkIsSuccess(response);
                 if (res != null) {
                     try {
-                        if(videoBean!=null){
+                        if (videoBean != null) {
                             videoBean.setIslike(res.getJSONObject(0).getString("islike"));
                             videoBean.setLikes(res.getJSONObject(0).getString("likes"));
                         }
-                        if(mTvLaudNum!=null){
+                        if (mTvLaudNum != null) {
                             mTvLaudNum.setText(videoBean.getLikes());
                         }
-                        if(mIvLaud!=null){
+                        if (mIvLaud != null) {
                             mIsLike = res.getJSONObject(0).getInt("islike");
                             if (mIsLike == 1) {
                                 mIvLaud.setBackgroundResource(R.drawable.lauded);
@@ -528,14 +629,21 @@ public class SmallVideoFragment extends BaseFragment implements  ITXLivePlayList
 
     }
 
-    private void closePlayer(){
+    private void finish() {
+        videoPlayerEnd();
+        getActivity().finish();
+    }
+
+
+    private void closePlayer() {
         videoPlayerEnd();
     }
+
 
     @Override
     public boolean onBackPressed() {
         closePlayer();
-        return true;
+        return super.onBackPressed();
     }
 
     @Override
@@ -550,6 +658,8 @@ public class SmallVideoFragment extends BaseFragment implements  ITXLivePlayList
         //解除广播
         OkHttpUtils.getInstance().cancelTag("initRoomInfo");
         ButterKnife.reset(this);
+
+        destoryVideoView();
     }
 
     private ViewTreeObserver.OnGlobalLayoutListener mOnGlobalLayoutListenernew = new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -609,16 +719,10 @@ public class SmallVideoFragment extends BaseFragment implements  ITXLivePlayList
                 addLikes();
                 break;
             case R.id.iv_video_close:
-                closePlayer();
+                finish();
                 break;
             case R.id.btn_cai:
-                Toast.makeText(mActivity, "踩一踩", Toast.LENGTH_SHORT).show();
-
                 cai();
-                break;
-            case R.id.id_iv_emijo:
-                break;
-            case R.id.id_btn_send:
                 break;
         }
     }
@@ -657,6 +761,7 @@ public class SmallVideoFragment extends BaseFragment implements  ITXLivePlayList
 
     /**
      * TODO 还未修改
+     *
      * @param context
      * @param live
      */
@@ -668,16 +773,16 @@ public class SmallVideoFragment extends BaseFragment implements  ITXLivePlayList
 
     /**
      * TODO 还未修改
+     *
      * @param isfollow
      * @param content
      * @param touid
      */
-    public void sendEMMessage(String isfollow, String content, String touid) {
+    public static void sendEMMessage(String isfollow, String content, String touid) {
         EMMessage message = EMMessage.createTxtSendMessage(content, touid);
         message.setAttribute("isfollow", isfollow);
         mChatManager.sendMessage(message);
     }
-
 
 
     private void showReportDialog() {
@@ -838,6 +943,35 @@ public class SmallVideoFragment extends BaseFragment implements  ITXLivePlayList
         } else if (mTXLivePlayer != null) {
             mTXLivePlayer.setRenderRotation(TXLiveConstants.RENDER_ROTATION_PORTRAIT);
         }
+
+    }
+
+    @Override
+    public void onScaleChange(boolean isFullscreen) {
+
+    }
+
+    @Override
+    public void onPause(MediaPlayer mediaPlayer) {
+        if (mVideoView != null && mVideoView.isPlaying()) {
+            mSeekPosition = mVideoView.getCurrentPosition();
+            Log.d("ez", "onPause mSeekPosition=" + mSeekPosition);
+            mVideoView.pause();
+        }
+    }
+
+    @Override
+    public void onStart(MediaPlayer mediaPlayer) {
+
+    }
+
+    @Override
+    public void onBufferingStart(MediaPlayer mediaPlayer) {
+
+    }
+
+    @Override
+    public void onBufferingEnd(MediaPlayer mediaPlayer) {
 
     }
 }
