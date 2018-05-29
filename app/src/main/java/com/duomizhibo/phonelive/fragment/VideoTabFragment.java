@@ -6,8 +6,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.duomizhibo.phonelive.AppConfig;
 import com.duomizhibo.phonelive.AppContext;
 import com.duomizhibo.phonelive.R;
 import com.duomizhibo.phonelive.adapter.VideoAdapter;
@@ -15,8 +17,10 @@ import com.duomizhibo.phonelive.api.remote.ApiUtils;
 import com.duomizhibo.phonelive.api.remote.PhoneLiveApi;
 import com.duomizhibo.phonelive.base.BaseFragment;
 import com.duomizhibo.phonelive.bean.ActiveBean;
+import com.duomizhibo.phonelive.bean.UserBean;
 import com.duomizhibo.phonelive.ui.customviews.RefreshLayout;
 import com.duomizhibo.phonelive.utils.TLog;
+import com.duomizhibo.phonelive.utils.UIHelper;
 import com.google.gson.Gson;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -52,7 +56,11 @@ public class VideoTabFragment extends BaseFragment implements RefreshLayout.OnRe
     private int wh;
     private int page;
 
+    @InjectView(R.id.btn_mesgs)
+    ImageView btn_mesgs;
+
     private VideoAdapter newestAdapter;
+    private UserBean mInfo;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -75,6 +83,15 @@ public class VideoTabFragment extends BaseFragment implements RefreshLayout.OnRe
         mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         mRefreshLayout.setScorllView(mRecyclerView);
         mRefreshLayout.setOnRefreshListener(this);
+
+        mInfo = AppContext.getInstance().getLoginUser();
+
+        btn_mesgs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                UIHelper.showWebView(getContext(), AppConfig.MAIN_URL + "/index.php?g=Appapi&m=Member&a=message&uid=" + mInfo.id + "&token=" + AppContext.getInstance().getToken(), "");
+            }
+        });
     }
 
 

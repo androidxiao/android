@@ -59,7 +59,7 @@
                android:layout_marginTop="20dp"
                android:singleLine="true"
                android:text="@string/loading_error"
-               android:textColor="@color/black"
+               android:textColor="@color/white"
                android:textSize="@dimen/text_size_20" />
 
            <com.duomizhibo.phonelive.widget.BlackTextView
