@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+   >
+    <ScrollView
+        android:layout_marginBottom="60dp"
+        android:fillViewport="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <!--头部-->
+            <include layout="@layout/view_home_page_head"/>
+            <!--选项卡按钮-->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+               >
+                <com.duomizhibo.phonelive.widget.BlackTextView
+                    android:id="@+id/tv_home_page_index_btn"
+                    android:textColor="@color/global"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:text="@string/home"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent" />
+                <View
+                    android:layout_gravity="center"
+                    android:layout_height="20dp"
+                    style="@style/v_line"/>
+                <com.duomizhibo.phonelive.widget.BlackTextView
+                    android:textColor="@color/black"
+                    android:id="@+id/tv_home_page_video_btn"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:text="@string/live"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:visibility="gone"/>
+                <View
+                    android:layout_gravity="center"
+                    android:layout_height="20dp"
+                    android:visibility="gone"
+                    style="@style/v_line"/>
+                <com.duomizhibo.phonelive.widget.BlackTextView
+                    android:textColor="@color/gray2"
+                    android:id="@+id/tv_home_page_shiping_btn"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:text="@string/pagevideo"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="2">
+
+                <View
+                    android:id="@+id/view_1"
+                    android:background="@color/global"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="2dp"
+                    style="@style/v_line"/>
+                <View
+                    android:id="@+id/view_2"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="1px"
+                    android:visibility="gone"
+                    style="@style/v_line"/>
+                <View
+                    android:id="@+id/view_3"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="1px"
+                    style="@style/v_line"/>
+            </LinearLayout>
+            
+
+            <TextView
+                android:id="@+id/id_tv_sign_name"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:textColor="@color/gray2"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:background="#1C1D1E"
+                tools:text="个性签名            这家伙很懒什么也没有留下"/>
+
+            <!--直播录像-->
+            <include layout="@layout/view_home_page_video"
+                android:visibility="gone"/>
+            <!--主页-->
+            <include layout="@layout/view_home_page_index"
+                android:visibility="gone"/>
+          <!--视频-->
+            <include layout="@layout/view_home_page_shiping"
+                android:visibility="gone"/>
+        </LinearLayout>
+
+    </ScrollView>
+
+    <include layout="@layout/view_home_page_bottom_menu"/>
+
+
+
+</RelativeLayout>

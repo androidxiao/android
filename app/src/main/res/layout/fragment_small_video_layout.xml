@@ -16,13 +16,6 @@
         android:visibility="gone"
         />
 
-    <!--<VideoView-->
-        <!--android:id="@+id/id_video_view"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:layout_centerInParent="true"-->
-        <!--/>-->
-
     <RelativeLayout
         android:id="@+id/video_layout"
         android:layout_width="match_parent"
@@ -51,6 +44,9 @@
         android:id="@+id/iv_live_look_loading_bg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/video_view"
+        android:layout_toRightOf="@+id/video_view"
         android:scaleType="centerCrop"/>
 
 
@@ -113,8 +109,8 @@
 
     <ImageView
         android:id="@+id/tv_attention"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
         android:layout_marginLeft="5dp"
         android:layout_toRightOf="@id/btn_cai"
         android:adjustViewBounds="true"
@@ -122,29 +118,35 @@
         android:layout_marginTop="8dp"
         />
 
-
-    <com.duomizhibo.phonelive.widget.AvatarView
-        android:id="@+id/iv_live_emcee_head"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginRight="10dp"
-        android:layout_toLeftOf="@+id/tv_name"
-        tools:background="#d71345"
-        />
-
-    <TextView
-        android:id="@+id/tv_name"
+    <LinearLayout
+        android:id="@+id/ll_live_room_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="5dp"
         android:layout_toLeftOf="@id/iv_video_more"
-        android:layout_marginTop="5dp"
-        android:maxWidth="200dp"
-        android:singleLine="true"
-        android:textColor="#fff"
-        android:textSize="20sp"
-        tools:text="姓名"
-        />
+        android:orientation="horizontal">
+        <com.duomizhibo.phonelive.widget.AvatarView
+            android:id="@+id/iv_live_emcee_head"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginRight="10dp"
+            tools:background="#d71345"
+            />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:maxWidth="200dp"
+            android:singleLine="true"
+            android:textColor="#fff"
+            android:textSize="20sp"
+            tools:text="姓名"
+            />
+
+    </LinearLayout>
+
 
     <ImageView
         android:id="@+id/iv_video_more"

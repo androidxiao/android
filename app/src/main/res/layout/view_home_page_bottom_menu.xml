@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
+       xmlns:tools="http://schemas.android.com/tools"
     >
     <LinearLayout
         android:id="@+id/ll_home_page_bottom_menu"
@@ -13,14 +14,15 @@
         <LinearLayout
             android:layout_height="match_parent"
             android:layout_width="match_parent"
-            android:weightSum="3">
+            >
             <LinearLayout
                 android:id="@+id/ll_home_page_menu_follow"
                 style="@style/home_page_user_info_bottom_menu">
                 <ImageView
+                    android:id="@+id/id_iv_follow"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
-                    android:src="@drawable/sixinfollow"/>
+                    tools:src="@drawable/ic_anchor_bt_follow"/>
                 <com.duomizhibo.phonelive.widget.BlackTextView
                     android:textSize="@dimen/text_size_15"
                     android:id="@+id/tv_home_page_menu_follow"
@@ -34,10 +36,12 @@
                 android:layout_width="2px"
                 android:layout_gravity="center"
                 android:layout_height="20dp"
+                android:visibility="gone"
                 style="@style/v_line"/>
             <LinearLayout
                 android:id="@+id/ll_home_page_menu_privatechat"
-                style="@style/home_page_user_info_bottom_menu">
+                style="@style/home_page_user_info_bottom_menu"
+                android:visibility="gone">
                 <ImageView
                     android:layout_width="15dp"
                     android:layout_height="15dp"
@@ -57,7 +61,8 @@
                 style="@style/v_line"/>
             <LinearLayout
                 android:id="@+id/ll_home_page_menu_lahei"
-                style="@style/home_page_user_info_bottom_menu">
+                style="@style/home_page_user_info_bottom_menu"
+                android:visibility="gone">
                 <ImageView
                     android:layout_width="15dp"
                     android:layout_height="15dp"

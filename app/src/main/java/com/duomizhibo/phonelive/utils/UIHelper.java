@@ -20,7 +20,7 @@ import com.duomizhibo.phonelive.ui.BindAccountActivity;
 import com.duomizhibo.phonelive.ui.DedicateOrderActivity;
 import com.duomizhibo.phonelive.ui.EditInfoActivity;
 import com.duomizhibo.phonelive.ui.FansActivity;
-import com.duomizhibo.phonelive.ui.HomePageActivity;
+import com.duomizhibo.phonelive.ui.HomePageActivity2;
 import com.duomizhibo.phonelive.ui.LiveRecordActivity;
 import com.duomizhibo.phonelive.ui.MainActivity;
 import com.duomizhibo.phonelive.ui.MyVideoActivity;
@@ -271,12 +271,15 @@ public class UIHelper {
     }
     /*
     * 其他用户个人信息
+    * 为修改之前是HomePageActivity.class
+    * 需求修改后是HomePageActivity2.class
     * */
     public static void showHomePageActivity(Context context,String id) {
-        Intent intent = new Intent(context, HomePageActivity.class);
+        Intent intent = new Intent(context, HomePageActivity2.class);
         intent.putExtra("uid",id);
         context.startActivity(intent);
     }
+
     /*
     * 粉丝列表
     * */

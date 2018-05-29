@@ -195,13 +195,17 @@ public class UserFragment extends BaseFragment {
                 UIHelper.shoMyVideoActivity(getContext());
                 break;
             case R.id.ll_sign_in://签到
+                UIHelper.showWebView(getContext(), AppConfig.MAIN_URL + "/index.php?g=Appapi&m=Member&a=signin&uid=" + mInfo.id + "&token=" + AppContext.getInstance().getToken(), "");
                 break;
             case R.id.ll_invite_code://我的邀请码
+                UIHelper.showWebView(getContext(), AppConfig.MAIN_URL + "/index.php?g=Appapi&m=Member&a=invite&uid=" + mInfo.id + "&token=" + AppContext.getInstance().getToken()
+                        , "");
                 break;
             case R.id.ll_message://消息中心
+                UIHelper.showWebView(getContext(), AppConfig.MAIN_URL + "/index.php?g=Appapi&m=Member&a=message&uid=" + mInfo.id + "&token=" + AppContext.getInstance().getToken(), "");
                 break;
             case R.id.ll_concat://联系我们
-                UIHelper.showWebView(getContext(), AppConfig.MAIN_URL + "/index.php?g=portal&m=page&a=lists", "");
+                UIHelper.showWebView(getContext(), AppConfig.MAIN_URL + "/index.php?g=Appapi&m=Member&a=contactus&uid=" + mInfo.id + "&token=" + AppContext.getInstance().getToken(), "");
                 break;
             case R.id.ll_setting://设置
                 UIHelper.showSetting(getActivity());

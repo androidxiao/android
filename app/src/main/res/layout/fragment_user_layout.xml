@@ -26,11 +26,15 @@
         <!--头部-->
         <include layout="@layout/fragment_user_information_head"/>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:background="#0e0e0e"/>
+
         <com.duomizhibo.phonelive.ui.customviews.LineControllerView
             android:id="@+id/ll_video"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginTop="10dp"
             app:canNav="true"
             app:iconRes="@mipmap/personal_video"
             app:isBottom="true"
@@ -40,7 +44,6 @@
             android:id="@+id/ll_sign_in"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginTop="10dp"
             app:canNav="true"
             app:iconRes="@mipmap/personal_signin"
             app:isBottom="true"
@@ -50,7 +53,6 @@
             android:id="@+id/ll_invite_code"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginTop="10dp"
             app:canNav="true"
             app:iconRes="@mipmap/personal_code"
             app:isBottom="true"
@@ -61,7 +63,6 @@
             android:id="@+id/ll_message"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginTop="10dp"
             app:canNav="true"
             app:iconRes="@mipmap/personal_news"
             app:isBottom="true"
@@ -72,7 +73,6 @@
             android:id="@+id/ll_concat"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginTop="10dp"
             app:canNav="true"
             app:iconRes="@mipmap/personal_phone"
             app:isBottom="true"
@@ -83,7 +83,6 @@
             android:id="@+id/ll_setting"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginTop="10dp"
             app:canNav="true"
             app:iconRes="@mipmap/personal_setup"
             app:isBottom="true"

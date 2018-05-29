@@ -8,7 +8,9 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -25,14 +27,19 @@ import android.widget.Toast;
 
 import com.duomizhibo.phonelive.AppContext;
 import com.duomizhibo.phonelive.R;
+import com.duomizhibo.phonelive.adapter.ShortCutAdapter;
 import com.duomizhibo.phonelive.api.remote.PhoneLiveApi;
 import com.duomizhibo.phonelive.base.AbsDialogFragment;
 import com.duomizhibo.phonelive.bean.ActiveBean;
+import com.duomizhibo.phonelive.model.CommentModel;
+import com.duomizhibo.phonelive.utils.JsonParse;
 import com.duomizhibo.phonelive.utils.TDevice;
 import com.zhy.http.okhttp.callback.StringCallback;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.List;
 
 import okhttp3.Call;
 
@@ -57,7 +64,7 @@ public class CommentDialogFragment extends AbsDialogFragment implements View.OnC
     private Drawable mDrawable1;
     private Drawable mDrawable2;
     private ImageView mIvEmijo;
-
+    private RecyclerView mRv;
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -70,7 +77,7 @@ public class CommentDialogFragment extends AbsDialogFragment implements View.OnC
         Window window = dialog.getWindow();
         WindowManager.LayoutParams params = window.getAttributes();
         params.width = WindowManager.LayoutParams.MATCH_PARENT;
-        params.height = (int) TDevice.dpToPixel(50);
+        params.height = (int) TDevice.dpToPixel(250);
         params.gravity = Gravity.BOTTOM;
         window.setAttributes(params);
         return dialog;
@@ -79,14 +86,17 @@ public class CommentDialogFragment extends AbsDialogFragment implements View.OnC
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         if (mActiveBean == null) {
             Bundle bundle = getArguments();
             mActiveBean = (ActiveBean) bundle.getParcelable("bean");
         }
         mEditText = (EditText) mRootView.findViewById(R.id.comment_edit);
+        mEditText.setInputType(InputType.TYPE_NULL);
         mCurCommentId = mActiveBean.getUid();
         mBtnSend = (TextView) mRootView.findViewById(R.id.btn_send);
         mIvEmijo = (ImageView) mRootView.findViewById(R.id.id_iv_emijo);
+        mRv = (RecyclerView) mRootView.findViewById(R.id.id_rv);
         mIvEmijo.setOnClickListener(this);
         mDrawable1 = ContextCompat.getDrawable(mContext, R.drawable.bg_comment_btn_send);
         mDrawable2 = ContextCompat.getDrawable(mContext, R.drawable.bg_comment_btn_send2);
@@ -133,11 +143,45 @@ public class CommentDialogFragment extends AbsDialogFragment implements View.OnC
             mHandler = new Handler() {
                 @Override
                 public void handleMessage(Message msg) {
-                    imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+//                    imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
                 }
             };
         }
         mRootView.findViewById(R.id.btn_send).setOnClickListener(this);
+
+        requestCommentList();
+    }
+
+    private void requestCommentList(){
+        PhoneLiveApi.getCommentList(new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                CommentModel model = JsonParse.parseJson(response, CommentModel.class);
+                if(model.getData().getInfo()!=null) {
+                    List<String> commentList = model.getData().getInfo().get(0).getVideo_comment_list();
+                    setCommentAdapter(commentList);
+                }
+            }
+        });
+    }
+
+    private void setCommentAdapter(final List<String> list){
+        ShortCutAdapter cutAdapter = new ShortCutAdapter(getActivity());
+        cutAdapter.appendList(list);
+        mRv.setAdapter(cutAdapter);
+
+        cutAdapter.setListener(new ShortCutAdapter.IOnItemClickListener() {
+            @Override
+            public void item(int position) {
+                String comment = list.get(position);
+                mEditText.setText(comment);
+            }
+        });
     }
 
     private void sendComment() {
@@ -190,13 +234,13 @@ public class CommentDialogFragment extends AbsDialogFragment implements View.OnC
     public void onResume() {
         super.onResume();
         //不加延时，软键盘不会自动弹出
-        mHandler.sendEmptyMessageDelayed(0, 200);
+//        mHandler.sendEmptyMessageDelayed(0, 200);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        imm.hideSoftInputFromWindow(getActivity().getWindow().getDecorView().getWindowToken(), 0);
+//        imm.hideSoftInputFromWindow(getActivity().getWindow().getDecorView().getWindowToken(), 0);
     }
 
     @Override
