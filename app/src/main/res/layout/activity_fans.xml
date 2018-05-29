@@ -39,7 +39,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:src="@drawable/buzai" />
+            android:src="@mipmap/ico_empty" />
 
         <com.duomizhibo.phonelive.widget.BlackTextView
             android:layout_width="wrap_content"
@@ -47,8 +47,8 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
             android:singleLine="true"
-            android:text="他还没有粉丝"
-            android:textColor="@color/black"
+            android:text="没有粉丝"
+            android:textColor="@color/white"
             android:textSize="@dimen/text_size_20" />
 
 
@@ -75,7 +75,7 @@
             android:layout_marginTop="20dp"
             android:singleLine="true"
             android:text="@string/loading_error"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="@dimen/text_size_20" />
 
         <com.duomizhibo.phonelive.widget.BlackTextView

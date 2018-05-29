@@ -52,8 +52,11 @@ public class MyVideoActivity extends ToolBarBaseActivity implements RefreshLayou
     @InjectView(R.id.newest_load)
     LinearLayout mFailure;
 
-    @InjectView(R.id.no)
-    View mNoVideo;
+//    @InjectView(R.id.no)
+//    View mNoVideo;
+
+    @InjectView(R.id.llno)
+    LinearLayout llno;
 
     private Gson mGson;
 
@@ -119,8 +122,8 @@ public class MyVideoActivity extends ToolBarBaseActivity implements RefreshLayou
                         if (0 == data.getInt("code")) {
                             List<ActiveBean> list = mGson.fromJson(data.getString("info"), mType);
                             if (list.size() > 0) {
-                                if(mNoVideo.getVisibility()==View.VISIBLE){
-                                    mNoVideo.setVisibility(View.GONE);
+                                if(llno.getVisibility()==View.VISIBLE){
+                                    llno.setVisibility(View.GONE);
                                 }
                                 if (mAdapter == null) {
                                     mAdapter = new VideoAdapter2(MyVideoActivity.this, list);
@@ -130,8 +133,8 @@ public class MyVideoActivity extends ToolBarBaseActivity implements RefreshLayou
                                     mAdapter.setData(list);
                                 }
                             } else {
-                                if(mNoVideo.getVisibility()==View.GONE){
-                                    mNoVideo.setVisibility(View.VISIBLE);
+                                if(llno.getVisibility()==View.GONE){
+                                    llno.setVisibility(View.VISIBLE);
                                      if (mAdapter!=null){
                                          mAdapter.setData(list);
                                      }
