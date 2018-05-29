@@ -38,7 +38,7 @@ public class SmallVideoPlayer2Activity extends AppCompatActivity {
     private FrameLayout mFragmentContainer;
     private TXCloudVideoView mVideoView;
     private PagerAdapter mPagerAdapter;
-    private int mCurrentItem;
+    private int mCurrentItem=-1;
     private VerticalViewPager mViewPager;
     private int mRoomId = -1;
     private Bundle mBundle;
@@ -94,6 +94,11 @@ public class SmallVideoPlayer2Activity extends AppCompatActivity {
                 // 满足此种条件，表明需要加载直播视频，以及聊天室了
                 TLog.log("getId---->" + viewGroup.getId() + "  mCurrId--->" + mCurrentItem + "  mRoomId----->" + mRoomId);
                 if (viewGroup.getId() == mCurrentItem && mCurrentItem != mRoomId) {
+                    if (mRoomContainer.getParent() != null && mRoomContainer.getParent() instanceof ViewGroup) {
+                        ((ViewGroup) (mRoomContainer.getParent())).removeView(mRoomContainer);
+                    }
+                    loadVideoAndChatRoom(viewGroup, mCurrentItem);
+                }else if(!mInit&& !isInit){
                     if (mRoomContainer.getParent() != null && mRoomContainer.getParent() instanceof ViewGroup) {
                         ((ViewGroup) (mRoomContainer.getParent())).removeView(mRoomContainer);
                     }

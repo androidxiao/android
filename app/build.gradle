@@ -39,7 +39,7 @@ android {
             }
         }
         debug {
-//            signingConfig signingConfigs.release
+            signingConfig signingConfigs.release
             ndk {
                 // 需要将 armeabi-x64 架构过滤掉
                 abiFilters "armeabi-v7a"

@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
     <com.duomizhibo.phonelive.ui.customviews.ActivityTitle
         android:id="@+id/view_title"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
         android:background="@color/graywhite"
         app:titleColor="@color/white"
-        app:titleText="@string/setting"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"/>
+        app:titleText="@string/setting"/>
 
 
     <com.duomizhibo.phonelive.ui.customviews.LineControllerView
@@ -18,104 +19,110 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_below="@+id/lcv_ui_set"
-        app:name="@string/change_pass"
+        android:visibility="gone"
+        app:canNav="true"
         app:isBottom="true"
-        app:canNav="true"/>
+        app:name="@string/change_pass"/>
 
     <RelativeLayout
-        android:visibility="gone"
-        android:background="@color/white"
         android:id="@+id/ll_push_manage"
-        style="@style/option_item_rl" >
+        style="@style/option_item_rl"
+        android:background="@color/white"
+        android:visibility="gone">
 
         <com.duomizhibo.phonelive.widget.BlackTextView
             style="@style/option_item_text"
-            android:text="@string/pushmanage" />
+            android:text="@string/pushmanage"/>
+
         <ImageView
-            android:layout_alignParentRight="true"
-            android:src="@drawable/me_next"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/me_next"/>
     </RelativeLayout>
 
 
     <RelativeLayout
-        android:visibility="gone"
-        android:background="@color/white"
         android:id="@+id/ll_about"
-        style="@style/option_item_rl" >
+        style="@style/option_item_rl"
+        android:background="@color/white"
+        android:visibility="gone">
 
         <com.duomizhibo.phonelive.widget.BlackTextView
             style="@style/option_item_text"
-            android:text="@string/about" />
+            android:text="@string/about"/>
+
         <ImageView
-            android:layout_alignParentRight="true"
-            android:src="@drawable/me_next"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/me_next"/>
     </RelativeLayout>
 
     <RelativeLayout
-        android:visibility="gone"
-        android:background="@color/white"
         android:id="@+id/ll_feedback"
-        style="@style/option_item_rl" >
+        style="@style/option_item_rl"
+        android:background="@color/white"
+        android:visibility="gone">
 
         <com.duomizhibo.phonelive.widget.BlackTextView
             style="@style/option_item_text"
-            android:text="@string/feedback" />
+            android:text="@string/feedback"/>
+
         <ImageView
-            android:layout_alignParentRight="true"
-            android:src="@drawable/me_next"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/me_next"/>
     </RelativeLayout>
 
 
     <RelativeLayout
-        android:visibility="gone"
-        android:background="@color/white"
         android:id="@+id/ll_clearCache"
-        style="@style/option_item_rl" >
+        style="@style/option_item_rl"
+        android:background="@color/white"
+        android:visibility="gone">
 
         <com.duomizhibo.phonelive.widget.BlackTextView
             style="@style/option_item_text"
-            android:text="@string/clear_cache" />
+            android:text="@string/clear_cache"/>
 
     </RelativeLayout>
 
     <RelativeLayout
-        android:visibility="gone"
-        android:layout_marginTop="10dp"
-        android:background="@color/white"
         android:id="@+id/ll_blank_list"
-        style="@style/option_item_rl" >
+        style="@style/option_item_rl"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:visibility="gone">
 
         <com.duomizhibo.phonelive.widget.BlackTextView
             style="@style/option_item_text"
-            android:text="@string/blanklist" />
+            android:text="@string/blanklist"/>
+
         <ImageView
-            android:layout_alignParentRight="true"
-            android:src="@drawable/me_next"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/me_next"/>
     </RelativeLayout>
 
     <RelativeLayout
-        android:visibility="gone"
+        android:id="@+id/ll_room_setting"
+        style="@style/option_item_rl"
         android:layout_marginTop="10dp"
         android:background="@color/white"
-        android:id="@+id/ll_room_setting"
-        style="@style/option_item_rl" >
+        android:visibility="gone">
 
         <com.duomizhibo.phonelive.widget.BlackTextView
             style="@style/option_item_text"
-            android:text="直播设置" />
+            android:text="直播设置"/>
+
         <ImageView
-            android:layout_alignParentRight="true"
-            android:src="@drawable/me_next"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/me_next"/>
     </RelativeLayout>
 
 
@@ -124,19 +131,25 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_below="@+id/lcv_ui_set"
-        app:name="@string/check_new"
+        app:canNav="true"
         app:isBottom="true"
-        app:canNav="true"/>
+        app:name="@string/check_new"/>
+
+    <View
+        style="@style/h_line_grey"
+       />
 
     <LinearLayout
-        android:layout_marginTop="15dp"
-        android:background="@color/white"
         android:id="@+id/ll_login_out"
-        style="@style/option_item_rl" >
+        style="@style/option_item_rl"
+        android:layout_marginTop="15dp"
+        android:visibility="gone"
+        android:background="@color/white">
+
         <com.duomizhibo.phonelive.widget.BlackTextView
-            android:text="@string/loginout"
             style="@style/option_item_text"
             android:layout_width="fill_parent"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:text="@string/loginout"/>
     </LinearLayout>
 </LinearLayout>

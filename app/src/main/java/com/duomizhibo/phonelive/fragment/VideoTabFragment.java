@@ -114,9 +114,7 @@ public class VideoTabFragment extends BaseFragment implements RefreshLayout.OnRe
                             if (newestAdapter == null) {
                                 newestAdapter = new VideoAdapter(getActivity(), mUserList);
                                 mRecyclerView.setAdapter(newestAdapter);//BBB
-                                TLog.log("111111");
                             } else {
-                                TLog.log("2222222");
                                 newestAdapter.setData(mUserList);
                             }
                         } else {

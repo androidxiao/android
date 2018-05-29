@@ -8,11 +8,11 @@
 
     <View android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/line" />
+        android:background="#1c1c1c" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/more_black"
+        android:background="#191919"
         android:gravity="center_vertical"
         android:orientation="horizontal">
         <ImageView
@@ -60,5 +60,5 @@
         android:id="@+id/ctl_bottomLine"
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/line" />
+        android:background="#1c1c1c" />
 </LinearLayout>

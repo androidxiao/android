@@ -1,53 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/bottom"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="50dp"
-    android:layout_alignParentBottom="true"
-    android:background="#f8f8f8"
-    android:gravity="center_vertical"
-    android:orientation="horizontal"
-    >
+    android:background="@color/white"
+    android:layout_height="250dp">
 
-    <EditText
-        android:id="@+id/comment_edit"
-        android:layout_width="0dp"
-        android:layout_height="30dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_weight="7"
-        android:background="@drawable/bg_comment_input"
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/bottom"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#f8f8f8"
         android:gravity="center_vertical"
-        android:hint="说点什么..."
-        android:imeOptions="actionSend"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:singleLine="true"
-        android:textColor="@color/gray"
-        android:textColorHint="@color/gray"
-        android:textSize="15sp"
+        android:orientation="horizontal"
+        >
 
-        />
+        <EditText
+            android:id="@+id/comment_edit"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="7"
+            android:background="@drawable/bg_comment_input"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:gravity="center_vertical"
+            android:hint="说点什么..."
+            android:imeOptions="actionSend"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:singleLine="true"
+            android:textColor="@color/gray"
+            android:textColorHint="@color/gray"
+            android:textSize="15sp"
+            />
 
 
-    <ImageView
-        android:id="@+id/id_iv_emijo"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_height="26dp"
-        android:src="@mipmap/ic_emijo"/>
+        <ImageView
+            android:id="@+id/id_iv_emijo"
+            android:layout_width="0dp"
+            android:layout_height="26dp"
+            android:layout_weight="1"
+            android:src="@mipmap/ic_emijo"/>
 
 
-    <TextView
-        android:id="@+id/btn_send"
-        android:layout_width="60dp"
-        android:layout_height="30dp"
-        android:layout_marginRight="10dp"
-        android:background="@drawable/bg_comment_btn_send"
-        android:gravity="center"
-        android:text="发送"
-        android:textColor="@color/gray"
-        android:textSize="16sp"
-        />
-</LinearLayout>
+        <TextView
+            android:id="@+id/btn_send"
+            android:layout_width="60dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/bg_comment_btn_send"
+            android:gravity="center"
+            android:text="发送"
+            android:textColor="@color/gray"
+            android:textSize="16sp"
+            />
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/id_rv"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_below="@+id/bottom"
+        app:layoutManager="LinearLayoutManager"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        android:layout_height="250dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="我是表情"
+            android:textColor="#d71345"
+            android:textSize="22sp"
+            android:gravity="center"/>
+    </RelativeLayout>
+</RelativeLayout>

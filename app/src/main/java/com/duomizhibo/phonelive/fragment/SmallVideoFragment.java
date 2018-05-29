@@ -156,6 +156,8 @@ public class SmallVideoFragment extends BaseFragment implements ITXLivePlayListe
         view.findViewById(R.id.iv_video_close).setOnClickListener(this);
         view.findViewById(R.id.btn_cai).setOnClickListener(this);
         view.findViewById(R.id.iv_video_share).setOnClickListener(this);
+        view.findViewById(R.id.ll_live_room_info).setOnClickListener(this);
+        view.findViewById(R.id.iv_live_emcee_head).setOnClickListener(this);
 
         initVideoView();
 
@@ -382,7 +384,8 @@ public class SmallVideoFragment extends BaseFragment implements ITXLivePlayListe
     private void initRoomInfo() {
 
         //设置背景图
-//        mIvLoadingBg.setVisibility(View.VISIBLE);
+        mIvLoadingBg.setVisibility(View.VISIBLE);
+        TLog.log("背景图片url---->"+videoBean.getThumb());
         mIvLoadingBg.setImageLoadUrl(videoBean.getThumb());
 
         mAvEmcee.setAvatarUrl(mUserInfo.getAvatar());
@@ -453,7 +456,7 @@ public class SmallVideoFragment extends BaseFragment implements ITXLivePlayListe
 
     private void startVideoView(String mPlayUrl) {
 
-        if ((mPlayUrl.startsWith("https:") || mPlayUrl.startsWith("http:"))) {
+        if ((mPlayUrl.startsWith("https:") || mPlayUrl.startsWith("http:"))&& !mPlayUrl.endsWith(".m3u8")) {
 
             mVideoView.setVideoPath(mPlayUrl);
             mVideoView.requestFocus();
@@ -688,8 +691,10 @@ public class SmallVideoFragment extends BaseFragment implements ITXLivePlayListe
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.ll_live_room_info://左上角点击主播信息
+            case R.id.iv_live_emcee_head://左上角点击主播信息
                 UIHelper.showHomePageActivity(mActivity, videoBean.getUid());
+                break;
+            case R.id.ll_live_room_info:
                 break;
             case R.id.tv_attention:
                 //关注主播

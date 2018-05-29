@@ -17,26 +17,35 @@
         style="@style/h_line_yellow"
         />
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="140dp"
-        android:gravity="center"
-        android:orientation="vertical">
+        >
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/ic_sign_in_bg"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
         <ImageView
             android:layout_width="70dp"
             android:layout_height="80dp"
-            android:src="@mipmap/ic_bind_bg"/>
+            android:src="@mipmap/ic_bind_bg"
+            android:layout_centerInParent="true"/>
 
-    </LinearLayout>
+    </RelativeLayout>
 
 
 
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="55dp"
         android:orientation="horizontal"
-        android:padding="15dp">
+        android:layout_marginTop="10dp"
+       >
 
         <com.duomizhibo.phonelive.widget.BlackTextView
             android:layout_width="0dp"
@@ -45,6 +54,7 @@
             android:layout_weight="1.5"
             android:text="@string/account"
             android:textColor="@color/text_grey"
+            android:visibility="gone"
             android:textSize="18dp"/>
 
         <com.duomizhibo.phonelive.widget.BlackEditText
@@ -52,10 +62,14 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="5"
-            android:background="@null"
+            android:background="@drawable/shape_et_round"
             android:hint="@string/bind_account_hint"
             android:textColor="@color/white"
             android:inputType="textPassword"
+            android:textSize="14sp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:paddingLeft="10dp"
             android:textColorHint="@color/text_value_grey"/>
 
 
@@ -65,6 +79,7 @@
         style="@style/h_line_grey"
         android:layout_marginLeft="@dimen/space_15"
         android:layout_marginRight="@dimen/space_15"
+        android:visibility="gone"
         />
 
 
