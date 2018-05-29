@@ -46,7 +46,6 @@ public class TabGuanzhuVideoFragment extends AbsFragment implements RefreshLayou
     private Gson mGson;
     private AttentionVideoAdapter mAdapter;
     private TextView tvt_title;
-    private ImageView btn_mesg;
 
     @Nullable
     @Override
@@ -74,8 +73,6 @@ public class TabGuanzhuVideoFragment extends AbsFragment implements RefreshLayou
         mFailure = mRootView.findViewById(R.id.load_failure);
         tvt_title= (TextView) mRootView.findViewById(R.id.tvt_title);
         tvt_title.setText("关注");
-        btn_mesg= (ImageView) mRootView.findViewById(R.id.btn_mesg);
-        btn_mesg.setVisibility(View.VISIBLE);
         mRefreshLayout = (RefreshLayout) mRootView.findViewById(R.id.refreshLayout);
         mRefreshLayout.setOnRefreshListener(this);
         mRecyclerView = (RecyclerView) mRootView.findViewById(R.id.recylcerView);

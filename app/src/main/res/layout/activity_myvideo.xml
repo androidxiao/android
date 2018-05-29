@@ -40,7 +40,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:adjustViewBounds="true"
-                    android:src="@drawable/no_live"
+                    android:src="@mipmap/ico_novideo"
                     android:visibility="gone"/>
             </RelativeLayout>
         </com.duomizhibo.phonelive.ui.customviews.RefreshLayout>
