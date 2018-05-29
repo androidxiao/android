@@ -7,7 +7,7 @@
     android:orientation="vertical">
 
     <View android:layout_width="match_parent"
-        android:layout_height="1px"
+        android:layout_height="1dp"
         android:background="#1c1c1c" />
     <LinearLayout
         android:layout_width="match_parent"
@@ -59,6 +59,6 @@
     <View
         android:id="@+id/ctl_bottomLine"
         android:layout_width="match_parent"
-        android:layout_height="1px"
+        android:layout_height="1dp"
         android:background="#1c1c1c" />
 </LinearLayout>

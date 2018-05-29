@@ -5,6 +5,6 @@
     android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:gravity="bottom"
-    android:background="#d71345">
+    >
 	<!--android:background="@drawable/screen"-->
 </LinearLayout>

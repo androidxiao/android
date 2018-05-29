@@ -19,7 +19,6 @@ import com.duomizhibo.phonelive.base.BaseFragment;
 import com.duomizhibo.phonelive.bean.ActiveBean;
 import com.duomizhibo.phonelive.bean.UserBean;
 import com.duomizhibo.phonelive.ui.customviews.RefreshLayout;
-import com.duomizhibo.phonelive.utils.TLog;
 import com.duomizhibo.phonelive.utils.UIHelper;
 import com.google.gson.Gson;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -110,6 +109,7 @@ public class VideoTabFragment extends BaseFragment implements RefreshLayout.OnRe
 
             @Override
             public void onResponse(String response, int id) {
+
                 if (mLoad != null) {
                     if (mLoad.getVisibility() == View.VISIBLE) {
                         mLoad.setVisibility(View.GONE);
@@ -130,8 +130,10 @@ public class VideoTabFragment extends BaseFragment implements RefreshLayout.OnRe
                         if (mUserList.size() > 0) {
                             if (newestAdapter == null) {
                                 newestAdapter = new VideoAdapter(getActivity(), mUserList);
+                                newestAdapter.setFirst(false);
                                 mRecyclerView.setAdapter(newestAdapter);//BBB
                             } else {
+                                newestAdapter.setFirst(false);
                                 newestAdapter.setData(mUserList);
                             }
                         } else {
@@ -229,6 +231,7 @@ public class VideoTabFragment extends BaseFragment implements RefreshLayout.OnRe
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.reset(this);
+        newestAdapter.setFirst(false);
     }
 
 }

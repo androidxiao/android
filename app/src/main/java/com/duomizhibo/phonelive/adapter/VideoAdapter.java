@@ -37,6 +37,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VH> {
     public ActiveBean bean;
     private int mMarginVal;
     private TextView mWeizhi;
+    private boolean isFirst;
 
     public VideoAdapter(Context context, ArrayList<ActiveBean> userList) {
         mContext = context;
@@ -51,6 +52,10 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VH> {
         notifyItemRangeInserted(p, list.size());
         notifyItemRangeChanged(p, list.size());
         mRecyclerView.scrollToPosition(p);
+    }
+
+    public void setFirst(boolean isFirst) {
+        this.isFirst=isFirst;
     }
 
     @Override
@@ -81,6 +86,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VH> {
 
         }
         v.setLayoutParams(params);
+
     }
 
     @Override
@@ -115,11 +121,18 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VH> {
                         Toast.makeText(mContext, "请登录..", Toast.LENGTH_SHORT).show();
                         return;
                     }
-                    UIHelper.setVideoPosition(mPosition);
-                    SmallVideoPlayer2Activity.startSmallVideoPlayerActivity(mContext, mUserList);
-                    TLog.log("传过去的position---->"+mPosition);
+                    if (mPosition != 0) {
+                        if (!isFirst) {
+                            mUserList.remove(0);
+                            isFirst=true;
+                        }
+                        UIHelper.setVideoPosition(mPosition-1);
+                        SmallVideoPlayer2Activity.startSmallVideoPlayerActivity(mContext, mUserList);
+                    }
+                    TLog.log("传过去的position---->" + mPosition);
                 }
             });
+
         }
 
         public void showData(ActiveBean bean, int position) {

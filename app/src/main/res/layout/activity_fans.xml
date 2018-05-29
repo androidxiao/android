@@ -8,7 +8,7 @@
     <com.duomizhibo.phonelive.ui.customviews.ActivityTitle
         android:id="@+id/view_title"
         android:background="@color/graywhite"
-        app:titleColor="@color/black"
+        app:titleColor="@color/white"
         app:titleText="@string/fans"
         android:layout_width="match_parent"
         android:layout_height="50dp"/>
