@@ -2,6 +2,7 @@ package com.duomizhibo.phonelive.api.remote;
 
 import com.duomizhibo.phonelive.AppConfig;
 import com.duomizhibo.phonelive.AppContext;
+import com.duomizhibo.phonelive.base.BaseApplication;
 import com.duomizhibo.phonelive.bean.GiftBean;
 import com.duomizhibo.phonelive.bean.UserBean;
 import com.duomizhibo.phonelive.event.AttentEvent;
@@ -1647,8 +1648,8 @@ public class PhoneLiveApi {
                 .url(url)
                 .addParams("service", "Login.UserRegByUUID")
                 .addParams("user_login",login)
-//                .addParams("user_uuid", BaseApplication.getIMEI())
-                .addParams("user_uuid", "1234567891022")
+                .addParams("user_uuid", BaseApplication.getIMEI())
+//                .addParams("user_uuid", "1234567891022")
                 .build()
                 .execute(callback);
     }
@@ -1659,8 +1660,8 @@ public class PhoneLiveApi {
         OkHttpUtils.get()
                 .url(url)
                 .addParams("service", "Login.userLoginByUUID")
-//                .addParams("user_uuid", BaseApplication.getIMEI())
-                .addParams("user_uuid", "1234567891022")
+                .addParams("user_uuid", BaseApplication.getIMEI())
+//                .addParams("user_uuid", "1234567891022")
                 .build()
                 .execute(callback);
     }
