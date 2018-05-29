@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.duomizhibo.phonelive.R;
+import com.duomizhibo.phonelive.utils.TLog;
 import com.tencent.bugly.crashreport.CrashReport;
 
 public class BaseApplication extends MultiDexApplication {
@@ -227,15 +228,17 @@ public class BaseApplication extends MultiDexApplication {
     /**
      * IMEI写入本地
      */
-    private   void writeIMEI() {
-        String imei = get("IMEI", "IMEI");
+    private    void writeIMEI() {
+        String imei = get("IMEI","");
         if (TextUtils.isEmpty(imei)) {
             TelephonyManager tm = (TelephonyManager)getSystemService(TELEPHONY_SERVICE);
+            TLog.log("deviceId-1111111---->"+tm.getDeviceId());
             set("IMEI",tm.getDeviceId());
         }
+            TLog.log("deviceId-22222---->"+getIMEI());
     }
 
-    public String getIMEI(){
+    public static String getIMEI(){
         return get("IMEI","");
     }
 

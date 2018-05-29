@@ -102,8 +102,8 @@ public class SmallVideoPlayer2Activity extends AppCompatActivity {
             }
         });
 
-        mRoomId = getPosition();
         mPagePosition = getPosition();
+        mRoomId = getPosition();
         TLog.log("mRoomId------>" + mRoomId);
         mViewPager.setAdapter(mPagerAdapter);
 
