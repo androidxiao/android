@@ -34,14 +34,31 @@
                     android:layout_height="wrap_content"
                    />
 
-                <ImageView
-                    android:id="@+id/no"
-                    android:layout_width="150dp"
+                <LinearLayout
+                    android:id="@+id/llno"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:adjustViewBounds="true"
-                    android:src="@mipmap/ico_novideo"
-                    android:visibility="gone"/>
+                    android:visibility="gone"
+                    android:orientation="vertical">
+                    <ImageView
+                        android:id="@+id/no"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:adjustViewBounds="true"
+                        android:src="@mipmap/ico_novideo"
+                        />
+                    <com.duomizhibo.phonelive.widget.BlackTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="20dp"
+                        android:singleLine="true"
+                        android:text="现在还没视频"
+                        android:textColor="@color/white"
+                        android:textSize="16sp" />
+                </LinearLayout>
             </RelativeLayout>
         </com.duomizhibo.phonelive.ui.customviews.RefreshLayout>
 
