@@ -19,8 +19,22 @@
 
     <LinearLayout
         android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:gravity="center"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="80dp"
+            android:src="@mipmap/ic_bind_bg"/>
+
+    </LinearLayout>
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_marginTop="@dimen/d_margin_140"
         android:orientation="horizontal"
         android:padding="15dp">
 

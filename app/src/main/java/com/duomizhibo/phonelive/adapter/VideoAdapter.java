@@ -18,6 +18,7 @@ import com.duomizhibo.phonelive.ui.SmallVideoPlayer2Activity;
 import com.duomizhibo.phonelive.utils.DpOrSp2PxUtil;
 import com.duomizhibo.phonelive.utils.StringUtils;
 import com.duomizhibo.phonelive.utils.TLog;
+import com.duomizhibo.phonelive.utils.UIHelper;
 import com.duomizhibo.phonelive.widget.AvatarView;
 
 import java.util.ArrayList;
@@ -114,7 +115,9 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VH> {
                         Toast.makeText(mContext, "请登录..", Toast.LENGTH_SHORT).show();
                         return;
                     }
+                    UIHelper.setVideoPosition(mPosition);
                     SmallVideoPlayer2Activity.startSmallVideoPlayerActivity(mContext, mUserList);
+                    TLog.log("传过去的position---->"+mPosition);
                 }
             });
         }
@@ -125,19 +128,9 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VH> {
                 return;
             }
 
-            TLog.log("Id------>"+bean.getId()+"----info---->"+u.getId());
 
             mPosition = position;
             Glide.with(mContext).load(bean.getThumb()).placeholder(R.drawable.bg_news_bottom).into(iv_bg);
-            if (mAvHead == null) {
-                TLog.log("mAvHead为空空空");
-            }
-            if (u == null) {
-                TLog.log("UserInfo为空空空");
-            }
-            if (u.getAvatar() == null) {
-                TLog.log("头像为空空空");
-            }
             mAvHead.setAvatarUrl(u.getAvatar());
             laudNum.setText(bean.getComments());
             title.setText(bean.getTitle());

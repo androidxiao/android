@@ -110,7 +110,7 @@ public class SmallVideoPlayerActivity extends ToolBarBaseActivity implements Vie
     protected ImageView mCai;
 
     @InjectView(R.id.share_nums)
-    protected TextView mShareCount;//分享数
+    protected  TextView mShareCount;//分享数
 
 
     protected boolean mPausing = false;

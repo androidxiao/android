@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 import com.duomizhibo.phonelive.R;
 import com.duomizhibo.phonelive.bean.ActiveBean;
 import com.duomizhibo.phonelive.fragment.SmallVideoFragment;
+import com.duomizhibo.phonelive.utils.TLog;
 import com.duomizhibo.phonelive.utils.UIHelper;
 import com.tencent.rtmp.ui.TXCloudVideoView;
 
@@ -25,10 +26,11 @@ import fr.castorflex.android.verticalviewpager.VerticalViewPager;
  * Created by chawei on 2018/5/27.
  */
 
-public class SmallVideoPlayer2Activity  extends AppCompatActivity{
+public class SmallVideoPlayer2Activity extends AppCompatActivity {
 
 
-    private SmallVideoFragment mSmallVideoFragment = SmallVideoFragment.newInstance();
+    //    private SmallVideoFragment mSmallVideoFragment = SmallVideoFragment.newInstance();
+    private SmallVideoFragment mSmallVideoFragment;
     private static ArrayList<ActiveBean> mList = new ArrayList<>();
     private boolean mInit = false;
     private FragmentManager mFragmentManager;
@@ -40,9 +42,20 @@ public class SmallVideoPlayer2Activity  extends AppCompatActivity{
     private VerticalViewPager mViewPager;
     private int mRoomId = -1;
     private Bundle mBundle;
+    private int mPagePosition;
 
     protected boolean hasActionBar() {
         return true;
+    }
+
+    private void setPagePosition() {
+        if (mPagePosition <= 0) {
+            mPagePosition = 2;
+        }
+        if (mPagePosition >= mList.size() - 1) {
+            mPagePosition = 0;
+        }
+        mCurrentItem = mPagePosition = mPagePosition - 1;
     }
 
     @Override
@@ -60,11 +73,10 @@ public class SmallVideoPlayer2Activity  extends AppCompatActivity{
         mFragmentManager = getSupportFragmentManager();
         mPagerAdapter = new PagerAdapter();
         mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-//                TLog.log("mCurrentId == " + position + ", positionOffset == " + positionOffset +
-//                        ", positionOffsetPixels == " + positionOffsetPixels);
-                mCurrentItem = position;
+                mCurrentItem=position;
             }
         });
 
@@ -72,16 +84,16 @@ public class SmallVideoPlayer2Activity  extends AppCompatActivity{
             @Override
             public void transformPage(View page, float position) {
                 ViewGroup viewGroup = (ViewGroup) page;
-//                TLog.log( "page.id == " + page.getId() + ", position == " + position);
-
                 if ((position < 0 && viewGroup.getId() != mCurrentItem)) {
                     View roomContainer = viewGroup.findViewById(R.id.room_container);
                     if (roomContainer != null && roomContainer.getParent() != null && roomContainer.getParent() instanceof ViewGroup) {
                         ((ViewGroup) (roomContainer.getParent())).removeView(roomContainer);
                     }
                 }
+
                 // 满足此种条件，表明需要加载直播视频，以及聊天室了
-                if (viewGroup.getId() == mCurrentItem && position == 0 && mCurrentItem != mRoomId) {
+                TLog.log("getId---->" + viewGroup.getId() + "  mCurrId--->" + mCurrentItem + "  mRoomId----->" + mRoomId);
+                if (viewGroup.getId() == mCurrentItem && mCurrentItem != mRoomId) {
                     if (mRoomContainer.getParent() != null && mRoomContainer.getParent() instanceof ViewGroup) {
                         ((ViewGroup) (mRoomContainer.getParent())).removeView(mRoomContainer);
                     }
@@ -90,30 +102,40 @@ public class SmallVideoPlayer2Activity  extends AppCompatActivity{
             }
         });
 
-
+        mRoomId = getPosition();
+        mPagePosition = getPosition();
+        TLog.log("mRoomId------>" + mRoomId);
         mViewPager.setAdapter(mPagerAdapter);
 
-//        mFragmentManager.beginTransaction().add(mFragmentContainer.getId(), mSmallVideoFragment).commitAllowingStateLoss();
-
-
-//        mSmallVideoFragment.initData(0);
     }
 
-    public ArrayList<ActiveBean>  getListData(){
+    public ArrayList<ActiveBean> getListData() {
         mBundle = getIntent().getBundleExtra(SmallVideoFragment.USER_INFO);
         ArrayList<ActiveBean> mList = mBundle.getParcelableArrayList(SmallVideoFragment.USER_INFO);
-//        mBundle.putParcelableArrayList(SmallVideoFragment.USER_INFO, mList);
-//        mSmallVideoFragment.setArguments(mBundle);
         return mList;
     }
 
+
+    public int getPosition() {
+        int position = getIntent().getIntExtra("position", 1);
+        TLog.log("接收的position--->" + position);
+        return position;
+    }
+
+    public int getCurrPosition() {
+        return mCurrentItem;
+    }
+
+    public boolean getIsInit() {
+        return mInit;
+    }
+
     public static void startSmallVideoPlayerActivity(final Context context, final ArrayList<ActiveBean> mUserList) {
-        mList=mUserList;
+        mList = mUserList;
         Bundle bundle = new Bundle();
         bundle.putParcelableArrayList("USER_INFO", mUserList);
         UIHelper.showSmallLookLiveActivity2(context, bundle);
     }
-
 
     /**
      * @param viewGroup
@@ -122,21 +144,35 @@ public class SmallVideoPlayer2Activity  extends AppCompatActivity{
     private void loadVideoAndChatRoom(ViewGroup viewGroup, int currentItem) {
 //        mSubscription = AppObservable.bindActivity(this, ).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).
         //聊天室的fragment只加载一次，以后复用
-        if (!mInit) {
-            mFragmentManager.beginTransaction().add(mFragmentContainer.getId(), mSmallVideoFragment).commitAllowingStateLoss();
-//            mBundle = getIntent().getBundleExtra(SmallVideoFragment.USER_INFO);
-//            ArrayList<ActiveBean> mList= mBundle.getParcelableArrayList(SmallVideoFragment.USER_INFO);
-//            mBundle.putParcelableArrayList(SmallVideoFragment.USER_INFO,mList);
-//            mSmallVideoFragment.setArguments(mBundle);
-//            mSmallVideoFragment.initData(currentItem);
-
+        if (!mInit && !isInit) {
+            addFragment();
             mInit = true;
+            isInit = true;
+            mCurrentItem = getPosition();
+            TLog.log("第一次加载----->" + currentItem);
+        } else {
+            TLog.log("第二次加载------->" + currentItem);
+            mInit = false;
+//            if(getPosition()==mList.size()-1){
+//                int position=getPosition();
+//                mCurrentItem=position-1;
+//            }else{
+//            }
+            mCurrentItem = currentItem;
+            addFragment();
         }
+
+        TLog.log("滑动视频------>");
+
         viewGroup.addView(mRoomContainer);
+        mRoomId = mCurrentItem;
+    }
 
+    private boolean isInit;
 
-//        mSmallVideoFragment.initData(currentItem);
-        mRoomId = currentItem;
+    private void addFragment() {
+        mSmallVideoFragment = new SmallVideoFragment();
+        mFragmentManager.beginTransaction().add(mFragmentContainer.getId(), mSmallVideoFragment).commitAllowingStateLoss();
     }
 
     class PagerAdapter extends android.support.v4.view.PagerAdapter {
@@ -163,5 +199,12 @@ public class SmallVideoPlayer2Activity  extends AppCompatActivity{
         public void destroyItem(ViewGroup container, int position, Object object) {
             container.removeView(container.findViewById(position));
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        mInit = false;
+        isInit = false;
+        super.onDestroy();
     }
 }

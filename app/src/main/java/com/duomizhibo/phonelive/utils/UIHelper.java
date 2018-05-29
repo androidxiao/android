@@ -239,6 +239,14 @@ public class UIHelper {
         context.startActivity(intent);
     }
 
+    private static int mPosition;
+    public static void  setVideoPosition(int position){
+        mPosition=position;
+    }
+
+    public static int getVideoPosition(){
+        return mPosition;
+    }
 
     /**
      * 看视频2
@@ -248,6 +256,7 @@ public class UIHelper {
     public static void showSmallLookLiveActivity2(Context context, Bundle bundle) {
         Intent intent = new Intent(context, SmallVideoPlayer2Activity.class);
         intent.putExtra("USER_INFO",bundle);
+        intent.putExtra("position",getVideoPosition());
         context.startActivity(intent);
     }
 

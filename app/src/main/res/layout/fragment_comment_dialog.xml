@@ -16,7 +16,7 @@
         android:layout_height="30dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_weight="1"
+        android:layout_weight="7"
         android:background="@drawable/bg_comment_input"
         android:gravity="center_vertical"
         android:hint="说点什么..."
@@ -29,6 +29,14 @@
         android:textSize="15sp"
 
         />
+
+
+    <ImageView
+        android:id="@+id/id_iv_emijo"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="26dp"
+        android:src="@mipmap/ic_emijo"/>
 
 
     <TextView
