@@ -158,6 +158,7 @@ public class SmallVideoFragment extends BaseFragment implements ITXLivePlayListe
         view.findViewById(R.id.iv_video_share).setOnClickListener(this);
         view.findViewById(R.id.ll_live_room_info).setOnClickListener(this);
         view.findViewById(R.id.iv_live_emcee_head).setOnClickListener(this);
+        view.findViewById(R.id.id_video_view).setOnClickListener(mClickListener);
 
         initVideoView();
 

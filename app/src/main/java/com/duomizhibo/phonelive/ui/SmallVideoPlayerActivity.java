@@ -202,8 +202,8 @@ public class SmallVideoPlayerActivity extends ToolBarBaseActivity implements Vie
 
 
         Bundle bundle = getIntent().getBundleExtra(USER_INFO);
-
-        videoBean = (ActiveBean) bundle.getSerializable(USER_INFO);
+        videoBean=bundle.getParcelable(USER_INFO);
+//        videoBean = (ActiveBean) bundle.getSerializable(USER_INFO);
 
         mUserInfo = videoBean.getUserinfo();
 

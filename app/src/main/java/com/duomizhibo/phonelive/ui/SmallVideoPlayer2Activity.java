@@ -117,6 +117,7 @@ public class SmallVideoPlayer2Activity extends AppCompatActivity {
     public ArrayList<ActiveBean> getListData() {
         mBundle = getIntent().getBundleExtra(SmallVideoFragment.USER_INFO);
         ArrayList<ActiveBean> mList = mBundle.getParcelableArrayList(SmallVideoFragment.USER_INFO);
+        TLog.log("接收的长度------>"+mList.size());
         return mList;
     }
 

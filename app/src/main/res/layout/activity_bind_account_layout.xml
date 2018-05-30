@@ -45,8 +45,8 @@
         android:layout_height="55dp"
         android:orientation="horizontal"
         android:layout_marginTop="10dp"
-        android:padding="10dp"
-       >
+
+        >
 
         <com.duomizhibo.phonelive.widget.BlackTextView
             android:layout_width="wrap_content"
@@ -55,10 +55,12 @@
             android:text="@string/account"
             android:textColor="@color/text_grey"
             android:textSize="16sp"
+            android:visibility="gone"
             />
-            <!--android:background="@drawable/shape_et_round"-->
 
         <com.duomizhibo.phonelive.widget.BlackEditText
+            android:background="@drawable/shape_et_round"
+            android:paddingLeft="10dp"
             android:id="@+id/et_password"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -69,7 +71,6 @@
             android:textSize="14sp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="10dp"
-            android:background="@null"
             android:textColorHint="@color/text_value_grey"/>
 
 
@@ -79,6 +80,7 @@
         style="@style/h_line_grey"
         android:layout_marginLeft="@dimen/space_15"
         android:layout_marginRight="@dimen/space_15"
+        android:visibility="gone"
         />
 
 

@@ -15,6 +15,7 @@ import com.duomizhibo.phonelive.R;
 import com.duomizhibo.phonelive.bean.ActiveBean;
 import com.duomizhibo.phonelive.bean.UserInfo;
 import com.duomizhibo.phonelive.ui.SmallVideoPlayer2Activity;
+import com.duomizhibo.phonelive.ui.SmallVideoPlayerActivity;
 import com.duomizhibo.phonelive.utils.DpOrSp2PxUtil;
 import com.duomizhibo.phonelive.utils.StringUtils;
 import com.duomizhibo.phonelive.utils.TLog;
@@ -127,7 +128,11 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VH> {
                             isFirst=true;
                         }
                         UIHelper.setVideoPosition(mPosition-1);
-                        SmallVideoPlayer2Activity.startSmallVideoPlayerActivity(mContext, mUserList);
+                        if(mPosition==2){
+                            SmallVideoPlayerActivity.startSmallVideoPlayerActivity(mContext, mUserList.get(mPosition));
+                        }else {
+                            SmallVideoPlayer2Activity.startSmallVideoPlayerActivity(mContext, mUserList);
+                        }
                     }
                     TLog.log("传过去的position---->" + mPosition);
                 }
