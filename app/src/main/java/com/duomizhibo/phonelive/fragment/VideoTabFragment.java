@@ -109,7 +109,7 @@ public class VideoTabFragment extends BaseFragment implements RefreshLayout.OnRe
 
             @Override
             public void onResponse(String response, int id) {
-
+//                LogUtil.showLimitLog("视频列表----->"+response);
                 if (mLoad != null) {
                     if (mLoad.getVisibility() == View.VISIBLE) {
                         mLoad.setVisibility(View.GONE);

@@ -1,13 +1,303 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
              xmlns:tools="http://schemas.android.com/tools"
              android:id="@+id/container"
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
+             android:background="#333"
              tools:ignore="MergeRootFrame">
 
     <fr.castorflex.android.verticalviewpager.VerticalViewPager
         android:id="@+id/verticalviewpager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        />
+
+
+    <RelativeLayout
+        android:id="@+id/rl_live_root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <com.tencent.rtmp.ui.TXCloudVideoView
+            android:id="@+id/video_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:visibility="gone"
+            />
+
+        <RelativeLayout
+            android:id="@+id/video_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="40dp"
+            android:background="@android:color/transparent"
+            android:visibility="gone">
+
+            <com.universalvideoview.UniversalVideoView
+                android:id="@+id/id_video_view"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center"
+                app:uvv_autoRotation="false"
+                app:uvv_fitXY="false"/>
+
+            <com.universalvideoview.UniversalMediaController
+                android:id="@+id/media_controller"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                app:uvv_scalable="false"/>
+
+        </RelativeLayout>
+
+
+        <com.duomizhibo.phonelive.widget.LoadUrlImageView
+            android:id="@+id/iv_live_look_loading_bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/video_view"
+            android:layout_toRightOf="@+id/video_view"
+            android:scaleType="centerCrop"/>
+
+
+        <!--<RelativeLayout-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="1dp">-->
+
+
+        <!--<ImageView-->
+        <!--android:id="@+id/iv_live_emcee_level"-->
+        <!--style="@style/live_level_style"-->
+        <!--android:layout_marginLeft="@dimen/space_20"-->
+        <!--android:layout_marginTop="@dimen/space_20" />-->
+        <!--</RelativeLayout>-->
+
+        <!--<LinearLayout-->
+        <!--android:layout_gravity="center_vertical"-->
+        <!--android:layout_marginRight="@dimen/space_5"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginLeft="1dp"-->
+        <!--android:orientation="vertical">-->
+
+        <!--<com.duomizhibo.phonelive.widget.BlackTextView-->
+        <!--android:singleLine="true"-->
+        <!--android:ellipsize="end"-->
+        <!--android:maxEms="10"-->
+        <!--android:gravity="center"-->
+        <!--android:id="@+id/tv_name"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="直播Live"-->
+        <!--android:textColor="@color/white"-->
+        <!--android:textSize="@dimen/text_size_11" />-->
+
+        <!--</LinearLayout>-->
+
+
+        <ImageView
+            android:id="@+id/iv_video_close"
+            android:layout_width="26dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/icon_video_back"
+            />
+
+        <ImageView
+            android:id="@+id/btn_cai"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_alignTop="@id/iv_video_close"
+            android:layout_marginLeft="15dp"
+            android:layout_toRightOf="@id/iv_video_close"
+            android:adjustViewBounds="true"
+            android:src="@drawable/icon_video_cai_unselected"
+            />
+
+        <ImageView
+            android:id="@+id/tv_attention"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="8dp"
+            android:layout_toRightOf="@id/btn_cai"
+            android:adjustViewBounds="true"
+            android:src="@drawable/icon_video_guanzhu"
+            />
+
+        <LinearLayout
+            android:id="@+id/ll_live_room_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_toLeftOf="@+id/iv_video_more"
+            android:orientation="horizontal">
+
+            <com.duomizhibo.phonelive.widget.AvatarView
+                android:id="@+id/iv_live_emcee_head"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginRight="10dp"
+                tools:background="#d71345"
+                />
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:maxWidth="200dp"
+                android:singleLine="true"
+                android:textColor="#fff"
+                android:textSize="20sp"
+                android:visibility="gone"
+                tools:text="姓名"
+                />
+
+        </LinearLayout>
+
+
+        <ImageView
+            android:id="@+id/iv_video_more"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="6dp"
+            android:src="@drawable/icon_video_more"
+            android:visibility="gone"/>
+
+
+            <TextView
+                android:id="@+id/share_nums"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="15dp"
+                android:layout_marginRight="10dp"
+                android:textColor="#fff"
+                android:textSize="14sp"
+                tools:text="5"
+                />
+
+            <ImageView
+                android:id="@+id/iv_video_share"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:layout_alignBottom="@id/share_nums"
+                android:layout_marginBottom="-7dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="5dp"
+                android:layout_toLeftOf="@id/share_nums"
+                android:background="@drawable/icon_video_share"
+                />
+
+            <TextView
+                android:id="@+id/tv_video_laudnum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/share_nums"
+                android:layout_toLeftOf="@id/iv_video_share"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                tools:text="10"
+                />
+
+            <ImageView
+                android:id="@+id/iv_video_laud"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:layout_alignBottom="@id/tv_video_laudnum"
+                android:layout_marginBottom="-7dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="5dp"
+                android:layout_toLeftOf="@id/tv_video_laudnum"
+                android:background="@drawable/icon_video_zan_unselected"
+                />
+
+            <TextView
+                android:id="@+id/tv_video_commrntnum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/share_nums"
+                android:layout_toLeftOf="@id/iv_video_laud"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                tools:text="20"
+                />
+
+            <ImageView
+                android:id="@+id/iv_video_comment"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:layout_alignBottom="@id/tv_video_laudnum"
+                android:layout_marginBottom="-7dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_toLeftOf="@id/tv_video_commrntnum"
+                android:background="@drawable/icon_video_comment"
+                />
+
+
+            <TextView
+                android:id="@+id/btn_comment"
+                android:layout_width="160dp"
+                android:layout_height="36dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/icon_video_comment_start"
+                android:gravity="center_vertical"
+                android:paddingLeft="40dp"
+                android:text="说点什么..."
+                android:textColor="#fff"
+                />
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/btn_comment"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="10dp"
+                android:maxWidth="300dp"
+                android:singleLine="true"
+                android:textColor="#fff"
+                android:textSize="16sp"
+                android:visibility="gone"
+                tools:text="标题"
+                />
+
+
+            <ImageView
+                android:id="@+id/iv_video_laudgif"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_centerInParent="true"
+                android:scaleType="fitXY"
+                android:visibility="gone"
+                />
+
+
+        <TextView
+            android:id="@+id/id_tv_video_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="90dp"
+            android:layout_marginLeft="15dp"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            tools:text="视频标题"/>
+    </RelativeLayout>
+
 
 </FrameLayout>

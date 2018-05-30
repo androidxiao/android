@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         app:titleColor="@color/white"
+        app:canBack="false"
         app:titleText="绑定账号"/>
 
     <View
@@ -67,10 +68,9 @@
             android:layout_weight="5"
             android:hint="@string/bind_account_hint"
             android:textColor="@color/white"
-            android:inputType="textPassword"
             android:textSize="14sp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
             android:textColorHint="@color/text_value_grey"/>
 
 
@@ -86,10 +86,12 @@
 
     <com.duomizhibo.phonelive.widget.BlackButton
         android:id="@+id/btn_dologin"
-        android:layout_width="270dp"
+        android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_below="@+id/ll_content"
         android:layout_centerHorizontal="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
         android:background="@drawable/btn_common"
@@ -131,7 +133,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/space_20"
         android:layout_marginBottom="@dimen/space_10"
-        android:src="@mipmap/sign_in_prompt"/>
+        android:background="@mipmap/sign_in_prompt"/>
 
     <com.duomizhibo.phonelive.widget.BlackEditText
         android:id="@+id/text_hint"

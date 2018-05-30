@@ -35,6 +35,7 @@ import com.duomizhibo.phonelive.bean.CommentBean;
 import com.duomizhibo.phonelive.bean.UserInfo;
 import com.duomizhibo.phonelive.event.DianzanEvent;
 import com.duomizhibo.phonelive.ui.ReplyActivity;
+import com.duomizhibo.phonelive.ui.SmallVideoPlayer2Activity;
 import com.duomizhibo.phonelive.ui.SmallVideoPlayerActivity;
 import com.duomizhibo.phonelive.ui.customviews.RefreshLayout;
 import com.duomizhibo.phonelive.utils.TDevice;
@@ -278,7 +279,7 @@ public class CommentFragment extends AbsDialogFragment implements View.OnClickLi
                         }
                         mEditText.setHint("说点什么...");
                         mCommentNum = info0.getString("comments");
-                        ((SmallVideoPlayerActivity) mContext).setCommentNum(mCommentNum);
+                        ((SmallVideoPlayer2Activity) mContext).setCommentNum(mCommentNum);
                         dismiss();
                     }
                     AppContext.toast(data.getString("msg"));

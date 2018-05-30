@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+              android:background="#1d1d1d"
               xmlns:app="http://schemas.android.com/apk/res-auto"
               xmlns:tools="http://schemas.android.com/tools">
 
@@ -13,6 +14,10 @@
         app:titleText="@string/edit_info"
         android:layout_width="match_parent"
         android:layout_height="50dp"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/line_yellow"/>
 
     <View
         android:layout_marginTop="20dp"
@@ -64,6 +69,7 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:orientation="horizontal"
+        android:visibility="gone"
         android:padding="@dimen/space_16" >
 
         <com.duomizhibo.phonelive.widget.BlackTextView
@@ -122,6 +128,8 @@
             android:ellipsize="end"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            tools:text="昵称的值"
             android:textSize="@dimen/text_size_16" />
         <ImageView
             android:id="@+id/iv_nick2"
@@ -161,6 +169,8 @@
             android:layout_marginRight="20dp"
             android:id="@+id/tv_userSign"
             android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            tools:text="签名的值"
             android:textSize="@dimen/text_size_16" />
         <ImageView
             android:id="@+id/iv_sign3"

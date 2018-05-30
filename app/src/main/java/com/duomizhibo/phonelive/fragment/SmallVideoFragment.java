@@ -16,6 +16,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
@@ -160,10 +161,101 @@ public class SmallVideoFragment extends BaseFragment implements ITXLivePlayListe
         view.findViewById(R.id.iv_live_emcee_head).setOnClickListener(this);
         view.findViewById(R.id.id_video_view).setOnClickListener(mClickListener);
 
+
+        mVideoView.setOnTouchListener(new MyClickListener
+                (new MyClickListener.MyClickCallBack() {
+
+                    @Override
+                    public void oneClick() {
+                       onClick();
+                    }
+
+                    @Override
+                    public void doubleClick() {
+                        onDoubleClick();
+                    }
+                }));
+
         initVideoView();
+
 
     }
 
+
+    public static class MyClickListener implements View.OnTouchListener {
+
+        private  int timeout=400;//双击间四百毫秒延时
+        private int clickCount = 0;//记录连续点击次数
+        private Handler handler;
+        private MyClickCallBack myClickCallBack;
+        public interface MyClickCallBack{
+            void oneClick();//点击一次的回调
+            void doubleClick();//连续点击两次的回调
+
+        }
+
+
+        public MyClickListener(MyClickCallBack myClickCallBack) {
+            this.myClickCallBack = myClickCallBack;
+            handler = new Handler();
+        }
+
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                clickCount++;
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (clickCount == 1) {
+                            myClickCallBack.oneClick();
+                        }else if(clickCount==2){
+                            myClickCallBack.doubleClick();
+                        }
+                        handler.removeCallbacksAndMessages(null);
+                        //清空handler延时，并防内存泄漏
+                        clickCount = 0;//计数清零
+                    }
+                },timeout);//延时timeout后执行run方法中的代码
+            }
+            return false;//让点击事件继续传播，方便再给View添加其他事件监听
+        }
+    }
+
+    public void setTitleMediaController(){
+        if (mListener != null) {
+            mListener.titleVisible(2);
+        }
+        if(mMediaController!=null) {
+            mMediaController.setVisibility(View.GONE);
+        }
+    }
+
+    public void onClick(){
+
+        if (mListener != null) {
+            mListener.titleVisible(1);
+        }
+
+        if (mMediaController.getVisibility() == View.VISIBLE) {
+            mMediaController.setVisibility(View.GONE);
+        }else{
+            mMediaController.setVisibility(View.VISIBLE);
+        }
+    }
+
+    public void onDoubleClick(){
+
+        if (mIsLike == 0) {
+            addLikes();
+        }
+        showLaudGif();
+    }
+
+
+    private long firstClickTime =  0;
+    private long secondClickTime = 0;
+    private boolean isDoubleClick;
 
     protected boolean mPausing = false;
 
@@ -385,7 +477,8 @@ public class SmallVideoFragment extends BaseFragment implements ITXLivePlayListe
     private void initRoomInfo() {
 
         //设置背景图
-        mIvLoadingBg.setVisibility(View.VISIBLE);
+//        mIvLoadingBg.setVisibility(View.VISIBLE);
+        mIvLoadingBg.setVisibility(View.GONE);
         TLog.log("背景图片url---->"+videoBean.getThumb());
         mIvLoadingBg.setImageLoadUrl(videoBean.getThumb());
 
@@ -469,10 +562,27 @@ public class SmallVideoFragment extends BaseFragment implements ITXLivePlayListe
             if (mIvLoadingBg != null) {
                 mIvLoadingBg.setVisibility(View.GONE);
             }
+
+            if (mListener != null) {
+                mListener.loadingListener();
+            }
+
         } else {
             Toast.makeText(getActivity(), "视频格式不支持", Toast.LENGTH_SHORT).show();
         }
     }
+
+    private ILoadingListener mListener;
+
+    public void setListener(ILoadingListener listener){
+        mListener=listener;
+    }
+
+    public interface ILoadingListener{
+        void loadingListener();
+        void titleVisible(int type);
+    }
+
 
     private void resumeVideoView() {
         if (mVideoView != null) {
@@ -536,10 +646,7 @@ public class SmallVideoFragment extends BaseFragment implements ITXLivePlayListe
     private View.OnClickListener mClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (mIsLike == 0) {
-                addLikes();
-            }
-            showLaudGif();
+
         }
     };
 
@@ -547,7 +654,7 @@ public class SmallVideoFragment extends BaseFragment implements ITXLivePlayListe
         if (mIvGif.getVisibility() == View.GONE) {
             mIvGif.setVisibility(View.VISIBLE);
             Glide.with(this).load(R.drawable.laud_gif).asGif().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(mIvGif);
-            mHandler.sendEmptyMessageDelayed(0, 2000);
+            mHandler.sendEmptyMessageDelayed(0, 1500);
         }
     }
 
@@ -921,6 +1028,7 @@ public class SmallVideoFragment extends BaseFragment implements ITXLivePlayListe
     @Override
     public void delete() {
         mTXLivePlayer.stopPlay(true);
+        mVideoView.stopPlayback();
     }
 
     @Override

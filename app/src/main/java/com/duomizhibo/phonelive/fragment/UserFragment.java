@@ -98,7 +98,7 @@ public class UserFragment extends BaseFragment {
         if (mInfo == null)
             return;
 
-        tvSourceAccount.setText(mInfo.id);
+        tvSourceAccount.setText("绑定账号："+mInfo.id);
         mIvAvatar.setAvatarUrl(mInfo.avatar);
         //昵称
         mTvName.setText(mInfo.user_nicename);

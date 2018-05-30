@@ -491,6 +491,13 @@ public class UniversalMediaController extends FrameLayout {
         }
     };
 
+    public void again(){
+        if (mPlayer != null) {
+            doPauseResume();
+            show(sDefaultTimeout);
+        }
+    }
+
     private OnClickListener mScaleListener = new OnClickListener() {
         public void onClick(View v) {
             mIsFullScreen = !mIsFullScreen;
@@ -516,7 +523,8 @@ public class UniversalMediaController extends FrameLayout {
     private OnClickListener mCenterPlayListener = new OnClickListener() {
         public void onClick(View v) {
             hideCenterView();
-            mPlayer.start();
+//            mPlayer.start();
+            again();
         }
     };
 

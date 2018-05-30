@@ -281,6 +281,7 @@ public class HomePageActivity2 extends ToolBarBaseActivity implements RefreshLay
         mTvSignName.setText(mUserHomePageBean.signature);
 
         mFollowState.setText(StringUtils.toInt(mUserHomePageBean.isattention) == 0 ? getString(R.string.follow2) : getString(R.string.alreadyfollow));
+        mFollowState.setTextColor(StringUtils.toInt(mUserHomePageBean.isattention) == 0 ? ContextCompat.getColor(this,R.color.white) : ContextCompat.getColor(this,R.color.line_yellow));
         mIvFollow.setBackgroundDrawable(StringUtils.toInt(mUserHomePageBean.isattention) == 0 ? ContextCompat.getDrawable(this,R.drawable.ic_anchor_bt_follow) :  ContextCompat.getDrawable(this,R.drawable.ic_anchor_bt_follow_active));
 
         mTvBlackState.setText(StringUtils.toInt(mUserHomePageBean.isblack) == 0 ? getString(R.string.pullblack) : getString(R.string.relieveblack));
@@ -333,6 +334,7 @@ public class HomePageActivity2 extends ToolBarBaseActivity implements RefreshLay
                 mHomeIndexPage.setVisibility(View.GONE);
                 mHomeVideoPage.setVisibility(View.GONE);
                 mHomeShipingPage.setVisibility(View.GONE);
+                mTvSignName.setVisibility(View.VISIBLE);
                 mPageIndexBtn.setTextColor(getResources().getColor(R.color.global));
                 mPageVideoBtn.setTextColor(getResources().getColor(R.color.white));
                 mPageShipingBtn.setTextColor(getResources().getColor(R.color.white));
@@ -352,6 +354,7 @@ public class HomePageActivity2 extends ToolBarBaseActivity implements RefreshLay
                 mHomeIndexPage.setVisibility(View.GONE);
                 mHomeVideoPage.setVisibility(View.GONE);
                 mHomeShipingPage.setVisibility(View.VISIBLE);
+                mTvSignName.setVisibility(View.GONE);
                 mPageIndexBtn.setTextColor(getResources().getColor(R.color.white));
                 mPageVideoBtn.setTextColor(getResources().getColor(R.color.white));
                 mPageShipingBtn.setTextColor(getResources().getColor(R.color.global));

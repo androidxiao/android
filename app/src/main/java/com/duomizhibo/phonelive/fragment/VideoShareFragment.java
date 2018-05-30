@@ -24,6 +24,7 @@ import com.duomizhibo.phonelive.api.remote.ApiUtils;
 import com.duomizhibo.phonelive.api.remote.PhoneLiveApi;
 import com.duomizhibo.phonelive.bean.ActiveBean;
 import com.duomizhibo.phonelive.bean.UserBean;
+import com.duomizhibo.phonelive.ui.SmallVideoPlayer2Activity;
 import com.duomizhibo.phonelive.ui.SmallVideoPlayerActivity;
 import com.duomizhibo.phonelive.utils.ShareUtils;
 import com.duomizhibo.phonelive.utils.TDevice;
@@ -182,7 +183,7 @@ public class VideoShareFragment extends DialogFragment implements View.OnClickLi
                                             JSONObject data = obj.getJSONObject("data");
                                             if (0 == data.getInt("code")) {
                                                 JSONObject info0 = data.getJSONArray("info").getJSONObject(0);
-                                                SmallVideoFragment.setShareCount(info0.getString("shares"));
+                                                ((SmallVideoPlayer2Activity) mContext).setShareCount(info0.getString("shares"));
                                             }
                                             AppContext.toast(data.getString("msg"));
                                         }

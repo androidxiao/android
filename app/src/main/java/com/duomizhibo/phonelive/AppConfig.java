@@ -23,7 +23,8 @@ public class AppConfig {
     //域名
 //    public static final String MAIN_URL = "http://www.let88.cc";
     public static final String MAIN_URL = "http://live.lottery163.com";
-    public static  final String MAIN_URL_VIDEO="http://www.let88.cc/api/public/";
+//    public static  final String MAIN_URL_VIDEO="http://www.let88.cc/api/public/";
+    public static  final String MAIN_URL_VIDEO="http://live.lottery163.com/api/public/";
     //api地址
     public static final String MAIN_URL_API = MAIN_URL + "/api/public/";
     //支付宝回调地址

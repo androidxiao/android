@@ -21,8 +21,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="40dp"
-        android:background="@android:color/transparent">
-
+        android:background="@android:color/transparent"
+        >
         <com.universalvideoview.UniversalVideoView
             android:id="@+id/id_video_view"
             android:layout_width="fill_parent"
@@ -47,6 +47,7 @@
         android:layout_alignParentTop="true"
         android:layout_toEndOf="@+id/video_view"
         android:layout_toRightOf="@+id/video_view"
+        android:visibility="gone"
         android:scaleType="centerCrop"/>
 
 
@@ -94,6 +95,7 @@
         android:layout_marginTop="10dp"
         android:adjustViewBounds="true"
         android:src="@drawable/icon_video_back"
+        android:visibility="gone"
         />
 
     <ImageView
@@ -105,6 +107,7 @@
         android:layout_toRightOf="@id/iv_video_close"
         android:adjustViewBounds="true"
         android:src="@drawable/icon_video_cai_unselected"
+        android:visibility="gone"
         />
 
     <ImageView
@@ -116,6 +119,7 @@
         android:adjustViewBounds="true"
         android:src="@drawable/icon_video_guanzhu"
         android:layout_marginTop="8dp"
+        android:visibility="gone"
         />
 
     <LinearLayout
@@ -123,6 +127,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toLeftOf="@id/iv_video_more"
+        android:visibility="gone"
         android:orientation="horizontal">
         <com.duomizhibo.phonelive.widget.AvatarView
             android:id="@+id/iv_live_emcee_head"
@@ -155,6 +160,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginRight="10dp"
         android:layout_marginTop="6dp"
+        android:visibility="gone"
         android:src="@drawable/icon_video_more"/>
 
     <TextView
@@ -168,6 +174,7 @@
         android:textColor="#fff"
         android:textSize="14sp"
         tools:text="5"
+        android:visibility="gone"
         />
 
     <ImageView
@@ -180,6 +187,7 @@
         android:layout_marginRight="5dp"
         android:layout_toLeftOf="@id/share_nums"
         android:background="@drawable/icon_video_share"
+        android:visibility="gone"
         />
 
     <TextView
@@ -191,6 +199,7 @@
         android:textColor="@color/white"
         android:textSize="14sp"
         tools:text="10"
+        android:visibility="gone"
         />
 
     <ImageView
@@ -203,6 +212,7 @@
         android:layout_marginRight="5dp"
         android:layout_toLeftOf="@id/tv_video_laudnum"
         android:background="@drawable/icon_video_zan_unselected"
+        android:visibility="gone"
         />
 
     <TextView
@@ -214,6 +224,7 @@
         android:textColor="@color/white"
         android:textSize="14sp"
         tools:text="20"
+        android:visibility="gone"
         />
 
     <ImageView
@@ -226,6 +237,7 @@
         android:layout_marginRight="5dp"
         android:layout_toLeftOf="@id/tv_video_commrntnum"
         android:background="@drawable/icon_video_comment"
+        android:visibility="gone"
         />
 
     <TextView
@@ -240,6 +252,7 @@
         android:paddingLeft="40dp"
         android:text="说点什么..."
         android:textColor="#fff"
+        android:visibility="gone"
         />
 
     <TextView
